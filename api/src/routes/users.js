@@ -94,20 +94,23 @@ router.post("/", async (req, res) => {
         console.log(`la store de ${username} fue creada correctamente`);
 
         const transporter = nodemailer.createTransport({
-          host: 'smtp.ethereal.email',
-          port: 587,
+          service: 'gmail',
           auth: {
-            user: 'eleanore.schiller92@ethereal.email',
-            pass: 'mjRNSb2BKtVxhkmMcy'
+            user: 'acostavalentina7@gmail.com',
+            pass: 'ltkigsdzjbsrulce'
           }
         });
         var mailOptions = {
-          from: "IncaAdventure",
+          from: "Inca Adventure <acostavalentina7@gmail.com>",
           to: `${email}`,
-          subject: "Bienvenida",
-          text: "Bienvenido a una nueva experiencia"
+          subject: "Welcome to Inca Adventure",
+          html: `<h1  align="center"> Hello ${username}</h1>
+          <p  align="center"><img src ="https://machupicchuviajesperu.com/wp-content/uploads/2022/03/tour-lima-paracas-nazca-cusco-machu-picchu.jpg" width="900" height="200"/></p>
+          <h3> We are glad that you want to be part of this great experience, where you will expand your knowledge and learn about the Inca culture.</h3>
+          <h3 align="center"> Remember visit our store and take with you souvenirs or tools that will help you in your favorite activities. </h3>
+         `
         }
-
+        
         let info = await transporter.sendMail(mailOptions,);
         console.log("Message sent: %s", info.messageId);
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));

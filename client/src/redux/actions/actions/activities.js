@@ -56,4 +56,15 @@ export function getActivitiesByOrder(order){
      console.log(error) ;
     }
   }
+};
+
+export function createActivity(payload){
+  return async function (dispatch){
+    try {
+      let newActivity = await axios.post("http://localhost:3001/activities", payload);
+      return newActivity;
+    } catch (error) {
+      console.log(error);
+    }
   };
+};

@@ -17,5 +17,9 @@ router.get("/:username", async (req, res) => {
   username ? res.json(userProfile) : res.status(404).json({msg: "User not found!"});
 });
 
+router.get("/create/:element", (req, res) => {
+  const { element } = req.params;
+  
+})
 
 module.exports = router;

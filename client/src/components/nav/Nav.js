@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import Login from "./Login.js"
 import Logout from "./Logout.js"
 
 function Nav() {
+  
+  const [serachNavStorage, setSearchNavStorage] = useState("");
+
+  function handleSearchInput(e){
+    setSearchNavStorage(e.target.value);
+    console.log(serachNavStorage);
+  }
+  
+  useEffect(() => {
+    const data = window.localStorage.getItem('SEACH_NAV');
+    console.log(data);
+    if ( data !== null ) setSearchNavStorage(JSON.parse(data));
+  }, []);
+  
+  useEffect(() => {
+    window.localStorage.setItem('SEACH_NAV', JSON.stringify(serachNavStorage));
+    console.log(serachNavStorage);
+  }, [serachNavStorage]);
+  
   const { user, logout } = useAuth0();
   console.log(user);
 
@@ -62,6 +81,8 @@ function Nav() {
                 <Logout/>
               </li>
 
+
+
               {/* <li className="nav-item">
                 <Link
                   className="nav-item form-control mt-1 mx-2 px-0"
@@ -93,8 +114,10 @@ function Nav() {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={serachNavStorage}
+                onChange={(e) => handleSearchInput(e)}
               />
-              <button className="btn btn-outline-success" type="submit">
+              <button className="btn btn-outline-success" type="submit" onClick={() => setSearchNavStorage()}>
                 Search
               </button>
             </form>
