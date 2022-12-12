@@ -1,7 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Nav from './components/nav/Nav';
-
 import ActivitiesPage from './components/pages/ActivitiesPage';
 import CartPage from './components/pages/CartPage';
 import HomePage from './components/pages/HomePage';
