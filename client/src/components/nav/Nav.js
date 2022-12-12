@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 import Login from "./Login.js"
-import Logout from "./Logout.js"
+
 
 function Nav() {
-  const { user, logout } = useAuth0();
-  console.log(user);
-
   return (
     <div>
       <nav class="navbar navbar-expand-lg bg-light sticky border-bottom">
@@ -57,35 +53,6 @@ function Nav() {
                 <li className="nav-item btn">   
               <Login/>
               </li>
-
-              {/* <li className="nav-item btn">
-                <Logout/>
-              </li> */}
-
-              {/* <li className="nav-item">
-                <Link
-                  className="nav-item form-control mt-1 mx-2 px-0"
-                  to={user ? "/profile" : "/login"}
-                  aria-expanded="false"
-                >
-                  {user ? user.given_name : "Login"}
-                </Link>
-              </li> */}
-
-              {/* <li className="nav-item">
-                <button  className="nav-item form-control mt-1 mx-2 px-0" onClick={() => logout()}>Logout</button>
-              </li> */}
-
-              {/* <ul className="dropdown-menu mx-auto">
-                    <li><Link className="dropdown-item" to={user ? `/profile/${user.username}` : "/home"}> Profile</Link></li>
-                    <li><hr className="dropdown-divider"/></li>
-                    <li><Link className="dropdown-item" to="/login">Log in</Link></li>
-                    <li><hr className="dropdown-divider"/></li>
-                   
-                </ul> */}
-              {/* <li className="nav-item" data-mdb-ripple-color="dark">
-                    <Link className="nav-link" to='/register'>Register</Link>
-                    </li> */}
             </ul>
             <form className="d-flex col-ms-8" role="search">
               <input
