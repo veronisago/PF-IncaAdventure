@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Login from "./Login.js"
-
+import Login from "./Login.js";
+import Traslate from "./Traslate.js";
 
 function Nav() {
   return (
@@ -50,8 +50,8 @@ function Nav() {
                   Cart
                 </Link>
               </li>
-                <li className="nav-item btn">   
-              <Login/>
+              <li className="nav-item btn">
+                <Login />
               </li>
             </ul>
             <form className="d-flex col-ms-8" role="search">
@@ -65,6 +65,9 @@ function Nav() {
                 Search
               </button>
             </form>
+            <div className="nav-item border-success rounded d-flex justify-content-center mx-2 border">
+              <Traslate />
+            </div>
           </div>
         </div>
       </nav>
