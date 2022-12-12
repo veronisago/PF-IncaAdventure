@@ -34,23 +34,23 @@ function Nav() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link" to="/home">
+                <Link className="nav-link mt-1" to="/home">
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/activities">
+                <Link className="nav-link mt-1" to="/activities">
                   Activities
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link" to="/shop">
+                <Link className="nav-link mt-1" to="/shop">
                   Shop
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/cart">
+                <Link className="nav-link mt-1" to="/cart">
                   Cart
                 </Link>
               </li>

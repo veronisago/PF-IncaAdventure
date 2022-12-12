@@ -26,7 +26,7 @@ function ActivitiesPage() {
       <div class="container bg-white py-4 pl-7">
         <div class="row text-center">
           <h2 class="h1">
-            In search of adventures? FIND IT <span class="text-success">WIHT US</span>
+            In search of adventures? FIND IT <span class="text-success">WHIT US</span>
           </h2>
         </div>
         <div className="row mt-lg-5 mt-4 justify-content-lg-start justify-content-center px-3">
