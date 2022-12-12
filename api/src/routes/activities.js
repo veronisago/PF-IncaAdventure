@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   const {name, order} = req.query;
   const { min, max } = req.body;
   const activities = await Activities.findAll();
-
+ let hota = 123;
   if(min && max){
     if(typeof Number(min) !== "number" || typeof Number(max) !== "number") res.status(400).json({msg: "Both numbers must be integer"});
     else {
