@@ -58,9 +58,9 @@ function Nav() {
               <Login/>
               </li>
 
-              <li className="nav-item btn">
+              {/* <li className="nav-item btn">
                 <Logout/>
-              </li>
+              </li> */}
 
               {/* <li className="nav-item">
                 <Link
