@@ -14,7 +14,6 @@ const UserPage = () => {
 
     const userProfile = useSelector((state) => state.userProfile)
 
-
     return (
         <div class="mx-auto my-auto">
             <div class="container rounded bg-light mt-5 mb-5 ">
