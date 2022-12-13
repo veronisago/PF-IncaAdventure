@@ -1,6 +1,6 @@
 import React from "react";
-import NewReviewTab from "./CurrentReviewsTab";
-import CurrentReviewsTab from "./NewReviewTab";
+import NewReviewTab from "./NewReviewTab";
+import CurrentReviewsTab from "./CurrentReviewsTab";
 
 function UserReviewsTab(){
 
