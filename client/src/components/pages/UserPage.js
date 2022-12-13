@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { createUser } from "../../redux/actions/actions/users";
 import { useDispatch, useSelector } from 'react-redux';
 import UserStoreTab from '../profileTabs/storeTab/UserStoreTab';
+import UserReviewsTab from '../profileTabs/reviewsTab/UserReviewsTab';
 
 
 
@@ -61,10 +62,16 @@ const UserPage = () => {
                   <div>
                     <button class="nav-link" id="store-profile-tab" data-bs-toggle="tab" data-bs-target="#store-profile" type="button" role="tab" aria-controls="store-profile" aria-selected="false">Store</button>
                   </div>
+                  <div>
+                    <button class="nav-link" id="reviews-profile-tab" data-bs-toggle="tab" data-bs-target="#reviews-profile" type="button" role="tab" aria-controls="store-profile" aria-selected="false">Reviews</button>
+                  </div>
                 </div>
               </div>
             </nav>
             <div class="tab-pane fade" id="store-profile" role="tabpanel" aria-labelledby="store-profile-tab" tabindex="0"><UserStoreTab /></div>
+
+            <div class="tab-pane fade" id="reviews-profile" role="tabpanel" aria-labelledby="reviews-profile-tab" tabindex="0"><UserReviewsTab /></div>
+
 
           </div>
         </div>
