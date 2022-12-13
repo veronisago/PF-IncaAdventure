@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
-import Login from "./Login.js"
-import Logout from "./Logout.js"
+import Login from "./Login.js";
+import Traslate from "./Traslate.js";
 
 function Nav() {
   
@@ -53,60 +52,29 @@ function Nav() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link" to="/home">
+                <Link className="nav-link mt-1" to="/home">
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/activities">
+                <Link className="nav-link mt-1" to="/activities">
                   Activities
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link" to="/shop">
+                <Link className="nav-link mt-1" to="/shop">
                   Shop
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/cart">
+                <Link className="nav-link mt-1" to="/cart">
                   Cart
                 </Link>
               </li>
-                <li className="nav-item btn">   
-              <Login/>
-              </li>
-
               <li className="nav-item btn">
-                <Logout/>
+                <Login />
               </li>
-
-
-
-              {/* <li className="nav-item">
-                <Link
-                  className="nav-item form-control mt-1 mx-2 px-0"
-                  to={user ? "/profile" : "/login"}
-                  aria-expanded="false"
-                >
-                  {user ? user.given_name : "Login"}
-                </Link>
-              </li> */}
-
-              {/* <li className="nav-item">
-                <button  className="nav-item form-control mt-1 mx-2 px-0" onClick={() => logout()}>Logout</button>
-              </li> */}
-
-              {/* <ul className="dropdown-menu mx-auto">
-                    <li><Link className="dropdown-item" to={user ? `/profile/${user.username}` : "/home"}> Profile</Link></li>
-                    <li><hr className="dropdown-divider"/></li>
-                    <li><Link className="dropdown-item" to="/login">Log in</Link></li>
-                    <li><hr className="dropdown-divider"/></li>
-                   
-                </ul> */}
-              {/* <li className="nav-item" data-mdb-ripple-color="dark">
-                    <Link className="nav-link" to='/register'>Register</Link>
-                    </li> */}
             </ul>
             <form className="d-flex col-ms-8" role="search">
               <input
@@ -121,6 +89,9 @@ function Nav() {
                 Search
               </button>
             </form>
+            <div className="nav-item border-success rounded d-flex justify-content-center mx-2 border">
+              <Traslate />
+            </div>
           </div>
         </div>
       </nav>

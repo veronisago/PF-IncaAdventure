@@ -41,6 +41,7 @@ const UserPage = () => {
                                 <div class="col-md-4"><label class="labels">Language</label><input type="text" class="form-control" value={userProfile?.language} /></div>
                             </div>
                             <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                            <div class="mt-5 text-center"><Logout/></div>
                         </div>
                         </div>
                         <div class="container col-4 mt-2">
