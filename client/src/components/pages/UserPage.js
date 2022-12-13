@@ -20,8 +20,8 @@ const UserPage = () => {
 
   return (
     <div class="mx-auto my-auto">
-      <div class="container rounded bg-light mt-5 mb-5 ">
-        <div class="row bg-light">
+      <div class="container rounded bg-light mt-5 mb-12 ">
+        <div class="d-flex flex-row bd-highlight">
 
           <div class="col-md-3 border-right mt-5">
             <h4 class="text-right">Profile Settings</h4>
@@ -46,25 +46,17 @@ const UserPage = () => {
 
               </div>
             </div>
-            <div class="container col-4 mt-2">
-              <div class="p-3 py-5">
-                <div class="col-md-12"><label class="labels">Disabilities / Allergies</label><input type="text" class="form-control" placeholder="Disabilities / Allergies" value="" /></div> <br />
-                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="Additional details" value="" /></div>
-              </div>
-            </div>
           </div>
 
-          <div>
+          <div class="col-md-3 border-right mt-5">
 
             <nav>
-              <div>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                  <div>
-                    <button class="nav-link" id="store-profile-tab" data-bs-toggle="tab" data-bs-target="#store-profile" type="button" role="tab" aria-controls="store-profile" aria-selected="false">Store</button>
-                  </div>
-                  <div>
-                    <button class="nav-link" id="reviews-profile-tab" data-bs-toggle="tab" data-bs-target="#reviews-profile" type="button" role="tab" aria-controls="store-profile" aria-selected="false">Reviews</button>
-                  </div>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <div>
+                  <button class="nav-link" id="store-profile-tab" data-bs-toggle="tab" data-bs-target="#store-profile" type="button" role="tab" aria-controls="store-profile" aria-selected="false">Store</button>
+                </div>
+                <div>
+                  <button class="nav-link" id="reviews-profile-tab" data-bs-toggle="tab" data-bs-target="#reviews-profile" type="button" role="tab" aria-controls="store-profile" aria-selected="false">Reviews</button>
                 </div>
               </div>
             </nav>
