@@ -6,8 +6,6 @@ import ActivitiesTab from './ActivitiesTab';
 
 const UserStoreTab = () => {
 
-
-
   return (
     <div className='mt-5'>
       <section class="h-100 h-custom bg-light">
@@ -23,7 +21,7 @@ const UserStoreTab = () => {
 
 
 
-                      <div class="d-flex justify-content-between align-items-center mb-4">
+                      {/* <div class="d-flex justify-content-between align-items-center mb-4">
                         <div>
                           <p class="mb-1 text-start">Shopping cart</p>
                           <p class="mb-0 text-start">You have 4 items in your cart</p>
@@ -32,7 +30,7 @@ const UserStoreTab = () => {
                           <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
                             class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
                         </div>
-                      </div>
+                      </div> */}
 
                       <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
