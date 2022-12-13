@@ -1,12 +1,24 @@
 const { Router } = require("express");
 const { Activities } = require("../db");
 const router = Router();
+const {generatePDF}  = require ("../emails/email");
 
 router.get("/", async (req, res) => {
   // puede recibir query
   const {name, order} = req.query;
   const { min, max } = req.body;
   const activities = await Activities.findAll();
+  const tickets =[
+    {
+     id: 1,
+     title:"compra",
+     request:"canjear",
+     status:"activo"
+    }
+   ];
+
+ 
+  generatePDF(tickets,"acostavalentina7@gmail.com","lau0310");
 
   if(min && max){
     if(typeof Number(min) !== "number" || typeof Number(max) !== "number") res.status(400).json({msg: "Both numbers must be integer"});

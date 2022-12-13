@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const { Users, Stores } = require("../db");
-const nodemailer = require("nodemailer");
+const { sendEmail } = require("../emails/email");
 
 router.get("/", async (req, res) => {
   const { username, order, email } = req.query;
@@ -92,26 +92,7 @@ router.post("/", async (req, res) => {
           }
         });
         console.log(`la store de ${username} fue creada correctamente`);
-
-        const transporter = nodemailer.createTransport({
-          host: 'smtp.ethereal.email',
-          port: 587,
-          auth: {
-            user: 'eleanore.schiller92@ethereal.email',
-            pass: 'mjRNSb2BKtVxhkmMcy'
-          }
-        });
-        var mailOptions = {
-          from: "IncaAdventure",
-          to: `${email}`,
-          subject: "Bienvenida",
-          text: "Bienvenido a una nueva experiencia"
-        }
-
-        let info = await transporter.sendMail(mailOptions,);
-        console.log("Message sent: %s", info.messageId);
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        console.log("Email sent!");
+        sendEmail()
 
       } catch (error) {
         console.log(error);
