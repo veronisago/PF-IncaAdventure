@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Login from "./Login.js";
 import Traslate from "./Traslate.js";
+import { useAuth0 } from "@auth0/auth0-react";
+import LogoutButton from "./Logout.js";
+
 
 function Nav() {
   
@@ -23,7 +26,7 @@ function Nav() {
     console.log(serachNavStorage);
   }, [serachNavStorage]);
   
-  const { user, logout } = useAuth0();
+  const { user } = useAuth0();
   console.log(user);
 
   return (
@@ -74,6 +77,9 @@ function Nav() {
               </li>
               <li className="nav-item btn">
                 <Login />
+              </li>
+              <li className="nav-item btn">
+                <LogoutButton />
               </li>
             </ul>
             <form className="d-flex col-ms-8" role="search">
