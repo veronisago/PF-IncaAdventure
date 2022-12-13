@@ -1,8 +1,8 @@
 import axios from "axios";
-import {GET_ACTIVITIES, GET_ACTIVITIES_BY_NAME, GET_ACTIVITY_BY_ID, GET_ACTIVITIES_BY_ORDER} from "../constantes";
+import { GET_ACTIVITIES, GET_ACTIVITIES_BY_NAME, GET_ACTIVITY_BY_ID, GET_ACTIVITIES_BY_ORDER } from "../constantes";
 
-export function getActivities(){
-  return async function (dispatch){
+export function getActivities() {
+  return async function (dispatch) {
     try {
       let activities = await axios.get("http://localhost:3001/activities", {});
       return dispatch({
@@ -15,9 +15,9 @@ export function getActivities(){
   };
 };
 
-export function getActivitiesByName(name){
+export function getActivitiesByName(name) {
   // trae los que incluyan name, puede ser mas de 1
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
       let activitiesByName = await axios.get(`http://localhost:3001/activities?name=${name}`, {});
       return dispatch({
@@ -30,8 +30,8 @@ export function getActivitiesByName(name){
   };
 };
 
-export function getActivityById(id){
-  return async function (dispatch){
+export function getActivityById(id) {
+  return async function (dispatch) {
     try {
       let activityById = await axios.get(`http://localhost:3001/activities/${id}`, {});
       return dispatch({
@@ -44,8 +44,8 @@ export function getActivityById(id){
   };
 };
 
-export function getActivitiesByOrder(order){
-  return async function (dispatch){
+export function getActivitiesByOrder(order) {
+  return async function (dispatch) {
     try {
       let activitiesByOrder = await axios.get(`http://localhost:3001/activities?order=${order}`, {});
       return dispatch({
@@ -53,7 +53,14 @@ export function getActivitiesByOrder(order){
         payload: activitiesByOrder.data
       })
     } catch (error) {
-     console.log(error) ;
+      console.log(error);
     }
   }
-  };
+};
+
+export function postActivities(payload) {
+  return async function (dispatch) {
+    var response = await axios.post('http://localhost:3001/activities', payload)
+    return response;
+  }
+}

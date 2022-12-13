@@ -4,11 +4,11 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   // puede recibir query
-  const {name, order} = req.query;
+  const { name, order } = req.query;
   const { min, max } = req.body;
   const activities = await Activities.findAll();
-  if(min && max){
-    if(typeof Number(min) !== "number" || typeof Number(max) !== "number") res.status(400).json({msg: "Both numbers must be integer"});
+  if (min && max) {
+    if (typeof Number(min) !== "number" || typeof Number(max) !== "number") res.status(400).json({ msg: "Both numbers must be integer" });
     else {
       let activitiesByPriceRange = await activities.filter(p => p.price > min && p.price < max);
       res.json(activitiesByPriceRange);
@@ -47,22 +47,22 @@ router.get("/", async (req, res) => {
         console.log(error);
       }
     }
-  } else if(order === "CHEAP"){
+  } else if (order === "CHEAP") {
     try {
       const activitiesCheap = await activities.sort((a, b) => {
-        if(a.price > b.price) return 1;
-        if(b.price > a.price) return -1;
+        if (a.price > b.price) return 1;
+        if (b.price > a.price) return -1;
         return 0;
       });
       res.json(activitiesCheap);
     } catch (error) {
       console.log(error);
     }
-  } else if(order === "EXPENSIVE"){
+  } else if (order === "EXPENSIVE") {
     try {
       const activitiesExpensive = await activities.sort((a, b) => {
-        if(a.price > b.price) return -1;
-        if(b.price > a.price) return 1;
+        if (a.price > b.price) return -1;
+        if (b.price > a.price) return 1;
         return 0;
       });
       res.json(activitiesExpensive);
@@ -88,16 +88,14 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const {name, schedule, price, start_at, end_at, description, allowed_age, difficulty_level} = req.body;
+  const { name, schedule, price, start_at, end_at, description, allowed_age, difficulty_level } = req.body;
 
   try {
-    const activity = await Activities.findOrCreate({where: {name, schedule, start_at, end_at, price, description, allowed_age, difficulty_level}});
-    if(activity[1]){
-      
-    }
-    res.json(activity);
+    const activity = await Activities.Create({ name, schedule, start_at, end_at, price, description, allowed_age, difficulty_level });
+    res.status(200).json(activity);
+    
   } catch (error) {
-    console.log(error);
+    res.status(404).send(error.message);
   }
 });
 
@@ -106,11 +104,11 @@ router.put("/:id", async (req, res) => {
   const newData = req.body;
   // si viene desability
 
-  if(newData.disable) newData.is_active = false;
+  if (newData.disable) newData.is_active = false;
   try {
-    const activityModified = await Activities.update(newData, {where: {id}});
+    const activityModified = await Activities.update(newData, { where: { id } });
     console.log(activityModified);
-    res.json({msg: "Activity updated"});
+    res.json({ msg: "Activity updated" });
   } catch (error) {
     console.log(error);
   };
@@ -121,14 +119,14 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
   const activityToDelete = await Activities.findByPk(id);
-  if(!activityToDelete) {
-    res.status(404).json({msg: "That activity do not exist brou"});
-  } else if(activityToDelete.is_active){
-    res.status(400).json({msg: "The activity must be diactivated before delete"});
+  if (!activityToDelete) {
+    res.status(404).json({ msg: "That activity do not exist brou" });
+  } else if (activityToDelete.is_active) {
+    res.status(400).json({ msg: "The activity must be diactivated before delete" });
   } else {
     try {
-      await Activities.destroy({where: {id}});
-      res.json({msg: "The activity has been delete successfully"});
+      await Activities.destroy({ where: { id } });
+      res.json({ msg: "The activity has been delete successfully" });
     } catch (error) {
       console.log(error);
     }
