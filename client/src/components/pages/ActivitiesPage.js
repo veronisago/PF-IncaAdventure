@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getActivities, getActivitiesByName, getActivitiesByOrder } from "../../redux/actions/actions/activities.js";
 import { Paginate } from '../nav/Paginate.js'
 
+
 function ActivitiesPage() {
   const dispatch = useDispatch();
 
