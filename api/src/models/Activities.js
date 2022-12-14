@@ -37,11 +37,11 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     allowed_age: {
-      type: DataTypes.ENUM("hasta 13 años", "todo público" ,"adolescentes", "mayores de 18 años"),
+      type: DataTypes.ENUM("under 13 years old", "everyone" ,"teenagers", "over 18 years old"),
       allowNull: false
     },
     difficulty_level: {
-      type: DataTypes.ENUM("niños", "principiantes", "avanzado", "experto"),
+      type: DataTypes.ENUM("kids", "beginners", "advanced", "expert"),
       // no me reconoce experto cuando creo
       allowNull: false
     },
