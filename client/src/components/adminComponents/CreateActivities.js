@@ -99,15 +99,13 @@ export default function CreateActivities() {
                         <div className='row mt-3'>
                             <div class="col-6">
                                 <label className="labels">Start at</label>
-                                <input type="date" id="start" className="form-control" name="start_at"
-                                    min="2022-01-01" max="2022-12-31"
-                                    value={create.start_at} onChange={handleChange} />
+                                <input type="number" className="form-control" name="start_at"
+                                    value={create.start_at} min={0} max={24} onChange={handleChange} />
                             </div>
                             <div class="col-6">
                                 <label class="labels">End at</label>
-                                <input type="date" className="form-control" id="end" name="end_at"
-                                    min="2022-01-01" max="2022-12-31"
-                                    value={create.end_at} onChange={handleChange} />
+                                <input type="number" className="form-control" id="end" name="end_at"
+                                    value={create.end_at} min={0} max={24} onChange={handleChange} />
                             </div>
                         </div>
                         <button className="btn border mt-3" type="submit">Create</button>
