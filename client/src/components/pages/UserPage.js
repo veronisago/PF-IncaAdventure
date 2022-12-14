@@ -23,7 +23,7 @@ const UserPage = () => {
       <div class="container rounded bg-light mt-5 mb-12 ">
         <div class="d-flex flex-row bd-highlight">
 
-          <div class="col-md-3 border-right mt-5">
+          <div class="col-md-4 border-right mt-5">
             <h4 class="text-right">Profile Settings</h4>
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" /><span class="font-weight-bold"></span><span>{userProfile?.username}</span></div>
 
@@ -48,22 +48,20 @@ const UserPage = () => {
             </div>
           </div>
 
-          <div class="col-md-3 border-right mt-5">
+          <div class="col-md-8 border-right mt-5">
 
-            <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <div>
-                  <button class="nav-link" id="store-profile-tab" data-bs-toggle="tab" data-bs-target="#store-profile" type="button" role="tab" aria-controls="store-profile" aria-selected="false">Store</button>
-                </div>
-                <div>
-                  <button class="nav-link" id="reviews-profile-tab" data-bs-toggle="tab" data-bs-target="#reviews-profile" type="button" role="tab" aria-controls="store-profile" aria-selected="false">Reviews</button>
-                </div>
-              </div>
+
+            <nav class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-link active" id="nav-store-tab" data-bs-toggle="tab" href="#nav-store" role="tab" aria-controls="nav-store" aria-selected="true">Store</a>
+              <a class="nav-link" id="nav-reviews-tab" data-bs-toggle="tab" href="#nav-reviews" role="tab" aria-controls="nav-reviews" aria-selected="false">Reviews</a>
+              <a class="nav-link favourites" id="nav-favourites-tab" data-bs-toggle="tab" href="#nav-favourites" role="tab" aria-controls="nav-favourites" tabindex="-1" aria-disabled="true">Favourites</a>
             </nav>
-            <div class="tab-pane fade" id="store-profile" role="tabpanel" aria-labelledby="store-profile-tab" tabindex="0"><UserStoreTab /></div>
 
-            <div class="tab-pane fade" id="reviews-profile" role="tabpanel" aria-labelledby="reviews-profile-tab" tabindex="0"><UserReviewsTab /></div>
-
+            <div class="tab-content mb-7" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-store" role="tabpanel" aria-labelledby="nav-store-tab"><UserStoreTab /></div>
+              <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab"><UserReviewsTab /></div>
+              <div class="tab-pane fade" id="nav-favourites" role="tabpanel" aria-labelledby="nav-favourites-tab"><UserReviewsTab /></div>
+            </div>
 
           </div>
         </div>

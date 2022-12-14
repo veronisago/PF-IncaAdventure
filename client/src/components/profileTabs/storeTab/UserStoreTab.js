@@ -7,55 +7,23 @@ import ActivitiesTab from './ActivitiesTab';
 const UserStoreTab = () => {
 
   return (
-    <div class="container rounded bg-light mb-12">
+    <div >
 
-
-      {/* <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div>
-                          <p class="mb-1 text-start">Shopping cart</p>
-                          <p class="mb-0 text-start">You have 4 items in your cart</p>
-                        </div>
-                        <div>
-                          <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
-                            class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
-                        </div>
-                      </div> */}
-
-      <nav >
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-
-          <div>
-            <button class="nav-link" id="store-nav-activities-tab" data-bs-toggle="tab" data-bs-target="#store-nav-activities" type="button" role="tab" aria-controls="store-nav-activities" aria-selected="false">Activities</button>
-          </div>
-          <div>
-            <button class="nav-link" id="store-nav-products-tab" data-bs-toggle="tab" data-bs-target="#store-nav-products" type="button" role="tab" aria-controls="store-nav-products" aria-selected="false">Products</button>
-          </div>
-          <div>
-            <button class="nav-link" id="store-nav-payments-tab" data-bs-toggle="tab" data-bs-target="#store-nav-payments" type="button" role="tab" aria-controls="store-nav-payments" aria-selected="false">Payments</button>
-          </div>
-        </div>
+      <nav class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-link active" id="nav-activities-tab" data-bs-toggle="tab" href="#nav-activities" role="tab" aria-controls="nav-activities" aria-selected="true">Activities</a>
+        <a class="nav-link" id="nav-products-tab" data-bs-toggle="tab" href="#nav-products" role="tab" aria-controls="nav-products" aria-selected="false">Products</a>
+        <a class="nav-link payments" id="nav-payments-tab" data-bs-toggle="tab" href="#nav-payments" role="tab" aria-controls="nav-payments" tabindex="-1" aria-disabled="true">Payments</a>
       </nav>
-      <div>
-        <div class="tab-pane fade" id="store-nav-activities" role="tabpanel" aria-labelledby="store-nav-activities-tab" tabindex="0"><ActivitiesTab /></div>
-
-        <div class="tab-pane fade" id="store-nav-products" role="tabpanel" aria-labelledby="store-nav-products-tab" tabindex="0">
-          <div class="card mb-3">
-            <ProductsTab />
-          </div>
-        </div>
-
-        <div class="tab-pane fade" id="store-nav-payments" role="tabpanel" aria-labelledby="store-nav-payments-tab" tabindex="0">
-          <div class="col-lg-5">
-            <PaymentsTab />
-          </div>
-        </div>
-
-    
-          <div >
-            <Buy />
-          </div>
-        </div>
+      <div class="tab-content mb-7" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-activities" role="tabpanel" aria-labelledby="nav-activities-tab"><ActivitiesTab /></div>
+        <div class="tab-pane fade" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab"><ProductsTab /></div>
+        <div class="tab-pane fade" id="nav-payments" role="tabpanel" aria-labelledby="nav-payments-tab"><PaymentsTab /></div>
       </div>
+
+      <div>
+        <Buy />
+      </div>
+    </div>
 
 
 

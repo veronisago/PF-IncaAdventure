@@ -7,7 +7,7 @@ function Buy() {
       <div class="card bg-primary text-white rounded-3">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="mb-0">Card details</h5>
+            <h5 class="mb-0">Shopping details</h5>
             <img src="https://us.123rf.com/450wm/koblizeek/koblizeek2001/koblizeek200100050/138262629-man-icon-profile-member-user.-perconal-symbol-vector-on-white-isolated-background-..jpg"
               class="img-fluid rounded-3" style={{ width: "45px" }} alt="Avatar" />
           </div>
