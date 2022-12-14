@@ -25,11 +25,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     start_at: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     end_at:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     description: {
