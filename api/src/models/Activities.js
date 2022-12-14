@@ -22,11 +22,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     start_at: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     end_at:{
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     description: {
