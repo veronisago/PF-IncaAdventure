@@ -7,8 +7,8 @@ import HomePage from './components/pages/HomePage';
 import LandingPage from './components/pages/LandingPage';
 import ShopPage from './components/pages/ShopPage' ;
 import UserPage from './components/pages/UserPage';
-import CreateActivities from './components/pages/CreateActivities';
-
+import CreateActivities from './components/adminComponents/CreateActivities';
+import CreateProduct from './components/adminComponents/CreateProduct';
 
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
           <Route exact path='/profile' component={UserPage}/>
           <Route exact path='/cart' component={CartPage}/>
           <Route exact path='/create' component={CreateActivities}/>
+          <Route exact path='/product' component={CreateProduct}/>
         </Switch>
       </Router>
     </div>

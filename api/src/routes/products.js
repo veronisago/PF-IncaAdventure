@@ -91,16 +91,10 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   let { name, price, stock } = req.body;
   try {
-    const product = Products.findOrCreate({
-       where: {
-        name, 
-        price, 
-        stock
-      } 
-    });
-    res.json(product);
+    const product = Products.create({name, price, stock});
+    res.status(200).json(product);
   } catch (error) {
-    console.log(error);
+    res.status(404).send(error.message)
   }
 });
 

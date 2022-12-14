@@ -15,10 +15,10 @@ module.exports = (sequelize) => {
     stock: {
       type: DataTypes.INTEGER,
     },
-    // category: {
-    //   type: DataTypes.ENUM("");
-    //   defaultValue: undefined
-    // },
+    category: {
+      type: DataTypes.ENUM("product"),
+      defaultValue: undefined
+    },
     available: {
       type: DataTypes.BOOLEAN,
       defaultValue: true

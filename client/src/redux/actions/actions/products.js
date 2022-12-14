@@ -57,3 +57,10 @@ return async function (dispatch){
   }
 }
 };
+
+export function postProduct(payload) {
+  return async function (dispatch) {
+    var response = await axios.post('http://localhost:3001/products', payload)
+    return response;
+  }
+}
