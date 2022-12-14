@@ -3,6 +3,7 @@
 const activities = [
   {
     name: "Tour especial en tren",
+    category: "activity",
     schedule: "01/01/2023",
     price: 2000,
     start_at: 10,
@@ -13,6 +14,7 @@ const activities = [
   },
   {
     name: "La Ruta del Café",
+    category: "activity",
     schedule: "01/01/2023",
     price: 1000,
     start_at: 14,
@@ -23,6 +25,7 @@ const activities = [
   },
   {
     name: "Tour nocturno por las ruinas",
+    category: "activity",
     schedule: "01/01/2023",
     price: 3000,
     start_at: 22,
@@ -33,6 +36,7 @@ const activities = [
   },
   {
     name: "Playground",
+    category: "activity",
     schedule: "01/01/2023",
     price: 500,
     start_at: 9,
@@ -43,6 +47,7 @@ const activities = [
   },
   {
     name: "Boy Scout",
+    category: "activity",
     schedule: "01/01/2023",
     price: 200,
     start_at: 11,
@@ -53,6 +58,7 @@ const activities = [
   },
   {
     name: "Rafting",
+    category: "activity",
     schedule: "01/01/2023",
     price: 2500,
     start_at: 11,
@@ -63,6 +69,7 @@ const activities = [
   },
   {
     name: "Rafting Junior",
+    category: "activity",
     schedule: "01/01/2023",
     price: 1500,
     start_at: 11,
@@ -73,6 +80,7 @@ const activities = [
   },
   {
     name: "Tour gastronómico",
+    category: "activity",
     schedule: "01/01/2023",
     price: 800,
     start_at: 11,
@@ -83,6 +91,7 @@ const activities = [
    },
    {
     name: "Bungee jumping",
+    category: "activity",
     schedule: "01/01/2023",
     price: 800,
     start_at: 11,
@@ -93,6 +102,7 @@ const activities = [
    },
    {
     name: "Paseo en micro descapotable",
+    category: "activity",
     schedule: "01/01/2023",
     price: 800,
     start_at: 11,

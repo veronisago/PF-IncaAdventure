@@ -1,18 +1,16 @@
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+
 module.exports = (sequelize) => {
   sequelize.define('Activities', {
-    // la columna image viene x relacion
+
     name: {
       type: DataTypes.STRING,
-      // unique: true,
       allowNull: false,
     },
-     // category: {
-    //   type: DataTypes.ENUM("");
-    //   defaultValue: undefined
-    // },
+    category: {
+      type: DataTypes.ENUM("activity"),
+      defaultValue: "activity"
+    },
     available: {
       type: DataTypes.BOOLEAN,
       defaultValue: true

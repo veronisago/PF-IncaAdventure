@@ -1,8 +1,6 @@
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+
 module.exports = (sequelize) => {
-  // defino el modelo
   sequelize.define('Users', {
     // ver UUID, UUIDV1, UUIDV4
 
@@ -15,10 +13,9 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     username: {
-      type: DataTypes.STRING, // que sea primera letra del nombre y el apellido, que lo genere directamente el front
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true
-      // tiene chance de repetir, si repite ofrecer en validation username1 (generar un contador)
     },
     password: {
       type: DataTypes.STRING,
@@ -36,6 +33,10 @@ module.exports = (sequelize) => {
       // validar que contengan @ + "" + ".com"
       type: DataTypes.STRING,
       allowNull: false
+    },
+    favourites:{
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      defaultValue: []
     },
     id_type: {
       // type: DataTypes.ENUM("Passport", "Nationality ID"),
