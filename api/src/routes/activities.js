@@ -91,7 +91,7 @@ router.post("/", async (req, res) => {
   const { name, schedule, price, start_at, end_at, description, allowed_age, difficulty_level } = req.body;
 
   try {
-    const activity = await Activities.Create({ name, schedule, start_at, end_at, price, description, allowed_age, difficulty_level });
+    const activity = await Activities.create({ name, schedule, start_at, end_at, price, description, allowed_age, difficulty_level });
     res.status(200).json(activity);
     
   } catch (error) {
