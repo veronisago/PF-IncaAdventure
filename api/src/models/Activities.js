@@ -1,6 +1,3 @@
-const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   sequelize.define('Activities', {
     // la columna image viene x relacion
@@ -25,11 +22,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     start_at: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     end_at:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     description: {
@@ -56,3 +53,4 @@ module.exports = (sequelize) => {
   });
 
 };
+
