@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, getProductsByName, getProductsByOrder } from "../../redux/actions/actions/products"
-import { Paginate } from "../nav/Paginate";
+import Paginate from "../nav/Paginate.js";
 
 const ShopPage = () => {
 	const dispatch = useDispatch();
@@ -11,6 +11,17 @@ const ShopPage = () => {
 	}, [dispatch]);
 
 	const allProducts = useSelector(state => state.allProducts);
+	const [currentPage, setCurrentPage] = useState(1); 
+    const [productsPerPage, setProductsPerPage] = useState(8); 
+    const indexOfLastProduct = currentPage * productsPerPage
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage 
+    const currentProducts = allProducts?.slice(indexOfFirstProduct, indexOfLastProduct); 
+    
+
+    //paginado
+    const paginate = (pagenumber) =>{
+        setCurrentPage(pagenumber)
+    }
 
 
 	function handleOrderInput(e) {
@@ -131,7 +142,7 @@ const ShopPage = () => {
 						<div id="products" className="col-lg-10 px-lg-3 px-0">
 							<div class="row">
 								{
-									allProducts.map(p => {
+									currentProducts.map(p => {
 										return (
 											<div class="col-lg-3 col-sm-6 col-12 mb-3 ">
 												<div class="card cardShop">
@@ -154,7 +165,11 @@ const ShopPage = () => {
 				</div>
 			</div>
 			<div className=" container bg-white border-top pt-3">
-				<Paginate />
+			<Paginate 
+         elementPerPage={productsPerPage}
+         allElements={allProducts.length}
+         paginate= {paginate}
+        />  
 			</div>
 			<footer class="container-fluid bg-dark text-center py-2">
     <span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
