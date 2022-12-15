@@ -9,6 +9,8 @@ import ShopPage from './components/pages/ShopPage' ;
 import UserPage from './components/pages/UserPage';
 import CreateActivities from './components/adminComponents/CreateActivities';
 import CreateProduct from './components/adminComponents/CreateProduct';
+import Dashboard from './components/pages/Dashboard';
+
 
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
           <Route exact path='/cart' component={CartPage}/>
           <Route exact path='/create' component={CreateActivities}/>
           <Route exact path='/product' component={CreateProduct}/>
+          <Route exact path='/admin' component={Dashboard}/>
         </Switch>
       </Router>
     </div>

@@ -17,12 +17,21 @@ const UserPage = () => {
 
 
     return (
-        <div class="mx-auto my-auto">
-            <div class="container rounded bg-light mt-5 mb-5 ">
+        <div class="mx-auto my-auto mt-5 pt-5">
+                        <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-users-tab" data-bs-toggle="tab" data-bs-target="#nav-users" type="button" role="tab" aria-controls="nav-users" aria-selected="true">Users</button>
+                    <button class="nav-link" id="nav-activities-tab" data-bs-toggle="tab" data-bs-target="#nav-activities" type="button" role="tab" aria-controls="nav-activities" aria-selected="false">Activities</button>
+                    <button class="nav-link" id="nav-products-tab" data-bs-toggle="tab" data-bs-target="#nav-products" type="button" role="tab" aria-controls="nav-products" aria-selected="false">Products</button>
+                </div>
+            </nav>
+        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-users" role="tabpanel" aria-labelledby="nav-users-tab" tabindex="0">
+        <div class="container rounded bg-light mt-5 mb-5 ">
                 <div class="row bg-light">
 
                     <div class="col-md-3 border-right mt-5">
-                        <h4 class="text-right">Profile Settings</h4>
+                        <h4 class="text-right">Admin Dashboard</h4>
                         <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" /><span class="font-weight-bold"></span><span>{userProfile?.username}</span></div>
                     </div>
                     <div class="col-md-5 border-right">
@@ -52,8 +61,12 @@ const UserPage = () => {
                     </div>
                 </div>
             </div>
-
         </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-activities-tab" tabindex="0">...</div>
+        <div class="tab-pane fade" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab" tabindex="0">...</div>
+        </div>
+
+    </div>
     )
 }
 
