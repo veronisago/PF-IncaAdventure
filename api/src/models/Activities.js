@@ -23,16 +23,19 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     start_at: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     end_at:{
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     description: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    stock: {
+      type: DataTypes.INTEGER,
     },
     allowed_age: {
       type: DataTypes.ENUM("under 13 years old", "everyone" ,"teenagers", "over 18 years old"),
