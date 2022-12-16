@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { createUser } from "../../redux/actions/actions/users";
 import { useDispatch, useSelector } from 'react-redux';
+import Logout from '../nav/Logout.js';
 
 
 const UserPage = () => {
@@ -39,6 +40,7 @@ const UserPage = () => {
                                 <div class="col-md-4"><label class="labels">Language</label><input type="text" class="form-control" value={userProfile?.language} /></div>
                             </div>
                             <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                            <div class="mt-5 text-center"><Logout/></div>
                         </div>
                     </div>
                     <div class="container col-4 mt-2">
