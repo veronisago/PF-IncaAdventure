@@ -1,13 +1,13 @@
 import axios from "axios";
-import {GET_ACTIVITIES, GET_ACTIVITIES_BY_NAME, GET_ACTIVITY_BY_ID, GET_ACTIVITIES_BY_ORDER} from "../constantes";
+import { GET_ACTIVITIES, GET_ACTIVITIES_BY_NAME, GET_ACTIVITY_BY_ID, GET_ACTIVITIES_BY_ORDER } from "../constantes";
 
-let {REACT_ENV_BASE_URL} = process.env
+let { REACT_APP_BASE_URL } = process.env
 
 
-export function getActivities(){
-  return async function (dispatch){
+export function getActivities() {
+  return async function (dispatch) {
     try {
-      let activities = await axios.get(`${REACT_ENV_BASE_URL}/activities`, {});
+      let activities = await axios.get(`${REACT_APP_BASE_URL}/activities`, {});
       return dispatch({
         type: GET_ACTIVITIES,
         payload: activities.data
@@ -18,11 +18,11 @@ export function getActivities(){
   };
 };
 
-export function getActivitiesByName(name){
+export function getActivitiesByName(name) {
   // trae los que incluyan name, puede ser mas de 1
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
-      let activitiesByName = await axios.get(`${REACT_ENV_BASE_URL}/activities?name=${name}`, {});
+      let activitiesByName = await axios.get(`${REACT_APP_BASE_URL}/activities?name=${name}`, {});
       return dispatch({
         type: GET_ACTIVITIES_BY_NAME,
         payload: activitiesByName.data
@@ -33,10 +33,10 @@ export function getActivitiesByName(name){
   };
 };
 
-export function getActivityById(id){
-  return async function (dispatch){
+export function getActivityById(id) {
+  return async function (dispatch) {
     try {
-      let activityById = await axios.get(`${REACT_ENV_BASE_URL}/activities/${id}`, {});
+      let activityById = await axios.get(`${REACT_APP_BASE_URL}/activities/${id}`, {});
       return dispatch({
         type: GET_ACTIVITY_BY_ID,
         payload: activityById.data
@@ -47,16 +47,16 @@ export function getActivityById(id){
   };
 };
 
-export function getActivitiesByOrder(order){
-  return async function (dispatch){
+export function getActivitiesByOrder(order) {
+  return async function (dispatch) {
     try {
-      let activitiesByOrder = await axios.get(`${REACT_ENV_BASE_URL}/activities?order=${order}`, {});
+      let activitiesByOrder = await axios.get(`${REACT_APP_BASE_URL}/activities?order=${order}`, {});
       return dispatch({
         type: GET_ACTIVITIES_BY_ORDER,
         payload: activitiesByOrder.data
       })
     } catch (error) {
-     console.log(error) ;
+      console.log(error);
     }
   }
-  };
+};
