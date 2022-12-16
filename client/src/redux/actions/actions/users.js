@@ -1,10 +1,13 @@
 import axios from "axios";
 import { GET_USERS, GET_USERS_BY_NAME, GET_USER_BY_ID, GET_USER_BY_USERNAME, GET_USER_BY_EMAIL } from "../constantes";
 
+
+let {REACT_APP_BASE_URL} = process.env
+
 export function getUsers() {
   return async function (dispatch) {
     try {
-      let users = await axios.get("http://localhost:3001/users", {});
+      let users = await axios.get(`${REACT_APP_BASE_URL}/users`, {});
       return dispatch({
         type: GET_USERS,
         payload: users.data
@@ -19,7 +22,7 @@ export function getUsersByName(name) {
   // trae los que incluyan name, puede ser mas de 1
   return async function (dispatch) {
     try {
-      let usersByName = await axios.get(`http://localhost:3001/users?name=${name}`, {});
+      let usersByName = await axios.get(`${REACT_APP_BASE_URL}/users?name=${name}`, {});
       return dispatch({
         type: GET_USERS_BY_NAME,
         payload: usersByName.data
@@ -33,7 +36,7 @@ export function getUsersByName(name) {
 export function getUserById(id) {
   return async function (dispatch) {
     try {
-      let userById = await axios.get(`http://localhost:3001/users/${id}`, {});
+      let userById = await axios.get(`${REACT_APP_BASE_URL}/users/${id}`, {});
       return dispatch({
         type: GET_USER_BY_ID,
         payload: userById.data
@@ -47,7 +50,7 @@ export function getUserById(id) {
 export function getUserByUsername(username) {
   return async function (dispatch) {
     try {
-      let userByUsername = await axios.get(`http://localhost:3001/profile/${username}`, {});
+      let userByUsername = await axios.get(`${REACT_APP_BASE_URL}/profile/${username}`, {});
       return dispatch({
         type: GET_USER_BY_USERNAME,
         payload: userByUsername.data
@@ -71,7 +74,7 @@ export function createUser(user) {
         nationality: "pendiente",
         id_number: 1234
       };
-      const userCreated = await axios.post("http://localhost:3001/users", newUser);
+      const userCreated = await axios.post(`${REACT_APP_BASE_URL}/users`, newUser);
 
       return dispatch({
         type: GET_USER_BY_EMAIL,
