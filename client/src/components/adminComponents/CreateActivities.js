@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postActivities } from '../../redux/actions/actions/activities';
+import { activityUpdated, getActivities, postActivities } from '../../redux/actions/actions/activities';
 
-export default function CreateActivities() {
+export default function CreateActivities({ handleClose, data }) {
 
     const dispatch = useDispatch()
 
     const [create, setCreate] = useState({
-        name: "",
-        schedule: "",
-        price: 0,
-        start_at: "",
-        end_at: "",
-        description: "",
-        allowed_age: "",
-        difficulty_level: "",
+        name: data.name || "",
+        schedule: data.schedule || "",
+        price: data.price || 0,
+        start_at: data.start_at || "",
+        end_at: data.end_at || "",
+        description: data.description || "",
+        allowed_age: data.allowed_age || "",
+        difficulty_level: data.difficulty_level || "",
     })
 
     const handleChange = (e) => {
@@ -28,8 +28,15 @@ export default function CreateActivities() {
     }
 
     const handleSubmit = (e) => {
-        dispatch(postActivities(create))
-        alert('New activity created!')
+        e.preventDefault()
+        if (data.id) {
+            dispatch(activityUpdated({...create, id: data.id}))
+            alert('Activity updated!')
+        } else {
+            dispatch(postActivities(create))
+            alert('New activity created!')
+        }
+
         setCreate({
             name: "",
             schedule: "",
@@ -40,44 +47,46 @@ export default function CreateActivities() {
             allowed_age: "",
             difficulty_level: "",
         })
+        dispatch(getActivities());
+        handleClose()
     }
 
 
     return (
         <div>
-            <div className="w-75 mx-auto rounded bg-light mt-5">
-                <div className='col-8 mx-auto pt-5 pb-5'>
-                    <h4 className='mt-3 mb-3'>Create new activity</h4>
+            <div className="mx-auto rounded mt-5 mb-5">
+                <div className='px-5 mx-auto'>
+                    <h4 className='mt-3 mb-3'>{data.id ? 'Update activity' : 'Create new activity'}</h4>
                     <form onSubmit={handleSubmit}>
                         <div className='row'>
                             <div class="col-lg-6">
                                 <label className="labels">Name</label>
-                                <input type="text" name='name' value={create.name} 
-                                required onChange={handleChange} className="form-control" />
+                                <input type="text" name='name' value={create.name}
+                                    required onChange={handleChange} className="form-control" />
                             </div>
 
                             <div class="col-lg-6">
                                 <label class="labels">Price</label>
-                                <input type="number" name='price' value={create.price} 
-                                required onChange={handleChange} min={0} max={200} className="form-control" />
+                                <input type="number" name='price' value={create.price}
+                                    required onChange={handleChange} min={0} max={200} className="form-control" />
                             </div>
                         </div>
                         <div className='row mt-4'>
                             <div className='col-12'>
                                 <label className='labels'>Description</label>
-                                <textarea name='description' value={create.description} 
-                                required onChange={handleChange} class="form-control" rows="3"></textarea>
+                                <textarea name='description' value={create.description}
+                                    required onChange={handleChange} class="form-control" rows="3"></textarea>
                             </div>
                         </div>
                         <div className='row mt-4'>
                             <div className='col-4'>
                                 <label className='labels'>Schedule</label>
-                                <textarea name='schedule' value={create.schedule} 
-                                required onChange={handleChange} class="form-control" rows="3"></textarea>
+                                <textarea name='schedule' value={create.schedule}
+                                    required onChange={handleChange} class="form-control" rows="3"></textarea>
                             </div>
                             <div className='col-4'>
                                 <label class="labels">Allowed age</label>
-                                <select name="allowed_age" onChange={handleChange} class="form-select" aria-label="Default select example">
+                                <select name="allowed_age" onChange={handleChange} value={create.allowed_age} class="form-select" aria-label="Default select example">
                                     <option selected>select a valid option</option>
                                     <option value="under 13 years old">under 13 years old</option>
                                     <option value="everyone">everyone</option>
@@ -87,7 +96,7 @@ export default function CreateActivities() {
                             </div>
                             <div className='col-4'>
                                 <label class="labels">Difficulty level</label>
-                                <select name='difficulty_level' onChange={handleChange} class="form-select" aria-label="Default select example">
+                                <select name='difficulty_level' onChange={handleChange} value={create.difficulty_level} class="form-select" aria-label="Default select example">
                                     <option selected>select a valid option</option>
                                     <option value="kids">kids</option>
                                     <option value="beginners">beginners</option>
@@ -108,7 +117,8 @@ export default function CreateActivities() {
                                     value={create.end_at} min={0} max={24} onChange={handleChange} />
                             </div>
                         </div>
-                        <button className="btn border mt-3" type="submit">Create</button>
+                        
+                        <button className="btn border mt-3 btn-primary" type="submit">{data.id ? 'Update' : 'Create'}</button>
                     </form>
                 </div>
             </div>

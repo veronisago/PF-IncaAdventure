@@ -1,78 +1,36 @@
 const { Router } = require("express");
+const { Op } = require("sequelize");
 const { Activities } = require("../db");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  // puede recibir query
-  const { name, order } = req.query;
-  const { min, max } = req.body;
-  const activities = await Activities.findAll();
-  if (min && max) {
-    if (typeof Number(min) !== "number" || typeof Number(max) !== "number") res.status(400).json({ msg: "Both numbers must be integer" });
-    else {
-      let activitiesByPriceRange = await activities.filter(p => p.price > min && p.price < max);
-      res.json(activitiesByPriceRange);
-    }
-  }
-  if (name) {
-    try {
-      const activity = await activities.filter((a) =>
-        a.name.toLowerCase().includes(name.toLowerCase())
-      );
-      res.json(activity);
-    } catch (error) {
-      console.log(error);
-    }
-  } else if (order) {
-    if (order === "A-Z") {
-      try {
-        const activitiesAsc = await activities.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-          if (b.name.toLowerCase() > a.name.toLowerCase()) return -1;
-          return 0;
-        });
-        res.json(activitiesAsc);
-      } catch (error) {
-        console.log(error);
-      }
-    } else if (order === "Z-A") {
-      try {
-        const activitiesDesc = await activities.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
-          if (b.name.toLowerCase() > a.name.toLowerCase()) return 1;
-          return 0;
-        });
-        res.json(activitiesDesc);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  } else if (order === "CHEAP") {
-    try {
-      const activitiesCheap = await activities.sort((a, b) => {
-        if (a.price > b.price) return 1;
-        if (b.price > a.price) return -1;
-        return 0;
-      });
-      res.json(activitiesCheap);
-    } catch (error) {
-      console.log(error);
-    }
-  } else if (order === "EXPENSIVE") {
-    try {
-      const activitiesExpensive = await activities.sort((a, b) => {
-        if (a.price > b.price) return -1;
-        if (b.price > a.price) return 1;
-        return 0;
-      });
-      res.json(activitiesExpensive);
-    } catch (error) {
-      console.log(error);
-    }
-  } else {
-    res.json(activities);
-  }
+  try {
+    const { name, order, orderBy, min, max, page } = req.query;
 
+    const perPage = 6
+    const offset = (page - 1) * perPage
+
+    const conditions = {}
+    if (name) (conditions.name = { [Op.like]: `%${name}%` });
+
+    if (min && max) conditions.price = { [Op.between]: [min, max] }
+    else if (min) conditions.price = { [Op.gt]: min }
+    else if (max) conditions.price = { [Op.lt]: max }
+
+    const activities = await Activities.findAndCountAll({
+      where: { ...conditions },
+      order: [
+        [orderBy || 'updatedAt', order || 'DESC']
+      ],
+      limit: perPage,
+      offset: offset || 0,
+    });
+    let totalPages = Math.ceil(activities.count / perPage)
+
+    res.status(200).json({ ...activities, totalPages, page: page || 1 })
+  } catch (error) {
+    res.status(500).send(error)
+  }
 });
 
 router.get("/:id", async (req, res) => {
@@ -93,26 +51,21 @@ router.post("/", async (req, res) => {
   try {
     const activity = await Activities.create({ name, schedule, start_at, end_at, price, description, allowed_age, difficulty_level });
     res.status(200).json(activity);
-    
+
   } catch (error) {
     res.status(404).send(error.message);
   }
 });
 
-router.put("/:id", async (req, res) => {
-  const id = req.params.id; // en un principio lo hacemos solo con id
+router.put("/", async (req, res) => {
   const newData = req.body;
-  // si viene desability
-
-  if (newData.disable) newData.is_active = false;
+  const id = newData.id
   try {
     const activityModified = await Activities.update(newData, { where: { id } });
-    console.log(activityModified);
     res.json({ msg: "Activity updated" });
   } catch (error) {
     console.log(error);
   };
-
 
 });
 

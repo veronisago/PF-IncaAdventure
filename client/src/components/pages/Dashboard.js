@@ -1,14 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import ActivitiesAdmin from "../adminComponents/ActivitiesAdmin.js";
 import Logout from '../nav/Logout.js';
+import ProductsAdmin from '../adminComponents/ProductsAdmin'
+import UsersAdmin from "../adminComponents/UsersAdmin.js";
 
 const Dashboard = () => {
   return (
     <div
       class="row"
-      style={{"height" : "800px"}}
     >
-      <div class="col-2 border-top mx-auto pt-4 h-100 bg-light viewport-height-content">
+      <div class="col-2 border-top mx-auto pt-4  viewport-height-content">
         <div id="sidebar">
           <h2 className="text-center mb-4 fw-bold">Dashboard</h2>
           <div className="row">
@@ -56,13 +57,13 @@ const Dashboard = () => {
                   </a>
                 </li>
               </ul>
-              <div class="mt-5 text-center"><Logout/></div>
+              <div class="mt-5 text-center"><Logout /></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-10 border">
+      <div class="col-10 border bg-light">
         <div class="tab-content" id="nav-tabContent">
           <div
             class="tab-pane show active"
@@ -70,14 +71,8 @@ const Dashboard = () => {
             role="tabpanel"
             aria-labelledby="nav-activities-tab"
           >
-            <div className="row viewport-height-content">
-              <div className="col-6 border">
-                <h1>getAllActivities</h1>
-              </div>
-              <div className="col-6 border">
-                <h1>Activities Create Form</h1>
-                <span></span>
-              </div>
+            <div className="row">
+              <ActivitiesAdmin/>
             </div>
           </div>
           <div
@@ -86,14 +81,8 @@ const Dashboard = () => {
             role="tabpanel"
             aria-labelledby="nav-products-tab"
           >
-            <div className="row viewport-height-content">
-              <div className="col-6 border">
-                <h1>getAllProducts</h1>
-              </div>
-              <div className="col-6 border">
-                <h1>Products Create Form</h1>
-                <span></span>
-              </div>
+            <div className="row">
+              <ProductsAdmin/>
             </div>
           </div>
           <div
@@ -103,13 +92,7 @@ const Dashboard = () => {
             aria-labelledby="nav-users-tab"
           >
             <div className="row viewport-height-content">
-              <div className="col-6 border">
-                <h1>getAllUsers</h1>
-              </div>
-              <div className="col-6 border">
-                <h1>Users Create Form</h1>
-                <span></span>
-              </div>
+             <UsersAdmin/>
             </div>
           </div>
         </div>
