@@ -69,13 +69,17 @@ export default function CreateProduct({ handleClose, data }) {
                                     required onChange={handleChange} className="form-control" rows="3" />
                             </div>
                             <div className='col-6'>
-                                <label className='labels'>Available</label>
-                                <select name="available" onChange={handleChange} value={create.available} class="form-select"
-                                    aria-label="Default select example">
-                                    <option value={true}>Yes</option>
-                                    <option value={false}>No</option>
-
-                                </select>
+                                {
+                                    data.id && (
+                                        <div>
+                                            <label className='labels'>Available</label>
+                                            <select name="available" onChange={handleChange} value={create.available} class="form-select"
+                                                aria-label="Default select example">
+                                                <option value={true}>Yes</option>
+                                                <option value={false}>No</option>
+                                            </select>
+                                        </div>
+                                    )}
                             </div>
                         </div>
                         <button className="btn border mt-3 btn-primary d-flex justify-content-center"

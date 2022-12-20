@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { activityUpdated, getActivities, postActivities } from '../../redux/actions/actions/activities';
 
 export default function CreateActivities({ handleClose, data }) {
@@ -106,18 +106,28 @@ export default function CreateActivities({ handleClose, data }) {
                             </div>
                         </div>
                         <div className='row mt-3'>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label className="labels">Start at</label>
                                 <input type="number" className="form-control" name="start_at"
                                     value={create.start_at} min={0} max={24} onChange={handleChange} />
                             </div>
-                            <div class="col-6">
+                            <div className="col-4">
                                 <label class="labels">End at</label>
                                 <input type="number" className="form-control" id="end" name="end_at"
                                     value={create.end_at} min={0} max={24} onChange={handleChange} />
                             </div>
+                            { 
+                                    data.id && (
+                                        <div className="col-4">
+                                            <label className='labels'>Available</label>
+                                            <select name="available" onChange={handleChange} value={create.available} class="form-select"
+                                                aria-label="Default select example">
+                                                <option value={true}>Yes</option>
+                                                <option value={false}>No</option>
+                                            </select>
+                                        </div>
+                                    )}
                         </div>
-                        
                         <button className="btn border mt-3 btn-primary" type="submit">{data.id ? 'Update' : 'Create'}</button>
                     </form>
                 </div>
