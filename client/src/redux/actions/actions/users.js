@@ -1,10 +1,13 @@
 import axios from "axios";
 import { GET_USERS, GET_USERS_BY_NAME, GET_USER_BY_ID, GET_USER_BY_USERNAME, GET_USER_BY_EMAIL } from "../constantes";
+const {
+  REACT_APP_BASE_URL
+} = process.env;
 
 export function getUsers(params) {
   return async function (dispatch) {
     try {
-      let users = await axios.get("http://localhost:3001/users", { params });
+      let users = await axios.get(`${REACT_APP_BASE_URL}/users`, { params });
       return dispatch({
         type: GET_USERS,
         payload: users.data
@@ -85,7 +88,7 @@ export function createUser(user) {
 
 export function userUpdated(newData) {
   return async function (dispatch) {
-    let userUpdated = await axios.put("http://localhost:3001/users", newData);
+    let userUpdated = await axios.put(`${REACT_APP_BASE_URL}/users`, newData);
     return userUpdated
   };
 };
