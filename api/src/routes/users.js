@@ -1,33 +1,32 @@
 const { Router } = require("express");
 const router = Router();
+const { Op } = require("sequelize");
 const { Users, Stores } = require("../db");
 const nodemailer = require("nodemailer");
 
 router.get("/", async (req, res) => {
 
   try {
-    const { username, order, email } = req.query;
-    let users = await Users.findAll();
+    const { username, order, orderBy, email, id, page } = req.query;
+    const perPage = 6
+    const offset = (page - 1) * perPage
 
-    if (username) users = users.filter(a => a.username.toLowerCase().includes(username.toLowerCase()))
-    if (email) users = users.filter(a => a.email.toLowerCase().includes(email.toLowerCase()))
-    if (order) {
-      if (order === "A-Z") {
-        users.sort((a, b) => {
-          if (a.username.toLowerCase() > b.username.toLowerCase()) return 1;
-          if (b.username.toLowerCase() > a.username.toLowerCase()) return -1;
-          return 0;
-        });
-      } else if (order === "Z-A") {
-        users.sort((a, b) => {
-          if (a.username.toLowerCase() > b.username.toLowerCase()) return -1;
-          if (b.username.toLowerCase() > a.username.toLowerCase()) return 1;
-          return 0
-        });
-      }
-    }
-    return res.status(200).json(users);
+    const conditions = {}
+    if (username) (conditions.username = { [Op.like]: `${username}%` });
+    if (email) (conditions.email = { [Op.like]: `${email}%` });
+    if (id) (conditions.id = { [Op.eq]: id });
 
+    const users = await Users.findAndCountAll({
+      where: { ...conditions },
+      order: [
+        [orderBy || 'updatedAt', order || 'DESC']
+      ],
+      limit: perPage,
+      offset: offset || 0,
+    });
+    let totalPages = Math.ceil(users.count / perPage)
+
+    res.status(200).json({ ...users, totalPages, page: page || 1 })
   } catch (error) {
     res.status(404).send(error.message);
   }
@@ -81,20 +80,15 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
-  const id = req.params.id; // en un principio lo hacemos solo con id
+router.put("/", async (req, res) => {
   const newData = req.body;
-  // si viene desability
-
-  if (newData.disable) newData.is_active = false;
+  const id = newData.id
   try {
     const userModified = await Users.update(newData, { where: { id } });
-    console.log(userModified);
     res.json({ msg: "User updated" });
   } catch (error) {
     console.log(error);
   };
-
 
 });
 
