@@ -19,7 +19,7 @@ export function getActivitiesByName(name) {
   // trae los que incluyan name, puede ser mas de 1
   return async function (dispatch) {
     try {
-      let activitiesByName = await axios.get(`http://localhost:3001/activities?name=${name}`, {});
+      let activitiesByName = await axios.get(`${REACT_APP_BASE_URL}/activities?name=${name}`, {});
       return dispatch({
         type: GET_ACTIVITIES_BY_NAME,
         payload: activitiesByName.data
@@ -33,7 +33,7 @@ export function getActivitiesByName(name) {
 export function getActivityById(id) {
   return async function (dispatch) {
     try {
-      let activityById = await axios.get(`http://localhost:3001/activities/${id}`, {});
+      let activityById = await axios.get(`${REACT_APP_BASE_URL}/activities/${id}`, {});
       return dispatch({
         type: GET_ACTIVITY_BY_ID,
         payload: activityById.data
@@ -47,7 +47,7 @@ export function getActivityById(id) {
 export function getActivitiesByOrder(order) {
   return async function (dispatch) {
     try {
-      let activitiesByOrder = await axios.get(`http://localhost:3001/activities?order=${order}`, {});
+      let activitiesByOrder = await axios.get(`${REACT_APP_BASE_URL}/activities?order=${order}`, {});
       return dispatch({
         type: GET_ACTIVITIES_BY_ORDER,
         payload: activitiesByOrder.data
