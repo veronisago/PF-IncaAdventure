@@ -1,10 +1,10 @@
 import axios from "axios";
 import {GET_PRODUCTS, GET_PRODUCTS_BY_NAME, GET_PRODUCTS_BY_ID, GET_PRODUCTS_BY_ORDER} from "../constantes";
 
-export function getProducts(){
+export function getProducts(params){
   return async function (dispatch){
     try {
-      let products = await axios.get("http://localhost:3001/products", {});
+      let products = await axios.get("http://localhost:3001/products", {params});
       return dispatch({
         type: GET_PRODUCTS,
         payload: products.data
@@ -56,6 +56,13 @@ return async function (dispatch){
    console.log(error) ;
   }
 }
+};
+
+export function productUpdated(newData) {
+  return async function (dispatch) {
+    let productUpdated = await axios.put("http://localhost:3001/products", newData);
+    return productUpdated
+  };
 };
 
 export function postProduct(payload) {
