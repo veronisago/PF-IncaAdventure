@@ -7,6 +7,7 @@ import HomePage from './components/pages/HomePage';
 import LandingPage from './components/pages/LandingPage';
 import ShopPage from './components/pages/ShopPage' ;
 import UserPage from './components/pages/UserPage';
+import Dashboard from './components/pages/Dashboard';
 
 
 
@@ -22,6 +23,7 @@ function App() {
           <Route exact path='/shop' component={ShopPage}/>   
           <Route exact path='/profile' component={UserPage}/>
           <Route exact path='/cart' component={CartPage}/>
+          <Route exact path='/admin' component={Dashboard}/>
         </Switch>
       </Router>
     </div>
