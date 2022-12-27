@@ -30,8 +30,8 @@ function Nav() {
   console.log(user);
 
   return (
-    <div>
-      <nav class="navbar navbar-expand-lg bg-light sticky border-bottom">
+    <div className="z-index-500 ">
+      <nav class="navbar navbar-expand-lg bg-light border-bottom viewport-height-nav">
         <div class="container-fluid">
           <Link to="/">
             <img
@@ -95,7 +95,7 @@ function Nav() {
                 Search
               </button>
             </form>
-            <div className="nav-item border-success rounded d-flex justify-content-center mx-2 border">
+            <div className="nav-item d-flex justify-content-center mx-2">
               <Traslate />
             </div>
           </div>
