@@ -14,19 +14,20 @@ import { Auth0Provider } from "@auth0/auth0-react";
 // const clientId = process.env.CLIENTID;
 // console.log(domain);
 // console.log(clientId);
+let { REACT_APP_DOMAIN, REACT_APP_CLIENT_ID, REACT_APP_REDIRECT_URL } = process.env
 
 ReactDOM.render(
-    <Provider store={store}>
-      <BrowserRouter>
-        <Auth0Provider
-          domain="dev-c2fel1eg8iqp6ark.us.auth0.com"
-          clientId="UrkVwaJuWk91Fk9ulfoTTlKgt0NOKq0Z"
-          redirectUri="http://localhost:3000/profile/" // donde estaba
-        >
-          <App />
-        </Auth0Provider>
-      </BrowserRouter>
-    </Provider>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Auth0Provider
+        domain={REACT_APP_DOMAIN}
+        clientId={REACT_APP_CLIENT_ID}
+        redirectUri={REACT_APP_REDIRECT_URL} // donde estaba
+      >
+        <App />
+      </Auth0Provider>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 
