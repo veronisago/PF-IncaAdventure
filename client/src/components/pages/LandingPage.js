@@ -1,13 +1,25 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+import s from '../styles/LandingPage.module.css'
+import video from '../../Media/Video2.mp4'
+import img from '../../Media/button.png'
 
 const LandingPage = () => {
   return (
-    <div>
-           <footer class="container-fluid bg-dark text-center py-2">
-    <span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
-</footer>
+    <div className="">
+      <video muted autoPlay loop>
+        <source src={video} type="video/mp4" />
+      </video>
+      <div  className={s.button}>
+        <Link to="/home">
+          <button className="btn">
+            <img src={img} alt="" />{" "}
+            <h1 className=" bg-image color-danger text-center"><b className="border btn text-white">JOIN THE <a>ADVENTURE</a></b></h1>
+          </button>
+        </Link>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;

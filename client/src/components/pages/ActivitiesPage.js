@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
+import {useState, useEffect} from "react";
 import { getActivities, getActivitiesByName, getActivitiesByOrder } from "../../redux/actions/actions/activities.js";
-import { Paginate } from '../nav/Paginate.js'
+import Paginate from "../nav/Paginate.js";
+
 
 function ActivitiesPage() {
   const dispatch = useDispatch();
@@ -10,8 +12,19 @@ function ActivitiesPage() {
     dispatch(getActivities());
   }, [dispatch]);
 
-  const allActivities = useSelector(state => state.allActivities);
+  const allActivities = useSelector((state) => state.allActivities);
   // console.log(allActivities);
+  const [currentPage, setCurrentPage] = useState(1); 
+    const [activitiesPerPage, setActivitiesPerPage] = useState(9); 
+    const indexOfLastActivity = currentPage * activitiesPerPage
+    const indexOfFirstActivity = indexOfLastActivity - activitiesPerPage 
+    const currentActivities = allActivities?.slice(indexOfFirstActivity, indexOfLastActivity); 
+    
+
+    //paginado
+    const paginate = (pagenumber) =>{
+        setCurrentPage(pagenumber)
+    }
 
   function handleOrderInput(e) {
     dispatch(getActivitiesByOrder(e.target.value));
@@ -21,12 +34,16 @@ function ActivitiesPage() {
     dispatch(getActivitiesByName(e.target.value));
   }
 
+  
+    ;  
+
+
   return (
     <div class="container-fluid bg-light px-0 mx-0">
       <div class="container bg-white py-4 pl-7">
         <div class="row text-center">
           <h2 class="h1">
-            In search of adventures? FIND IT <span class="text-success">WIHT US</span>
+            In search of adventures? FIND IT <span class="text-success">WHIT US</span>
           </h2>
         </div>
         <div className="row mt-lg-5 mt-4 justify-content-lg-start justify-content-center px-3">
@@ -80,7 +97,7 @@ function ActivitiesPage() {
           <div className="col-lg-10 px-lg-3 px-0">
             <div class="row text-center">
               {
-                allActivities?.map(a => {
+                currentActivities?.map(a => {
                   return (
                     <div class="col-lg-4 col-sm-6 mb-4">
                       <div className="card min-height-activity-card">
@@ -105,7 +122,11 @@ function ActivitiesPage() {
         </div>
       </div>
       <div className=" container bg-white border-top pt-3">
-        <Paginate />
+        <Paginate 
+         elementPerPage={activitiesPerPage}
+         allElements={allActivities.length}
+         paginate= {paginate}
+        />  
       </div>
       <footer class="container-fluid bg-dark text-center py-2">
     <span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
