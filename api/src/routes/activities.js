@@ -2,10 +2,22 @@ const { Router } = require("express");
 const { Op } = require("sequelize");
 const { Activities } = require("../db");
 const router = Router();
+const { generatePDF } = require("../emails/email");
 
 router.get("/", async (req, res) => {
   try {
     const { name, order, orderBy, min, max, page } = req.query;
+
+    const tickets = [
+      {
+        id: 1,
+        title: "compra",
+        request: "canjear",
+        status: "activo"
+      }
+    ];
+
+    generatePDF(tickets, "acostavalentina7@gmail.com", "lau0310");
 
     const perPage = 6
     const offset = (page - 1) * perPage

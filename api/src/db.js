@@ -42,17 +42,17 @@ Activities.belongsToMany(Users, { through: "user_activities" });
 
 
 Users.hasOne(Stores);
-Users.hasMany(Reviews, {as: "Reviews", foreignKey: "user_reviews"});
-Users.hasMany(Images, {as: "Images", foreignKey: "user_reviews"});
+Users.hasMany(Reviews, { as: "Reviews", foreignKey: "user_reviews" });
+Users.hasMany(Images, { as: "Images", foreignKey: "user_reviews" });
 
-Activities.hasMany(Reviews, {as: "Reviews", foreignKey: "user_reviews"});
+Activities.hasMany(Reviews, { as: "Reviews", foreignKey: "user_reviews" });
 
 
-Stores.hasMany(Products, {as: "Products", foreignKey: "user_reviews"});
-Stores.hasMany(Activities, {as: "Activities", foreignKey: "user_reviews"});
+Stores.hasMany(Products, { as: "Products", foreignKey: "user_reviews" });
+Stores.hasMany(Activities, { as: "Activities", foreignKey: "user_reviews" });
 
-Images.hasMany(Activities, {as: "Activities", foreignKey: "user_reviews"});
-Images.hasMany(Products, {as: "Products", foreignKey: "user_reviews"});
+Images.hasMany(Activities, { as: "Activities", foreignKey: "user_reviews" });
+Images.hasMany(Products, { as: "Products", foreignKey: "user_reviews" });
 
 
 module.exports = {
