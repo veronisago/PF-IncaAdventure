@@ -6,7 +6,7 @@ import img from '../../Media/button.png'
 
 const LandingPage = () => {
   return (
-    <div className="">
+    <div className="z-index-1000">
       <video muted autoPlay loop>
         <source src={video} type="video/mp4" />
       </video>

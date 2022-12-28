@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root{
+  box-shadow: none !important;
+  border: 1px solid rgb(199, 199, 199);
+}
+
+.bg-light1{
+  background-color: #efefef;
+}
+
+.bg-light2{
+  background-color: #ecf1f9;
+}

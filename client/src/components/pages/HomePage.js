@@ -79,7 +79,7 @@ function HomePage() {
                                 <img src="https://res.cloudinary.com/dboppggbz/image/upload/v1670797600/machu-picchu-rafting-season_1_wwejva.jpg" class="card-img-top" alt="..." />
                                 <div class="card-body">
                                 <h4><b>Rafting</b></h4>
-                                    <span>Immerse yourself in the frozen waters of the Querococha river and enjoy an experience of combined adrenaline and fun. Perfect for the family..</span>
+                                    <span>Immerse yourself in the frozen waters of the Querococha river and enjoy an experience of combined adrenaline and fun. Perfect for the family.</span>
                                 </div>
                             </div>
                         </div>

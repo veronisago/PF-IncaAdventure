@@ -43,6 +43,13 @@
   cursor: pointer
 }
 
+.z-index-1000{
+  z-index: 1000;
+}
+
+.z-index-500{
+  z-index: 500;
+}
 
 .labels {
   font-size: 11px
@@ -94,8 +101,16 @@
   max-height: 450px;
 }
 
+.viewport-height-nav{
+  height: 6vh !important;
+}
+
+.viewport-height-content{
+  height: 92vh !important;
+}
+
 .fixed-content {
-  margin-top: 67px;
+  margin-top: 53px;
 }
 
 .bg-green{
@@ -264,7 +279,7 @@ li a:hover{
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 600;
 }
 
 @media(min-width:991px){
