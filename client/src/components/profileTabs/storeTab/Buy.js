@@ -1,84 +1,108 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import RemoveStoreButton from "../../buttons/RemoveStoreButton";
+import { addToStoreBag, removeStoreBag } from "../../../redux/actions/actions/stores";
 
 function Buy() {
+  // const dispatch = useDispatch();
+  const storeBag = useSelector(state => state.storeBag)
+  // console.log(storeBag);
+  const [localStoreBag, setLocalStoreBag] = useState([]);
+
+  let totalToPay = storeBag.reduce((a, b) => a + b.price, 0);
+
+
+  useEffect(() => {
+    const data = window.localStorage.getItem("STOREBAG");
+    console.log(data);
+    if (data !== null) setLocalStoreBag(JSON.parse(data));
+    console.log(localStoreBag);
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("STOREBAG", JSON.stringify(storeBag));
+  }, [storeBag]);
+
+
+  const [quantityBag, setQuantityBag] = useState(1);
+
+  function handleDecrement() {
+    setQuantityBag(quantityBag - 1);
+  };
+
+  function handleIncrement() {
+    setQuantityBag(quantityBag + 1);
+  };
+
 
   return (
     <div>
-      <div class="card bg-primary text-white rounded-3">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="mb-0">Shopping details</h5>
-            <img src="https://us.123rf.com/450wm/koblizeek/koblizeek2001/koblizeek200100050/138262629-man-icon-profile-member-user.-perconal-symbol-vector-on-white-isolated-background-..jpg"
-              class="img-fluid rounded-3" style={{ width: "45px" }} alt="Avatar" />
-          </div>
+      <table class="table" >
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">ID</th>
+            <th scope="col">Price (hacer un convertor de monedas)</th>
+            <th scope="col"> "-" Amount "+" </th>
+            <th scope="col">Stock</th>
+            <th scope="col">Total</th>
 
-          <p class="small mb-2">Card type</p>
-          <a href="#!" type="submit" class="text-white"><i
-            class="fab fa-cc-mastercard fa-2x me-2"></i></a>
-          <a href="#!" type="submit" class="text-white"><i
-            class="fab fa-cc-visa fa-2x me-2"></i></a>
-          <a href="#!" type="submit" class="text-white"><i
-            class="fab fa-cc-amex fa-2x me-2"></i></a>
-          <a href="#!" type="submit" class="text-white"><i class="fab fa-cc-paypal fa-2x"></i></a>
+          </tr>
+        </thead>
+        <tbody>
 
-          <form class="mt-4">
-            <div class="form-outline form-white mb-4">
-              <input type="text" id="typeName" class="form-control form-control-lg" size="17"
-                placeholder="Cardholder's Name" />
-              <label class="form-label" for="typeName">Cardholder's Name</label>
-            </div>
+          {
+            storeBag?.map(s => {
+              return (
+                <tr>
+                  <th scope="row"></th>
+                  <td><RemoveStoreButton id={s.id} onClick={() => removeStoreBag()} /></td>
+                  <td>{s.name}</td>
+                  <td>{s.category}</td>
+                  <td>{s.id}</td>
+                  <td>
+                    <div>
+                      <p className="no-interaction">${s.price}</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="">
+                      <button onClick={handleDecrement} disabled={quantityBag <= 1}>-</button>
+                      <div>{quantityBag}</div>
+                      <button onClick={handleIncrement}>+</button>
+                    </div>
+                  </td>
+                  <td>{s.stock}</td>
+                  <td id="sumaTotales">{Number(s.price) * Number(quantityBag)}</td>
 
-            <div class="form-outline form-white mb-4">
-              <input type="text" id="typeText" class="form-control form-control-lg" size="17"
-                placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
-              <label class="form-label" for="typeText">Card Number</label>
-            </div>
+                </tr>
+              )
+            })
+          }
 
-            <div class="row mb-4">
-              <div class="col-md-6">
-                <div class="form-outline form-white">
-                  <input type="text" id="typeExp" class="form-control form-control-lg"
-                    placeholder="MM/YYYY" size="7" id2="exp" minlength="7" maxlength="7" />
-                  <label class="form-label" for="typeExp">Expiration</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-outline form-white">
-                  <input type="password" id="typeText" class="form-control form-control-lg"
-                    placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-                  <label class="form-label" for="typeText">Cvv</label>
-                </div>
-              </div>
-            </div>
-
-          </form>
-
-          <hr class="my-4" />
-
-          <div class="d-flex justify-content-between">
-            <p class="mb-2">Subtotal</p>
-            <p class="mb-2">$2048.00</p>
-          </div>
-
-          <div class="d-flex justify-content-between">
-            <p class="mb-2">Installing</p>
-            <p class="mb-2">$20.00</p>
-          </div>
-
-          <div class="d-flex justify-content-between mb-4">
-            <p class="mb-2">Total(Incl. taxes)</p>
-            <p class="mb-2">$2103.00</p>
-          </div>
-
-          <button type="button" class="btn btn-info btn-block btn-lg">
-            <div class="d-flex justify-content-between">
-              <span>$4818.00</span>
-              <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-            </div>
-          </button>
-
+        </tbody>
+      </table>
+      <footer>
+        <div class="d-flex justify-content-between">
+          <p class="mb-2">Total quantity</p>
+          <p class="mb-2" >{storeBag.length}</p>
         </div>
-      </div>
+
+        <div class="d-flex justify-content-between mb-4">
+          <p class="mb-2">Total</p>
+          <p class="mb-2">${totalToPay}</p>
+        </div>
+
+        <button type="button" class="btn btn-info btn-block btn-lg">
+          <div class="d-flex justify-content-between">
+            <span>${totalToPay}</span>
+            <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+          </div>
+        </button>
+      </footer>
     </div>
   );
 };

@@ -1,13 +1,10 @@
 import axios from "axios";
-import { GET_USERS, GET_USERS_BY_NAME, GET_USER_BY_ID, GET_USER_BY_USERNAME, GET_USER_BY_EMAIL } from "../constantes";
-const {
-  REACT_APP_BASE_URL
-} = process.env;
+import { GET_USERS, GET_USERS_BY_NAME, GET_USER_BY_ID, GET_USER_BY_USERNAME, GET_USER_BY_EMAIL, ADD_TO_FAVOURITES } from "../constantes";
 
-export function getUsers(params) {
+export function getUsers() {
   return async function (dispatch) {
     try {
-      let users = await axios.get(`${REACT_APP_BASE_URL}/users`, { params });
+      let users = await axios.get("http://localhost:3001/users", {});
       return dispatch({
         type: GET_USERS,
         payload: users.data
@@ -22,7 +19,7 @@ export function getUsersByName(name) {
   // trae los que incluyan name, puede ser mas de 1
   return async function (dispatch) {
     try {
-      let usersByName = await axios.get(`${REACT_APP_BASE_URL}/users?name=${name}`, {});
+      let usersByName = await axios.get(`http://localhost:3001/users?name=${name}`, {});
       return dispatch({
         type: GET_USERS_BY_NAME,
         payload: usersByName.data
@@ -36,7 +33,7 @@ export function getUsersByName(name) {
 export function getUserById(id) {
   return async function (dispatch) {
     try {
-      let userById = await axios.get(`${REACT_APP_BASE_URL}/users/${id}`, {});
+      let userById = await axios.get(`http://localhost:3001/users/${id}`, {});
       return dispatch({
         type: GET_USER_BY_ID,
         payload: userById.data
@@ -50,7 +47,7 @@ export function getUserById(id) {
 export function getUserByUsername(username) {
   return async function (dispatch) {
     try {
-      let userByUsername = await axios.get(`${REACT_APP_BASE_URL}/profile/${username}`, {});
+      let userByUsername = await axios.get(`http://localhost:3001/profile/${username}`, {});
       return dispatch({
         type: GET_USER_BY_USERNAME,
         payload: userByUsername.data
@@ -74,7 +71,7 @@ export function createUser(user) {
         nationality: "pendiente",
         id_number: 1234
       };
-      const userCreated = await axios.post(`${REACT_APP_BASE_URL}/users`, newUser);
+      const userCreated = await axios.post("http://localhost:3001/users", newUser);
 
       return dispatch({
         type: GET_USER_BY_EMAIL,
@@ -83,13 +80,6 @@ export function createUser(user) {
     } catch (error) {
       console.log(error);
     }
-  };
-};
-
-export function userUpdated(newData) {
-  return async function (dispatch) {
-    let userUpdated = await axios.put(`${REACT_APP_BASE_URL}/users`, newData);
-    return userUpdated
   };
 };
 
@@ -102,4 +92,15 @@ export function getUserByEmail(payload) {
   //     console.log(error);
   //   }
   // };
-}
+};
+
+export function addToFavourites(payload) {
+  return async function (dispatch) {
+
+    return dispatch({
+      type: ADD_TO_FAVOURITES,
+      payload
+    })
+  };
+};
+

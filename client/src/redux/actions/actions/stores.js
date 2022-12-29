@@ -1,12 +1,10 @@
 import axios from "axios";
-import {GET_STORES, GET_STORES_BY_NAME, GET_STORE_BY_ID} from "../constantes";
-
-let {REACT_APP_BASE_URL} = process.env
+import {GET_STORES, GET_STORES_BY_NAME, GET_STORE_BY_ID, ADD_TO_STOREBAG, REMOVE_STOREBAG} from "../constantes";
 
 export function getStores(){
   return async function (dispatch){
     try {
-      let stores = await axios.get(`${REACT_APP_BASE_URL}/stores`, {});
+      let stores = await axios.get("http://localhost:3001/stores", {});
       return dispatch({
         type: GET_STORES,
         payload: stores.data
@@ -21,7 +19,7 @@ export function getStoresByName(name){
   // trae los que incluyan name, puede ser mas de 1
   return async function (dispatch){
     try {
-      let storesByName = await axios.get(`${REACT_APP_BASE_URL}/stores?name=${name}`, {});
+      let storesByName = await axios.get(`http://localhost:3001/stores?name=${name}`, {});
       return dispatch({
         type: GET_STORES_BY_NAME,
         payload: storesByName.data
@@ -35,7 +33,7 @@ export function getStoresByName(name){
 export function getStoreById(id){
   return async function (dispatch){
     try {
-      let storeById = await axios.get(`${REACT_APP_BASE_URL}/stores/${id}`, {});
+      let storeById = await axios.get(`http://localhost:3001/stores/${id}`, {});
       return dispatch({
         type: GET_STORE_BY_ID,
         payload: storeById.data
@@ -43,5 +41,23 @@ export function getStoreById(id){
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export function addToStoreBag(payload) {
+  return async function (dispatch) {
+    return dispatch({
+      type: ADD_TO_STOREBAG,
+      payload
+    });
+  };
+};
+
+export function removeStoreBag(id){
+  return async function(dispatch){
+    return dispatch({
+      type: REMOVE_STOREBAG,
+      id
+    });
   };
 };

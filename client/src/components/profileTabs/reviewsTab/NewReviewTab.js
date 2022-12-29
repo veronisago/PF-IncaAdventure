@@ -1,29 +1,24 @@
 import React from "react";
+import NewActivityReview from "./NewActivityReview";
+import NewProductReview from "./NewProductReview";
+import PurchaseReview from "./PurchaseReview";
 
 function NewReviewTab() {
 
   return (
-    <div>
-      <div class="col-md-5 border-right">
-        <div class="p-3 py-5">
-          <div class="row mt-2">
-            <div class="col-md-6"><label class="labels">Activity (que salgan las que compro y que pueda hacer la review pasada la fecha y hora de la actividad)</label><input type="text" class="form-control" /></div>
-            <div class="col-md-6"><label class="labels">Rating: 1-5 (checkbox)</label><input type="text" class="form-control" /></div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-12"><label class="labels">How was your experience? (Definitely never again., very bad, bad, regular, good, very good, Excelent!)</label><input type="text" class="form-control" /></div>
-            <div class="col-md-12"><label class="labels">Post comments below</label><input type="text" class="form-control" /></div>
-
-          </div>
-          <div class="row mt-3 ">
-            <div class="col-md-4"><label class="labels">?</label><input type="text" class="form-control" /></div>
-          </div>
-
-          <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Post review</button></div>
-
-        </div>
+   <div>
+     <nav class="nav nav-tabs" id="nav-tab" role="tablist">
+    
+        <a class="nav-link active" id="nav-activities-tab" data-bs-toggle="tab" href="#nav-activities" role="tab" aria-controls="nav-activities" aria-selected="true">Activity</a>
+        <a class="nav-link" id="nav-products-tab" data-bs-toggle="tab" href="#nav-products" role="tab" aria-controls="nav-products" aria-selected="false">Product</a>
+        <a class="nav-link payments" id="nav-payments-tab" data-bs-toggle="tab" href="#nav-payments" role="tab" aria-controls="nav-payments" tabindex="-1" aria-disabled="true">Purchase</a>
+      </nav>
+      <div class="tab-content mb-7" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-activities" role="tabpanel" aria-labelledby="nav-activities-tab"><NewActivityReview /></div>
+        <div class="tab-pane fade" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab"><NewProductReview /></div>
+        <div class="tab-pane fade" id="nav-payments" role="tabpanel" aria-labelledby="nav-payments-tab"><PurchaseReview /></div>
       </div>
-    </div>
+   </div>
   );
 };
 

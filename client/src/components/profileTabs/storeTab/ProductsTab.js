@@ -1,40 +1,48 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../../redux/actions/actions/products";
+import AddToStoreBagButton from "../../buttons/AddToStoreBagButton";
+import FavouriteButton from "../../buttons/FavouriteButton";
+
 
 export default function ProductsTab() {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-		dispatch(getProducts())
-	}, [dispatch]);
+    dispatch(getProducts())
+  }, [dispatch]);
 
-	const allProducts = useSelector(state => state.allProducts);
+  const allProducts = useSelector(state => state.allProducts);
   console.log(allProducts);
 
   return (
-    <div id="products" className="col-lg-10 px-lg-3 px-0">
-      <div class="row">
+
+
+    <div class="card">
+      <ul class="list-group list-group-flush">
         {
           allProducts.map(p => {
             return (
-              <div class="col-lg-3 col-sm-6 col-12 mb-3 ">
-                <div class="card cardShop">
-                  <img class="card-img-top cardShop-img-top mb-2" src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="card image cap" />
-                  <div class="card-body cardShop-body">
-                    <p class="card-text no-interaction capitalize fw-bold">{p.name}</p>
-                    <p className="no-interaction">${p.price}</p>
-                    <span class="fa fa-circle" id="red"></span>
-                    <span class="fa fa-circle" id="teal"></span>
-                    <span class="fa fa-circle" id="blue"></span>
-                  </div>
+
+              <li class="list-group-item">
+                <div>
+                  <FavouriteButton name={p.name} category={p.category} id={p.id} price={p.price} />
                 </div>
-              </div>
+                <div>
+                  {p.name}
+                </div>
+                <div>
+                  ${p.price}
+                </div>
+                <div>
+                  <AddToStoreBagButton name={p.name} category={p.category} id={p.id} price={p.price} />
+                </div>
+              </li>
             )
           })
         }
-      </div>
-     </div> 
+      </ul>
+    </div>
   );
 };
 

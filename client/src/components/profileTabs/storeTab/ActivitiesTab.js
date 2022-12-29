@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getActivities } from "../../../redux/actions/actions/activities";
+import AddToStoreBagButton from "../../buttons/AddToStoreBagButton";
+import FavouriteButton from "../../buttons/FavouriteButton";
 
 function ActivitiesTab() {
   const dispatch = useDispatch();
@@ -13,30 +15,28 @@ function ActivitiesTab() {
   console.log(allActivities);
 
   return (
-    <div className="col-lg-10 px-lg-3 px-0">
-      <div class="row text-center">
-        {
-          allActivities?.map(a => {
-            return (
-              <div class="col-lg-4 col-sm-6 mb-4">
-                <div className="card min-height-activity-card">
-                  <img
+    <div class="row text-center">
+      {
+        allActivities?.map(a => {
+          return (
+            <div class="col-lg-3 col-sm-6 col-12 mb-3">
+              <div className="card">
+                {/* <img
                     src="https://wallpaperaccess.com/full/1099438.jpg"
                     class="card-img-top"
                     alt="..."
-                  />
-                  <div class="card-body overflow-auto">
-                    <h5 class="card-title">{a.name}</h5>
-                    <span >
-                      {a.description}
-                    </span>
-                  </div>
+                  /> */}
+                <FavouriteButton name={a.name} category={a.category} id={a.id} price={a.price} />
+                <div class="card-body overflow-auto">
+                  <h5 class="card-title">{a.name}</h5>
+                  <p className="no-interaction">${a.price}</p>
                 </div>
+                <AddToStoreBagButton name={a.name} category={a.category} id={a.id} price={a.price} />
               </div>
-            )
-          })
-        }
-      </div>
+            </div>
+          )
+        })
+      }
     </div>
   );
 };
