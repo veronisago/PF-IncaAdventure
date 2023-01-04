@@ -1,29 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, getProductsByName, getProductsByOrder } from "../../redux/actions/actions/products"
+import { getProducts} from "../../redux/actions/actions/products"
 import { Paginate } from "../nav/Paginate";
 
+const initialState = {
+	name: '',
+	order: '',
+	orderBy: '',
+	min: null,
+	max: null,
+	page: 1,
+}
+
 const ShopPage = () => {
+	const allProducts = useSelector(state => state.allProducts);
+	const [filter, setFilter] = useState(initialState)
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getProducts())
-	}, [dispatch]);
-
-	const allProducts = useSelector(state => state.allProducts);
+		dispatch(getProducts(filter));
+	}, [filter, dispatch]);
 
 
-	function handleOrderInput(e) {
-		e.preventDefault();
-		dispatch(getProductsByOrder(e.target.value));
-
+	function handleChange(e) {
+		if (e.target.value == "A-Z") {
+			setFilter({ ...filter, order: "ASC", orderBy: "name" })
+		} else if (e.target.value == "Z-A") {
+			setFilter({ ...filter, order: "DESC", orderBy: "name" })
+		} else {
+			setFilter({ ...filter, [e.target.name]: e.target.value })
+		}
 	};
-
-	function handleFilterInput(e) {
-		e.preventDefault();
-		dispatch(getProductsByName(e.target.value));
-	}
-
 	return (
 		<div class="container-fluid bg-light px-0 mt-5">
 			<div class="container bg-white py-4 pl-7 pt-5">
@@ -98,7 +105,7 @@ const ShopPage = () => {
 										<h6 class="p-1 border-bottom fw-bold">Filter By</h6>
 
 										<div>
-											<input className='form-control' type="text" placeholerder="Search by word..." name="filter-by-name" onChange={handleFilterInput} ></input>
+											<input className='form-control' type="text" placeholerder="Search by word..." name="name" onChange={handleChange} ></input>
 										</div>
 
 										<ul class="list-group">
@@ -112,11 +119,11 @@ const ShopPage = () => {
 										{/* <h6 className="border-bottom">Cost</h6> */}
 										<form class="ml-md-2 ">
 											<div class="form-inline border rounded p-sm-2 my-2">
-												<input type="radio" name="type" value="A-Z" id="higher" onChange={handleOrderInput} />
+												<input type="radio" name="type" value="A-Z" id="higher" onChange={handleChange} />
 												<label for="higher" class="pl-1 pt-sm-0 pt-1">&nbsp;A-Z</label>
 											</div>
 											<div class="form-inline border rounded p-sm-2 my-2">
-												<input type="radio" name="type" value="Z-A" id="lower" onChange={handleOrderInput} />
+												<input type="radio" name="type" value="Z-A" id="lower" onChange={handleChange} />
 												<label for="lower" class="pl-1 pt-sm-0 pt-1">&nbsp;Z-A</label>
 											</div>
 										</form>
@@ -131,7 +138,7 @@ const ShopPage = () => {
 						<div id="products" className="col-lg-10 px-lg-3 px-0">
 							<div class="row">
 								{
-									allProducts.map(p => {
+									allProducts?.rows?.map(p => {
 										return (
 											<div class="col-lg-3 col-sm-6 col-12 mb-3 ">
 												<div class="card cardShop">
@@ -157,8 +164,8 @@ const ShopPage = () => {
 				<Paginate />
 			</div>
 			<footer class="container-fluid bg-dark text-center py-2">
-    <span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
-</footer>
+				<span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
+			</footer>
 		</div>
 	);
 };

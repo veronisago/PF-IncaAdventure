@@ -32,27 +32,31 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Activities, Products, Reviews, Stores, Users, Images } = sequelize.models;
+const { Activity, Product, Review, Store, User, Image } = sequelize.models;
 // ActivitiesRecord
 
 // Aca vendrian las relaciones
 
-Users.belongsToMany(Activities, { through: "user_activities" });
-Activities.belongsToMany(Users, { through: "user_activities" });
+// MANY-TO-MANY
+User.belongsToMany(Activity, { through: "user_activities" });
+Activity.belongsToMany(User, { through: "user_activities" });
+
+User.belongsToMany(Product, { through: "user_products" });
+Product.belongsToMany(User, { through: "user_products" });
 
 
-Users.hasOne(Stores);
-Users.hasMany(Reviews, {as: "Reviews", foreignKey: "user_reviews"});
-Users.hasMany(Images, {as: "Images", foreignKey: "user_reviews"});
+//ONE-TO-MANY
+User.hasMany(Review);
+Review.belongsTo(User)
 
-Activities.hasMany(Reviews, {as: "Reviews", foreignKey: "user_reviews"});
+Activity.hasMany(Review);
+Review.belongsTo(Activity)
 
+Product.hasMany(Review);
+Review.belongsTo(Product)
 
-Stores.hasMany(Products, {as: "Products", foreignKey: "user_reviews"});
-Stores.hasMany(Activities, {as: "Activities", foreignKey: "user_reviews"});
-
-Images.hasMany(Activities, {as: "Activities", foreignKey: "user_reviews"});
-Images.hasMany(Products, {as: "Products", foreignKey: "user_reviews"});
+Activity.hasMany(Image)
+Image.belongsTo(Activity)
 
 
 module.exports = {

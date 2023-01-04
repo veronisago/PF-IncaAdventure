@@ -1,13 +1,13 @@
 const { Router } = require("express");
 const router = Router();
-const { Stores } = require("../db");
+const { Store } = require("../db");
 
 // la store se crea junto con el usuario
 
 router.get("/", async (req, res) => {
   const name = req.query.name;
   const order = req.query.order;
-  const stores = await Stores.findAll();
+  const stores = await Store.findAll();
 
   if(name){
     try {
@@ -51,7 +51,7 @@ router.get("/:id", async (req, res) => {
   const id = req.params.id;
   if(id){
     try {
-      const store = await Stores.findByPk(id);
+      const store = await Store.findByPk(id);
       res.json(store);
     } catch (error) {
       console.log(error);
@@ -67,7 +67,7 @@ router.put("/:id", async (req, res) => {
 
   if(newData.disable) newData.is_active = false;
   try {
-    const storeModified = await Stores.update(newData, {where: {id}});
+    const storeModified = await Store.update(newData, {where: {id}});
     console.log(storeModified);
     res.json({msg: "Store updated"});
   } catch (error) {
@@ -79,14 +79,14 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
-  const storeToDelete = await Stores.findByPk(id);
+  const storeToDelete = await Store.findByPk(id);
   if(!storeToDelete) {
     res.status(404).json({msg: "That store do not exist brou"});
   } else if(storeToDelete.is_active){
     res.status(400).json({msg: "The store must be diactivated before delete"});
   } else {
     try {
-      await Stores.destroy({where: {id}});
+      await Store.destroy({where: {id}});
       res.json({msg: "The store has been delete successfully"});
     } catch (error) {
       console.log(error);

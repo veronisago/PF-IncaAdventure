@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
     // la columna image viene x relacion
-  sequelize.define('Products', {
+  sequelize.define('Product', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -33,14 +33,5 @@ module.exports = (sequelize) => {
     //     required: true
     //   }
     // },
-    disable: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      // de ser true pedir especificaciones
-    },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true
-    }
   });
 };

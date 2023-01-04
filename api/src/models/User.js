@@ -3,9 +3,8 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('Users', {
-    // ver UUID, UUIDV1, UUIDV4
-
+  sequelize.define('User', {
+  
     last_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,17 +19,13 @@ module.exports = (sequelize) => {
       unique: true
       // tiene chance de repetir, si repite ofrecer en validation username1 (generar un contador)
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     birth_date: {
       type: DataTypes.STRING, // usar DATEONLY
-      allowNull: false
+      allowNull: true
     },
     nationality: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     email: {
       // validar que contengan @ + "" + ".com"
@@ -49,10 +44,6 @@ module.exports = (sequelize) => {
     },
     language: {
       type: DataTypes.ENUM("spanish", "english") // de poder, automatizar el lenguaje de la pag segun el idioma que elija por preferencia
-    },
-    disable: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
     },
     is_active: {
       type: DataTypes.BOOLEAN,

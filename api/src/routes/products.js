@@ -1,5 +1,6 @@
 const { Router } = require("express");
-const { Products } = require("../db");
+const { Op } = require("sequelize");
+const { Product } = require("../db");
 const router = Router();
 
 router.get("/", async (req, res) => {
@@ -16,7 +17,7 @@ router.get("/", async (req, res) => {
     else if (min) conditions.price = { [Op.gt]: min }
     else if (max) conditions.price = { [Op.lt]: max }
 
-    const products = await Products.findAndCountAll({
+    const products = await Product.findAndCountAll({
       where: { ...conditions },
       order: [
         [orderBy || 'updatedAt', order || 'DESC']
@@ -28,6 +29,7 @@ router.get("/", async (req, res) => {
 
     res.status(200).json({ ...products, totalPages, page: page || 1 })
   } catch (error) {
+    console.log(error);
     res.status(500).send(error)
   }
 });
@@ -36,7 +38,7 @@ router.get("/:id", async (req, res) => {
   const id = req.params.id;
   if(id){
     try {
-      const product = await Products.findByPk(id);
+      const product = await Product.findByPk(id);
       res.json(product);
     } catch (error) {
       console.log(error);
@@ -47,7 +49,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   let { name, price, stock } = req.body;
   try {
-    const product = Products.create({name, price, stock});
+    const product = Product.create({name, price, stock});
     res.status(200).json(product);
   } catch (error) {
     res.status(404).send(error.message)
@@ -58,7 +60,7 @@ router.put("/", async (req, res) => {
   const newData = req.body;
   const id = newData.id
   try {
-    const productModified = await Products.update(newData, { where: { id } });
+    const productModified = await Product.update(newData, { where: { id } });
     res.json({ msg: "Product updated" });
   } catch (error) {
     console.log(error);
@@ -68,7 +70,7 @@ router.put("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
-  const productToDelete = await Products.findByPk(id);
+  const productToDelete = await Product.findByPk(id);
   if(!productToDelete) {
     res.status(404).json({msg: "That product do not exist brou"});
   } else if(productToDelete.is_active){
