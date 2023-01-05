@@ -11,6 +11,7 @@ const stores = require("./stores");
 const images = require("./images");
 const cloud = require("./cloud");
 const profile = require("./profile");
+const mercadoPago = require("./mercadoPago");
 
 
 
@@ -24,6 +25,7 @@ router.use("/stores", stores);
 router.use("/images", images);
 router.use("/cloud", cloud);
 router.use("/profile", profile);
+router.use("/mercadopago", mercadoPago);
 
 
 

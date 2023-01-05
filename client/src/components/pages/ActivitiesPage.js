@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getActivities, getActivitiesByName, getActivitiesByOrder } from "../../redux/actions/actions/activities.js";
 import { Paginate } from '../nav/Paginate.js'
-
+import { MercadoPago } from '../mercadoPago'
 
 function ActivitiesPage() {
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ function ActivitiesPage() {
           <div className="col-lg-10 px-lg-3 px-0">
             <div class="row text-center">
               {
-                allActivities?.map(a => {
+                allActivities.rows?.map(a => {
                   return (
                     <div class="col-lg-4 col-sm-6 mb-4">
                       <div className="card min-height-activity-card">
@@ -109,10 +109,13 @@ function ActivitiesPage() {
         <Paginate />
       </div>
       <footer class="container-fluid bg-dark text-center py-2">
-    <span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
-</footer>
+        <span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
+      </footer>
+      <div>
+        <button onClick={MercadoPago}>Pagar con Mercado Pago</button>
+      </div>
     </div>
-    
+
   );
 }
 

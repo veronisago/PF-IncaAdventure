@@ -1,4 +1,4 @@
-const { jsPDF }  = require("jspdf");
+const { jsPDF } = require("jspdf");
 require("jspdf-autotable");
 const format = require("date-fns");
 const nodemailer = require("nodemailer");
@@ -16,30 +16,38 @@ var transporter = nodemailer.createTransport({ // variable global para poder usa
 // generar pdf del vaucher y luego enviarlo por correo 
 // services/reportGenerator.js
 
-// define a generatePDF function that accepts a tickets argument
-async function generatePDF(tickets, email, username) {
-    // initialize jsPDF
+
+async function generatePDF(products, email, username, id, dateCreated, status, userId, paymentMethod) {
     const doc = jsPDF();
-    // define the columns we want and their titles
-    const tableColumn = ["Id", "Title", "Issue", "Status"];
-    // define an empty array of rows
+    const tableColumn = ["Title", "Price", "Units"];
     const tableRows = [];
-    // for each ticket pass all its data into an array
-    tickets.forEach(e => { // [{id = 1, title = a, request = a, status = s}, {}, {}]
-        const ticketData = [ // [1, a, a, s]
-            e.id,
+    products.forEach(e => { // [{id = 1, title = a, request = a, status = s}, {}, {}]
+        const productData = [ // [1, a, a, s]
             e.title,
-            e.request,
-            e.status,
+            e.unit_price,
+            e.quantity
         ];
-        // push each tickcet's info into a row
-        tableRows.push(ticketData);
+        /*
+ "id": 20359978,
+  "date_created":
+  payer.identification.number:userId
+  payment_method_id : paymentMethod
+  status
+  additional_info.items :products
+*/
+
+        tableRows.push(productData);
     });
-    // startY is basically margin-top
-    doc.autoTable(tableColumn, tableRows, { startY: 20 });
-    // ticket title. and margin-top + margin-left
-    doc.text("Este es tu voucher.", 14, 15);
-   
+    doc.text("Este es tu voucher de compra.", 14, 15);
+    doc.text(14, 20, 'ID:  ' + id);
+    doc.text(14, 25, 'date_created:  ' + dateCreated);
+    doc.text(14, 30, 'status:  ' + status);
+    doc.text(14, 35, 'user_id:  ' + userId);
+    doc.text(14, 40, 'payment_method:  ' + paymentMethod);
+    doc.autoTable(tableColumn, tableRows, { startY: 50 });
+
+
+
 
     var mailOptions = {
         from: "Inca Adventure <acostavalentina7@gmail.com>",
