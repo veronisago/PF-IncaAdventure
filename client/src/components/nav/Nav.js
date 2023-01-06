@@ -50,21 +50,13 @@ function Nav() {
                   Cart
                 </Link>
               </li>
-              <li className="nav-item btn">
+
+            </ul>
+            <div className="d-flex col-ms-8" role="search">
+            <li className="nav-item btn">
                 <Login />
               </li>
-            </ul>
-            <form className="d-flex col-ms-8" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+            </div>
             <div className="nav-item d-flex justify-content-center mx-2">
               <Traslate />
             </div>
