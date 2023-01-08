@@ -9,13 +9,13 @@ const product = [
     {
         title: "Mate harry",
         quantity: 1,
-        price: 2500,
+        price: 10,
         currency_id: "USD"
     },
     {
         title: "llavero messi",
         quantity: 2,
-        price: 500,
+        price: 10,
         currency_id: "USD"
     },
 ]
