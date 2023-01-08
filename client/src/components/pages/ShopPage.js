@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts} from "../../redux/actions/actions/products"
+import { getProducts } from "../../redux/actions/actions/products"
 import { Paginate } from "../nav/Paginate";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { addToCart } from "../../redux/actions/actions/stores.js";
 
 const initialState = {
 	name: '',
@@ -31,60 +33,16 @@ const ShopPage = () => {
 			setFilter({ ...filter, [e.target.name]: e.target.value })
 		}
 	};
+
+	function handleCart(e) {
+		dispatch(addToCart({ ...e, category: 'product', quantity: 1 }))
+	}
+
 	return (
 		<div class="container-fluid bg-light px-0 mt-5">
 			<div class="container bg-white py-4 pl-7 pt-5">
 				<div className="container-fluid px-sm-3 pt-2 px-4">
 					<div className="row">
-
-						{/* <div class="filter">
-							<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#mobile-filter" aria-expanded="false" aria-controls="mobile-filter">Filters<span class="fa fa-filter pl-1"></span></button>
-						</div>
-
-						<div id="mobile-filter">
-							<div>
-								<h6 class="p-1 border-bottom"><b>Supplies </b></h6>
-								<ul>
-									<li><a href="#">Mountain</a></li>
-									<li><a href="#">Rafting</a></li>
-									<li><a href="#">Trekking</a></li>
-									<li><a href="#">Exploring</a></li>
-									<li><a href="#">Fishing</a></li>
-								</ul>
-							</div>
-							<div>
-								<h6 class="p-1 border-bottom">Filter By</h6>
-								<ul class="list-group">
-									<li class="list-group-item list-group-item-action mb-2 rounded"><a href="#">
-										<span class="fa fa-circle pr-1" id="men"></span>Men
-									</a></li>
-									<li class="list-group-item list-group-item-action mb-2 rounded"><a href="#">
-										<span class="fa fa-circle pr-1" id="women"></span>Women
-									</a></li>
-									<li class="list-group-item list-group-item-action mb-2 rounded"><a href="#">
-										<span class="fa fa-circle pr-1" id="children"></span>Children
-									</a></li>
-								</ul>
-							</div>
-							<div>
-								<h6>Cost</h6>
-								<form class="ml-md-2">
-									<div class="form-inline border rounded p-sm-2 my-2">
-										<input type="radio" name="type" id="higher" />
-										<label for="higher" class="pl-1 pt-sm-0 pt-1">Higher</label>
-									</div>
-									<div class="form-inline border rounded p-sm-2 my-2">
-										<input type="radio" name="type" id="lower" />
-										<label for="lower" class="pl-1 pt-sm-0 pt-1">Lower</label>
-									</div>
-									<div class="form-inline border rounded p-md-2 p-sm-1">
-										<input type="radio" name="type" id="sales" />
-										<label for="sales" class="pl-1 pt-sm-0 pt-1">Sales</label>
-									</div>
-								</form>
-							</div>
-						</div> */}
-
 						<div id="sidebar" className="col-lg-2 col-12 d-flex flex-column border max-height-sidebar py-2 text-center rounded mb-4">
 							<h2 className="text-center mb-4 text-info fw-bold">SHOP</h2>
 							<div className="row">
@@ -105,7 +63,7 @@ const ShopPage = () => {
 										<h6 class="p-1 border-bottom fw-bold">Filter By</h6>
 
 										<div>
-											<input className='form-control' type="text" placeholerder="Search by word..." name="name" onChange={handleChange} ></input>
+											<input className='form-control' type="text" placeholder="Search by word..." name="name" onChange={handleChange} ></input>
 										</div>
 
 										<ul class="list-group">
@@ -146,9 +104,7 @@ const ShopPage = () => {
 													<div class="card-body cardShop-body">
 														<p class="card-text no-interaction capitalize fw-bold">{p.name}</p>
 														<p className="no-interaction">${p.price}</p>
-														<span class="fa fa-circle" id="red"></span>
-														<span class="fa fa-circle" id="teal"></span>
-														<span class="fa fa-circle" id="blue"></span>
+														<button className="btn btn-primary" onClick={() => handleCart(p)}><AddShoppingCartIcon /></button>
 													</div>
 												</div>
 											</div>

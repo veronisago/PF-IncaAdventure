@@ -3,16 +3,17 @@ const router = Router();
 const { Op } = require("sequelize");
 const { User, Store } = require("../db");
 const nodemailer = require("nodemailer");
+const { defaults } = require("pg");
 
 router.get("/", async (req, res) => {
 
   try {
-    const { username, order, orderBy, email, id, page } = req.query;
+    const { first_name, order, orderBy, email, id, page } = req.query;
     const perPage = 6
     const offset = (page - 1) * perPage
 
     const conditions = {}
-    if (username) (conditions.username = { [Op.like]: `${username}%` });
+    if (first_name) (conditions.first_name = { [Op.like]: `${first_name}%` });
     if (email) (conditions.email = { [Op.like]: `${email}%` });
     if (id) (conditions.id = { [Op.eq]: id });
 
@@ -35,33 +36,39 @@ router.get("/", async (req, res) => {
 
 
 router.post("/", async (req, res) => {
-  const { last_name, first_name, username, password, birth_date, nationality, email, id_number } = req.body;
+  const { last_name, first_name, email } = req.body;
 
   try {
-    const user = await User.findOrCreate({ where: { last_name, first_name, username, password, birth_date, nationality, email, id_number } });
+    const user = await User.findOrCreate({ where: { email }, defaults: {last_name, first_name} });
+
+    if (user[0].first_name && user[0].last_name  ) {
+      user[0].is_active = true
+      await user[0].save();
+    }
+
     console.log(user)
 
-        // const transporter = nodemailer.createTransport({
-        //   host: 'smtp.ethereal.email',
-        //   port: 587,
-        //   auth: {
-        //     user: 'eleanore.schiller92@ethereal.email',
-        //     pass: 'mjRNSb2BKtVxhkmMcy'
-        //   }
-        // });
-        // var mailOptions = {
-        //   from: "IncaAdventure",
-        //   to: `${email}`,
-        //   subject: "Bienvenida",
-        //   text: "Bienvenido a una nueva experiencia"
-        // }
+    // const transporter = nodemailer.createTransport({
+    //   host: 'smtp.ethereal.email',
+    //   port: 587,
+    //   auth: {
+    //     user: 'eleanore.schiller92@ethereal.email',
+    //     pass: 'mjRNSb2BKtVxhkmMcy'
+    //   }
+    // });
+    // var mailOptions = {
+    //   from: "IncaAdventure",
+    //   to: `${email}`,
+    //   subject: "Bienvenida",
+    //   text: "Bienvenido a una nueva experiencia"
+    // }
 
-        // let info = await transporter.sendMail(mailOptions,);
-        // console.log("Message sent: %s", info.messageId);
-        // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        // console.log("Email sent!");
+    // let info = await transporter.sendMail(mailOptions,);
+    // console.log("Message sent: %s", info.messageId);
+    // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // console.log("Email sent!");
 
-      return res.status(200).json(user);
+    return res.status(200).json(user);
 
   } catch (error) {
     console.log(error);
@@ -73,6 +80,7 @@ router.put("/", async (req, res) => {
   const newData = req.body;
   const id = newData.id
   try {
+    if (newData.first_name && newData.last_name) newData.is_active = true
     const userModified = await User.update(newData, { where: { id } });
     res.json({ msg: "User updated" });
   } catch (error) {

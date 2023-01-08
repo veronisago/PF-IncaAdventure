@@ -6,7 +6,6 @@ module.exports = (sequelize) => {
     // la columna image viene x relacion
     name: {
       type: DataTypes.STRING,
-      // unique: true,
       allowNull: false,
     },
     available: {
@@ -38,6 +37,10 @@ module.exports = (sequelize) => {
     },
     difficulty_level: {
       type: DataTypes.ENUM("kids", "beginners", "advanced", "expert"),
+      allowNull: false
+    },
+     type: {
+      type: DataTypes.ENUM("mountain", "rafting", "trekking", "exploring"),
       allowNull: false
     }
   });

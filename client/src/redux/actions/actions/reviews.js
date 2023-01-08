@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GET_REVIEWS, GET_REVIEWS_BY_RATING, GET_REVIEWS_BY_WORD, GET_REVIEWS_BY_ID} from "../constantes";
+import {GET_REVIEWS, POST_ACTIVITY_REVIEW, POST_PRODUCT_REVIEW} from "../constantes";
 
 let {REACT_APP_BASE_URL} = process.env
 
@@ -18,46 +18,31 @@ export function getReviews(){
   };
 };
 
-export function getReviewsByRating(name){
-  // trae los que incluyan name, puede ser mas de 1
+export function createProductReview(review){
   return async function (dispatch){
     try {
-      let reviewsByName = await axios.get(`${REACT_APP_BASE_URL}/reviews?name=${name}`, {});
+      let reviews = await axios.post(`${REACT_APP_BASE_URL}/reviews/product`, review);
       return dispatch({
-        type: GET_REVIEWS_BY_RATING,
-        payload: reviewsByName.data
-      })
+        type: POST_PRODUCT_REVIEW,
+        payload: reviews.data
+      });
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export function getReviewsByWord(word){
-  // trae los que incluyan name, puede ser mas de 1
+export function createActivityReview(review){
   return async function (dispatch){
     try {
-      let reviewsByWord = await axios.get(`${REACT_APP_BASE_URL}/reviews?word=${word}`, {});
+      let reviews = await axios.post(`${REACT_APP_BASE_URL}/reviews/activity`, review);
       return dispatch({
-        type: GET_REVIEWS_BY_WORD,
-        payload: reviewsByWord.data
-      })
+        type: POST_ACTIVITY_REVIEW,
+        payload: reviews.data
+      });
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export function getReviewsById(id){
-  return async function (dispatch){
-    try {
-      let reviewsById = await axios.get(`${REACT_APP_BASE_URL}/reviews/${id}`, {});
-      return dispatch({
-        type: GET_REVIEWS_BY_ID,
-        payload: reviewsById.data
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};

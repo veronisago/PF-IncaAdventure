@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_USERS, GET_USERS_BY_NAME, GET_USER_BY_ID, GET_USER_BY_USERNAME, GET_USER_BY_EMAIL } from "../constantes";
+import { GET_USERS, POST_USER, GET_SERVICES } from "../constantes";
 const {
   REACT_APP_BASE_URL
 } = process.env;
@@ -18,66 +18,17 @@ export function getUsers(params) {
   };
 };
 
-export function getUsersByName(name) {
-  // trae los que incluyan name, puede ser mas de 1
-  return async function (dispatch) {
-    try {
-      let usersByName = await axios.get(`${REACT_APP_BASE_URL}/users?name=${name}`, {});
-      return dispatch({
-        type: GET_USERS_BY_NAME,
-        payload: usersByName.data
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export function getUserById(id) {
-  return async function (dispatch) {
-    try {
-      let userById = await axios.get(`${REACT_APP_BASE_URL}/users/${id}`, {});
-      return dispatch({
-        type: GET_USER_BY_ID,
-        payload: userById.data
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export function getUserByUsername(username) {
-  return async function (dispatch) {
-    try {
-      let userByUsername = await axios.get(`${REACT_APP_BASE_URL}/profile/${username}`, {});
-      return dispatch({
-        type: GET_USER_BY_USERNAME,
-        payload: userByUsername.data
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
 export function createUser(user) {
   return async function (dispatch) {
     try {
       let newUser = {
-        last_name: user.family_name || "Doe",
-        first_name: user.given_name || "John",
-        username: user.nickname || `${user.given_name.charAt(0).toLowerCase()}${user.family_name.toLowerCase()}`,
-        password: "1234",
+        last_name: user.family_name || "",
+        first_name: user.given_name || "",
         email: user.email,
-        birth_date: "pendiente",
-        nationality: "pendiente",
-        id_number: 1234
       };
       const userCreated = await axios.post(`${REACT_APP_BASE_URL}/users`, newUser);
-
       return dispatch({
-        type: GET_USER_BY_EMAIL,
+        type: POST_USER,
         payload: userCreated.data[0]
       });
     } catch (error) {
@@ -93,13 +44,14 @@ export function userUpdated(newData) {
   };
 };
 
+export function getServices(id) {
+  return async function (dispatch) {
+    let services = await axios.get(`${REACT_APP_BASE_URL}/profile/services?idUser=${id}`);
+    return dispatch({
+      type: GET_SERVICES,
+      payload: services.data
+    })
+  };
+};
 
-export function getUserByEmail(payload) {
-  // return async function (dispatch) {
-  //   try {
-  //     return userCreated;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-}
+

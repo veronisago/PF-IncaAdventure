@@ -49,7 +49,7 @@ Product.belongsToMany(User, { through: "user_products" });
 User.hasMany(Review);
 Review.belongsTo(User)
 
-Activity.hasMany(Review);
+Activity.hasMany(Review, {as:'activity_rating'});
 Review.belongsTo(Activity)
 
 Product.hasMany(Review);

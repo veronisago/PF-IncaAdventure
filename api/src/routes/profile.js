@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User, Activity, Product } = require("../db");
+const { User, Activity, Product, Review} = require("../db");
 // const { requiresAuth } = require('express-openid-connect');
 const router = Router();
 
@@ -23,16 +23,28 @@ const router = Router();
 
 // }
 
-router.get("/activities", async (req, res) => {
+router.get("/services", async (req, res) => {
   try {
     const { idUser } = req.query;
 
     const user = await User.findOne({ where: { id: idUser } })
 
-    const userActivties = await user.getActivities();
-    const userProducts = await user.getProducts();
+    const userActivities = await user.getActivities({
+      include: [{
+        model: Review,
+        as: 'activity_rating',
+        attributes: ["rating"]
+      }]
+    });
 
-    res.json({userActivties, userProducts})
+    const userProducts = await user.getProducts({
+      include: [{
+        model: Review,
+        attributes: ["rating"]
+      }]
+    });
+
+    res.json({userActivities, userProducts})
   } catch (error) {
     console.log(error)
     res.status(404).json(error);

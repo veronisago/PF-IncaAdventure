@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getActivities } from "../../redux/actions/actions/activities.js";
 import { Paginate } from '../nav/Paginate.js'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { addToCart } from "../../redux/actions/actions/stores.js";
 
 const initialState = {
   name: '',
@@ -9,6 +11,7 @@ const initialState = {
   orderBy: '',
   min: null,
   max: null,
+  type: '',
   page: 1,
 }
 
@@ -23,14 +26,20 @@ function ActivitiesPage() {
 
 
   function handleChange(e) {
+    console.log(e)
     if (e.target.value == "A-Z") {
       setFilter({ ...filter, order: "ASC", orderBy: "name" })
     } else if (e.target.value == "Z-A") {
       setFilter({ ...filter, order: "DESC", orderBy: "name" })
     } else {
+      console.log('entro')
       setFilter({ ...filter, [e.target.name]: e.target.value })
     }
   };
+
+  function handleCart(e) {
+    dispatch(addToCart({...e, category: 'activity', quantity: 1}))
+  }
 
 
   return (
@@ -38,22 +47,21 @@ function ActivitiesPage() {
       <div class="container bg-white py-4 pl-7">
         <div class="row text-center">
           <h2 class="h1">
-            In search of adventures? FIND IT <span class="text-success">WHIT US</span>
+            In search of adventures? FIND IT <span class="text-success">WITH US</span>
           </h2>
         </div>
         <div className="row mt-lg-5 mt-4 justify-content-lg-start justify-content-center px-3">
-          <div id="sidebar" className="col-lg-2 col-12 d-flex flex-column border max-height-sidebar py-2 text-center rounded mb-4">
+          <div id="sidebar" className="col-lg-2 col-12 d-flex flex-column border py-2 text-center rounded mb-4">
             <h2 className="text-center mb-4 text-info fw-bold">Order by</h2>
             <div className="row">
 
               <div className="col-lg-12 col-sm-6 col-12">
                 <h6 class="p-1 border-bottom fw-bold">Type</h6>
                 <ul>
-                  <li><a href="#">Mountain</a></li>
-                  <li><a href="#">Rafting</a></li>
-                  <li><a href="#">Trekking</a></li>
-                  <li><a href="#">Exploring</a></li>
-                  <li><a href="#">Fishing</a></li>
+                  <li><a name='type' value='mountain' onClick={handleChange}>Mountain</a></li>
+                  <li><button name='type' value='rafting' onClick={handleChange}>Rafting</button></li>
+                  <li><button name='type' value='trekking' onClick={handleChange}>Trekking</button></li>
+                  <li><button name='type' value='exploring' onClick={handleChange}>Exploring</button></li>
                 </ul>
               </div>
 
@@ -62,7 +70,7 @@ function ActivitiesPage() {
                   <h6 class="p-1 border-bottom fw-bold">Filter by name</h6>
 
                   <div>
-                    <input className='form-control' type="text" placeholerder="Search by word..." name="name" onChange={handleChange} ></input>
+                    <input className='form-control' type="text" placeholder="Search by word..." name="name" onChange={handleChange} ></input>
                   </div>
 
                   <ul class="list-group">
@@ -78,6 +86,10 @@ function ActivitiesPage() {
                     <div class="form-inline border rounded p-sm-2 my-2">
                       <input type="radio" name="type" value="A-Z" id="higher" onChange={handleChange} />
                       <label for="higher" class="pl-1 pt-sm-0 pt-1">&nbsp;A-Z</label>
+                    </div>
+                    <div class="form-inline border rounded p-sm-2 my-2">
+                      <input type="radio" name="type" value="Z-A" id="lower" onChange={handleChange} />
+                      <label for="lower" class="pl-1 pt-sm-0 pt-1">&nbsp;Z-A</label>
                     </div>
                     <div class="form-inline border rounded p-sm-2 my-2">
                       <input type="radio" name="type" value="Z-A" id="lower" onChange={handleChange} />
@@ -106,6 +118,7 @@ function ActivitiesPage() {
                           <span >
                             {a.description}
                           </span>
+                          <button className="btn btn-primary" onClick={()=>handleCart(a)}><AddShoppingCartIcon/></button>
                         </div>
                       </div>
                     </div>

@@ -15,6 +15,7 @@ export default function CreateActivities({ handleClose, data }) {
         description: data.description || "",
         allowed_age: data.allowed_age || "",
         difficulty_level: data.difficulty_level || "",
+        type: data.type || "",
     })
 
     const handleChange = (e) => {
@@ -30,7 +31,7 @@ export default function CreateActivities({ handleClose, data }) {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (data.id) {
-            dispatch(activityUpdated({...create, id: data.id}))
+            dispatch(activityUpdated({ ...create, id: data.id }))
             alert('Activity updated!')
         } else {
             dispatch(postActivities(create))
@@ -46,6 +47,7 @@ export default function CreateActivities({ handleClose, data }) {
             description: "",
             allowed_age: "",
             difficulty_level: "",
+            type: "",
         })
         dispatch(getActivities());
         handleClose()
@@ -84,7 +86,7 @@ export default function CreateActivities({ handleClose, data }) {
                                 <textarea name='schedule' value={create.schedule}
                                     required onChange={handleChange} class="form-control" rows="3"></textarea>
                             </div>
-                            <div className='col-4'>
+                            <div className='col-3'>
                                 <label class="labels">Allowed age</label>
                                 <select name="allowed_age" onChange={handleChange} value={create.allowed_age} class="form-select" aria-label="Default select example">
                                     <option selected>select a valid option</option>
@@ -94,7 +96,7 @@ export default function CreateActivities({ handleClose, data }) {
                                     <option value="over 18 years old">over 18 years old</option>
                                 </select>
                             </div>
-                            <div className='col-4'>
+                            <div className='col-3'>
                                 <label class="labels">Difficulty level</label>
                                 <select name='difficulty_level' onChange={handleChange} value={create.difficulty_level} class="form-select" aria-label="Default select example">
                                     <option selected>select a valid option</option>
@@ -102,6 +104,16 @@ export default function CreateActivities({ handleClose, data }) {
                                     <option value="beginners">beginners</option>
                                     <option value="advanced">advanced</option>
                                     <option value="expert">expert</option>
+                                </select>
+                            </div>
+                            <div className='col-3'>
+                                <label class="labels">Type</label>
+                                <select name='type' onChange={handleChange} value={create.type} class="form-select" aria-label="Default select example">
+                                    <option selected>select a valid option</option>
+                                    <option value="mountain">mountain</option>
+                                    <option value="rafting">rafting</option>
+                                    <option value="trekking">trekking</option>
+                                    <option value="exploring">exploring</option>
                                 </select>
                             </div>
                         </div>
@@ -116,17 +128,17 @@ export default function CreateActivities({ handleClose, data }) {
                                 <input type="number" className="form-control" id="end" name="end_at"
                                     value={create.end_at} min={0} max={24} onChange={handleChange} />
                             </div>
-                            { 
-                                    data.id && (
-                                        <div className="col-4">
-                                            <label className='labels'>Available</label>
-                                            <select name="available" onChange={handleChange} value={create.available} class="form-select"
-                                                aria-label="Default select example">
-                                                <option value={true}>Yes</option>
-                                                <option value={false}>No</option>
-                                            </select>
-                                        </div>
-                                    )}
+                            {
+                                data.id && (
+                                    <div className="col-4">
+                                        <label className='labels'>Available</label>
+                                        <select name="available" onChange={handleChange} value={create.available} class="form-select"
+                                            aria-label="Default select example">
+                                            <option value={true}>Yes</option>
+                                            <option value={false}>No</option>
+                                        </select>
+                                    </div>
+                                )}
                         </div>
                         <button className="btn border mt-3 btn-primary" type="submit">{data.id ? 'Update' : 'Create'}</button>
                     </form>

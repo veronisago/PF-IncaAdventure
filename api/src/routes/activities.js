@@ -5,13 +5,14 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const { name, order, orderBy, min, max, page } = req.query;
+    const { name, order, orderBy, min, max, type, page } = req.query;
 
     const perPage = 6
     const offset = (page - 1) * perPage
 
     const conditions = {}
     if (name) (conditions.name = { [Op.like]: `%${name}%` });
+    if (type) (conditions.type = type);
 
     if (min && max) conditions.price = { [Op.between]: [min, max] }
     else if (min) conditions.price = { [Op.gt]: min }
@@ -46,13 +47,14 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, schedule, price, start_at, end_at, description, allowed_age, difficulty_level } = req.body;
+  const { name, schedule, price, start_at, end_at, description, allowed_age, difficulty_level, type } = req.body;
 
   try {
-    const activity = await Activity.create({ name, schedule, start_at, end_at, price, description, allowed_age, difficulty_level });
+    const activity = await Activity.create({ name, schedule, start_at, end_at, price, description, allowed_age, difficulty_level, type });
     res.status(200).json(activity);
 
   } catch (error) {
+    console.log(error)
     res.status(404).send(error.message);
   }
 });

@@ -68,21 +68,5 @@ router.put("/", async (req, res) => {
 
 });
 
-router.delete("/:id", async (req, res) => {
-  const id = req.params.id;
-  const productToDelete = await Product.findByPk(id);
-  if(!productToDelete) {
-    res.status(404).json({msg: "That product do not exist brou"});
-  } else if(productToDelete.is_active){
-    res.status(400).json({msg: "The product must be diactivated before delete"});
-  } else {
-    try {
-      await Products.destroy({where: {id}});
-      res.json({msg: "The product has been delete successfully"});
-    } catch (error) {
-      console.log(error);
-    }
-  };
-});
 
 module.exports = router;

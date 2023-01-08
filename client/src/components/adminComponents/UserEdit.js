@@ -9,7 +9,9 @@ export default function UserEdit({ handleClose, data }) {
     const [edit, setEdit] = useState({
         last_name: data.last_name,
         first_name: data.first_name,
-        username: data.username,
+        nationality: data.nationality,
+        language: data.language,
+        mobile_number: data.mobile_number,
         email: data.email,
         birth_date: data.birth_date,
         is_active: data.is_active,
@@ -27,7 +29,7 @@ export default function UserEdit({ handleClose, data }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(userUpdated({...edit, id: data.id}))
+        dispatch(userUpdated({ ...edit, id: data.id }))
         alert('user successfully updated!')
         dispatch(getUsers());
         handleClose()
@@ -54,10 +56,22 @@ export default function UserEdit({ handleClose, data }) {
                             </div>
                         </div>
                         <div className='row mt-4'>
-                            <div className='col-12'>
-                                <label className='labels'>Username</label>
-                                <input name='username' value={edit.username}
-                                    required onChange={handleChange} class="form-control" rows="3"></input>
+                            <div className='col-4'>
+                                <label className='labels'>Nationality</label>
+                                <input name='nationality' value={edit.nationality}
+                                    onChange={handleChange} class="form-control" rows="3"></input>
+                            </div>
+                            <div className='col-4'>
+                                <label className='labels'>language</label>
+                                <select name='language' value={edit.language} onChange={handleChange} class="form-select" aria-label="Default select example">
+                                    <option value='spanish'>Spanish</option>
+                                    <option value='english'>English</option>
+                                </select>
+                            </div>
+                            <div className='col-4'>
+                                <label className='labels'>Mobile Number</label>
+                                <input name='mobile_number' value={edit.mobile_number}
+                                    onChange={handleChange} class="form-control" rows="3"></input>
                             </div>
                         </div>
                         <div className='row mt-4'>
@@ -69,7 +83,7 @@ export default function UserEdit({ handleClose, data }) {
                             <div className='col-4'>
                                 <label class="labels">Birth date</label>
                                 <input name='birth_date' value={edit.birth_date}
-                                    required onChange={handleChange} class="form-control" rows="3"></input>
+                                    onChange={handleChange} class="form-control" rows="3"></input>
                             </div>
                             <div className='col-4'>
                                 <label class="labels">Active</label>

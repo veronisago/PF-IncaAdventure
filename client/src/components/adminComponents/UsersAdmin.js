@@ -10,7 +10,7 @@ import UserEdit from "./UserEdit";
 
 const initialState = {
     email: '',
-    username: '',
+    first_name: '',
     order: '',
     orderBy: '',
     page: 1,
@@ -35,7 +35,7 @@ export default function UsersAdmin() {
     const [open, setOpen] = useState(false);
     const [filterSelect, setFilterSelect] = useState({
         type: 'text',
-        name: 'username',
+        name: 'first_name',
     })
     const [data, setData] = useState({})
 
@@ -67,7 +67,7 @@ export default function UsersAdmin() {
     const handleFilter = (event) => {
         const { value } = event.target
 
-        if (['username', 'email'].includes(value)) {
+        if (['first_name', 'email'].includes(value)) {
             setFilterSelect({ type: 'text', name: value, })
         } else if ('id' == value) {
             setFilterSelect({ type: 'number', name: value, })
@@ -85,8 +85,8 @@ export default function UsersAdmin() {
                 <div className="col-3 d-flex flex-column align-items-start">
                     <span className="fw-semibold">Sort by</span>
                     <select name="sorting" onChange={handleChange} className="form-select " aria-label="Default select example">
-                        <option value="username-ASC">Alphabetical, A-Z </option>
-                        <option value="username-DESC">Alphabetical, Z-A </option>
+                        <option value="first_name-ASC">Alphabetical, A-Z </option>
+                        <option value="first_name-DESC">Alphabetical, Z-A </option>
                     </select>
                 </div>
                 <div className="col-7 d-flex flex-column align-items-start">
@@ -94,7 +94,7 @@ export default function UsersAdmin() {
                     <div className="input-group">
                         <select onChange={handleFilter} className={`form-select ${styles.filterSelect}`}>
                             <option value="email">Email</option>
-                            <option value="username">Username</option>
+                            <option value="first_name">First Name</option>
                             <option value="id">id</option>
                         </select>
                         <input type={filterSelect.type} class={`form-control ${styles.filterInput}`} name={filterSelect.name}
@@ -121,7 +121,8 @@ export default function UsersAdmin() {
                         <TableHead>
                             <TableRow className="bg-light1">
                                 <TableCell className="fw-semibold">id</TableCell>
-                                <TableCell className="fw-semibold">Username</TableCell>
+                                <TableCell className="fw-semibold">first Name</TableCell>
+                                <TableCell className="fw-semibold">last Name</TableCell>
                                 <TableCell className="fw-semibold">Email</TableCell>
                                 <TableCell className="fw-semibold">Active</TableCell>
                                 <TableCell className="fw-semibold">Actions</TableCell>
@@ -134,7 +135,8 @@ export default function UsersAdmin() {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell size="small">{row.id}</TableCell>
-                                    <TableCell>{row.username}</TableCell>
+                                    <TableCell>{row.first_name}</TableCell>
+                                    <TableCell>{row.last_name}</TableCell>
                                     <TableCell >{row.email}</TableCell>
                                     <TableCell >{row.is_active ? "yes" : "no"}</TableCell>
                                     <TableCell ><button onClick={() => handleOpen(row)} className='btn btn-primary'>Edit</button></TableCell>
