@@ -51,7 +51,7 @@ export const UserActivities = ({ activities }) => {
                                         class="card-img-top"
                                         alt="..."
                                     />
-                                    <div class="card-body overflow-auto w-100">
+                                    <div class="card-body  w-100">
                                         <h5 class="card-title text-start">{a.name}</h5>
                                         <div className='d-flex align-items-center justify-content-between'>
                                             <b className='fs-5 d-flex align-items-center gap-1'>

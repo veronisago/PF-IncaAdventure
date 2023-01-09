@@ -34,37 +34,17 @@ router.get("/", async (req, res) => {
 
 
 router.post("/", async (req, res) => {
-  const { last_name, first_name, email } = req.body;
+  const { last_name, first_name, email, identification } = req.body;
 
   try {
-    const user = await User.findOrCreate({ where: { email }, defaults: {last_name, first_name} });
+    const user = await User.findOrCreate({ where: { email }, defaults: {last_name, first_name, identification} });
 
-    if (user[0].first_name && user[0].last_name  ) {
+    if (user[0].first_name && user[0].last_name && user[0].identification ) {
       user[0].is_active = true
       await user[0].save();
     }
 
     console.log(user)
-
-    // const transporter = nodemailer.createTransport({
-    //   host: 'smtp.ethereal.email',
-    //   port: 587,
-    //   auth: {
-    //     user: 'eleanore.schiller92@ethereal.email',
-    //     pass: 'mjRNSb2BKtVxhkmMcy'
-    //   }
-    // });
-    // var mailOptions = {
-    //   from: "IncaAdventure",
-    //   to: `${email}`,
-    //   subject: "Bienvenida",
-    //   text: "Bienvenido a una nueva experiencia"
-    // }
-
-    // let info = await transporter.sendMail(mailOptions,);
-    // console.log("Message sent: %s", info.messageId);
-    // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    // console.log("Email sent!");
 
     return res.status(200).json(user);
 
@@ -78,7 +58,7 @@ router.put("/", async (req, res) => {
   const newData = req.body;
   const id = newData.id
   try {
-    if (newData.first_name && newData.last_name) newData.is_active = true
+    if (newData.first_name && newData.last_name && newData.identification) newData.is_active = true
     const userModified = await User.update(newData, { where: { id } });
     res.json({ msg: "User updated" });
   } catch (error) {

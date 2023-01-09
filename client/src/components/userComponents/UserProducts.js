@@ -41,7 +41,7 @@ export const UserProducts = ({ products }) => {
             <h2 className='text-start mb-4'>These are the products you have purchased</h2>
                 {
                     products?.map(a => {
-                        let rating = a?.Reviews[0]?.rating || 0
+                        let rating = a?.product_rating[0]?.rating || 0
                         return (
                             <div class="col-lg-4 col-sm-6 mb-4">
                                 <div className="card min-height-activity-card">
@@ -50,7 +50,7 @@ export const UserProducts = ({ products }) => {
                                         class="card-img-top"
                                         alt="..."
                                     />
-                                    <div class="card-body overflow-auto w-100">
+                                    <div class="card-body w-100">
                                         <h5 class="card-title text-start">{a.name}</h5>
                                         <div className='d-flex align-items-center justify-content-between'>
                                             <b className='fs-5 d-flex align-items-center gap-1'>

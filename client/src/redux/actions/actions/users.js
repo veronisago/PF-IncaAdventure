@@ -27,6 +27,7 @@ export function createUser(user) {
         email: user.email,
       };
       const userCreated = await axios.post(`${REACT_APP_BASE_URL}/users`, newUser);
+      window.localStorage.setItem("user_id", userCreated.data[0].id)
       return dispatch({
         type: POST_USER,
         payload: userCreated.data[0]

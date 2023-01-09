@@ -1,27 +1,7 @@
 const { Router } = require("express");
-const { User, Activity, Product, Review} = require("../db");
+const { User, Activity, Product, Review } = require("../db");
 // const { requiresAuth } = require('express-openid-connect');
 const router = Router();
-
-// router.get('/', requiresAuth(), (req, res) => {
-//   res.send(JSON.stringify(req.oidc.user));
-// });
-
-//ruta para cuando el usuario realiza compra de actividad
-
-// const asociar = () => {
-//   const { idUser, idActivity } = req.query;
-  
-//   const activity = await Activity.findOne({ where: { id: idActivity } });
-//   const user = await User.findOne({ where: { id: idUser } })
-  
-//   await user.addActivity(activity);
-  
-//   const respuesta = await user.getActivities();
-  
-//   return res.status(200).json(respuesta);
-
-// }
 
 router.get("/services", async (req, res) => {
   try {
@@ -40,37 +20,47 @@ router.get("/services", async (req, res) => {
     const userProducts = await user.getProducts({
       include: [{
         model: Review,
+        as: 'product_rating',
         attributes: ["rating"]
       }]
     });
 
-    res.json({userActivities, userProducts})
+    res.json({ userActivities, userProducts })
   } catch (error) {
     console.log(error)
     res.status(404).json(error);
   }
 });
 
-//ruta para cuando se hizo efectiva la compra de un producto
-// router.get("/products", async (req, res) => {
-//   try {
-    
-//     const { idUser, idProduct } = req.query;
-    
-//     const product = await Product.findOne({ where: { id: idProduct } });
-//     const user = await User.findOne({ where: { id: idUser } })
-    
-//     await user.addProduct(product);
-    
-//     const respuesta = await user.getProducts();
+// ruta para cuando se hizo efectiva la compra de un producto
+router.post("/association/:idUser", async (req, res) => {
+  try {
 
-//     return res.status(200).json(respuesta);
-    
-//   } catch (error) {
-//     console.log(error)
-//     res.status(404).json(error);
-//   }
-// });
+    const { idUser } = req.params;
+    const services = req.body
+
+    console.log({ idUser, services })
+
+    const user = await User.findOne({ where: { id: idUser } })
+
+    services.forEach(async (e) => {
+      if (e.category == 'activity') {
+        const activity = await Activity.findOne({ where: { id: e.id } });
+        await user.addActivity(activity);
+      } else if (e.category == 'product') {
+        const product = await Product.findOne({ where: { id: e.id } });
+        await user.addProduct(product);
+      }
+    });
+
+
+   res.json({message: "ok"})
+
+  } catch (error) {
+    console.log(error)
+    res.status(404).json(error);
+  }
+});
 
 
 

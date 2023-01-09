@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import video from '../../Media/Video2.mp4';
 import img from '../../Media/button.png';
 import s from '../styles/SuccessPage.module.css'
+import axios from "axios";
+const {
+    REACT_APP_BASE_URL
+} = process.env;
 
 //pagina que muestra la transaccion aprobada
 // aqui va  el diseño de boostrap
 
 const SuccessPage = () => {
+
+
+    useEffect(() => {
+        let cart = JSON.parse(window.localStorage.getItem('shoppingCart'))
+        let userId = window.localStorage.getItem('user_id')
+        axios.post(`${REACT_APP_BASE_URL}/profile/association/${userId}`, cart)
+            .then(() => window.localStorage.removeItem('shoppingCart'))
+    })
+
     return (
         //z-index-900
         <div className={s.allcontainer}>
             <video muted autoPlay loop>
                 <source src={video} type="video/mp4" />
             </video>
-            <div style={{zIndex:1}}>
+            <div style={{ zIndex: 1 }}>
                 <div className=" card w-50  mt-5  bg-dark bg-light border mx-auto pt-3 pb-3 ">
                     <div class="text-center strong text-light ">
                         <h1 class="">ENJOY YOUR PURCHASE</h1>

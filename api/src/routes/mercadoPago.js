@@ -2,9 +2,9 @@ const { Router } = require("express");
 const mercadopago = require('mercadopago')
 const axios = require('axios')
 const { generatePDF } = require("../emails/email")
-const { Users } = require("../db");
+const { User } = require("../db");
 
-const { MP_ACCESS_TOKEN, MP_URL } = process.env
+const { MP_ACCESS_TOKEN, MP_URL, MP_SUCCESS } = process.env
 
 
 const router = Router();
@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
     console.log(req.body)
 
     mercadopago.preferences.create({
-        back_urls: { success: "https://pf-inca-adventure.vercel.app/success" },
+        back_urls: { success: MP_SUCCESS },
         items: products,
         notification_url: `${MP_URL}/mercadopago/webhook`
         //pf-incaadventure-production.up.railway.app 
@@ -39,7 +39,7 @@ router.post("/webhook", async (req, res) => {
 
     if (result.data.status == "approved") {
         const { additional_info, card, id, status, payment_method, payer } = result.data
-        const userPdf = await Users.findOne({ where: { id_number: card.cardholder.identification.number } })
+        const userPdf = await User.findOne({ where: { identification: card.cardholder.identification.number } })
         if (!userPdf) return
         generatePDF(additional_info.items, userPdf.email, card.cardholder.name, id, card.date_created, status, card.cardholder.identification.number, payment_method.type)
     }

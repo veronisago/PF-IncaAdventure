@@ -48,12 +48,12 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  let { name, price, stock } = req.body;
+  let { name, price, stock, description } = req.body;
   try {
-    const product = Product.create({name, price, stock});
+    const product = await Product.create({name, price, stock, description});
     res.status(200).json(product);
   } catch (error) {
-    res.status(404).send(error.message)
+    res.status(404).send(error)
   }
 });
 

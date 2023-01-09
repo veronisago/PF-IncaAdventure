@@ -33,10 +33,10 @@ const UserPage = () => {
                 first_name: userProfile.first_name,
                 last_name: userProfile.last_name,
                 email: userProfile.email,
-                language: userProfile.language,
-                nationality: userProfile.nationality,
-                mobile_number: userProfile.mobile_number,
-                birth_date: userProfile.birth_date,
+                language: userProfile.language || "",
+                identification: userProfile.identification || "",
+                mobile_number: userProfile.mobile_number || "",
+                birth_date: userProfile.birth_date || "",
             })
 
         }
@@ -55,6 +55,7 @@ const UserPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(userUpdated({ ...update, id: userProfile.id }))
+        dispatch(createUser({email: userProfile.email}))
         setOpen(true)
     }
 
@@ -119,9 +120,9 @@ const UserPage = () => {
                                         </div>
                                         <div className="row mt-3 ">
                                             <div className="col-md-6">
-                                                <label className="labels">Nationality</label>
-                                                <input type="text" name='nationality' onChange={handleChange}
-                                                    className="form-control" value={update.nationality} />
+                                                <label className="labels">Identification</label>
+                                                <input type="text" name='identification' onChange={handleChange}
+                                                    className="form-control" value={update.identification} />
                                             </div>
                                             <div className="col-md-6">
                                                 <label className="labels">Language</label>

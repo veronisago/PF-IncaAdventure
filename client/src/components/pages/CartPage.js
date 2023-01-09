@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { ShoppingCard } from '../shoppingCard/ShoppingCard';
 import { setLocalStorageCart } from '../../redux/actions/actions/stores';
-
+import MercadoPago from '../MercadoPago';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const CartPage = () => {
+  const { user } = useAuth0();
+
   const shoppingCart = useSelector((state) => state.shoppingCart)
+  const userProfile = useSelector((state) => state.userProfile)
 
   const dispatch = useDispatch()
 
@@ -15,9 +19,15 @@ const CartPage = () => {
   useEffect(() => {
     if (firstUpdate.current) {
       let localCart = JSON.parse(window.localStorage.getItem('shoppingCart'))
-      dispatch(setLocalStorageCart(localCart))
+      localCart && dispatch(setLocalStorageCart(localCart))
     }
   }, [])
+  
+  function checkUser () {
+    if(!user) return alert("log in")
+    if(!userProfile.is_active) return alert("Complete register")
+    MercadoPago(shoppingCart)
+  }
 
 
   return (
@@ -28,7 +38,7 @@ const CartPage = () => {
             <div className="col-lg-12 col-md-12 col-12">
               <h2 className=" mb-2 text-center text-primary">Shopping Cart</h2>
               <p className="mb-5 text-center">
-                <i className="text-info font-weight-bold">{shoppingCart.length}</i> items in your cart</p>
+                <i className="text-info font-weight-bold">{shoppingCart?.length}</i> items in your cart</p>
               <table id="shoppingCart" className="table table-condensed table-responsive">
                 <thead>
                   <tr>
@@ -40,7 +50,7 @@ const CartPage = () => {
                 </thead>
                 <tbody>
                   {
-                    shoppingCart.map((e, index) => (
+                    shoppingCart?.map((e, index) => (
                       <ShoppingCard service={e} index={index} />
                     ))
                   }
@@ -54,7 +64,7 @@ const CartPage = () => {
           </div>
           <div className="row mt-4 d-flex align-items-center">
             <div className="col-sm-6 order-md-2 text-right">
-              <a href="catalog.html" className="btn btn-primary mb-4 btn-lg pl-5 pr-5">Checkout</a>
+            <button className='btn btn-primary' disabled={!shoppingCart.length} onClick={checkUser}>Pagar con Mercado Pago</button>
             </div>
             <div className="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
               <a href="catalog.html">
