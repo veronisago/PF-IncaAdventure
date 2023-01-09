@@ -4,6 +4,7 @@ import { getProducts } from "../../redux/actions/actions/products"
 import { Paginate } from "../nav/Paginate";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { addToCart } from "../../redux/actions/actions/stores.js";
+import { Link } from "react-router-dom";
 
 const initialState = {
 	name: '',
@@ -100,7 +101,9 @@ const ShopPage = () => {
 										return (
 											<div class="col-lg-3 col-sm-6 col-12 mb-3 ">
 												<div class="card cardShop">
-													<img class="card-img-top cardShop-img-top mb-2" src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="card image cap" />
+													<Link to={`/detail/product/${p.id}`}>
+														<img class="card-img-top cardShop-img-top mb-2" src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="card image cap" />
+													</Link>
 													<div class="card-body cardShop-body">
 														<p class="card-text no-interaction capitalize fw-bold">{p.name}</p>
 														<p className="no-interaction">${p.price}</p>

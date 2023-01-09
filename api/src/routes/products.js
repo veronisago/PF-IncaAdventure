@@ -5,13 +5,14 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const { name, order, orderBy, min, max, page } = req.query;
+    const { name, order, orderBy, min, max, page, id } = req.query;
 
     const perPage = 3
     const offset = (page - 1) * perPage
 
     const conditions = {}
     if (name) (conditions.name = { [Op.like]: `%${name}%` });
+    if (id) (conditions.id = id);
 
     if (min && max) conditions.price = { [Op.between]: [min, max] }
     else if (min) conditions.price = { [Op.gt]: min }

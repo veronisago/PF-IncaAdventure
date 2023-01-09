@@ -21,12 +21,12 @@ const CartPage = () => {
 
 
   return (
-    <div className=' w-75 mx-auto  mt-5 mb-5 pb-4'>
-      <section className="pt-4 border border-primary mb-5">
-        <div className="container">
+    <div className='w-75 mx-auto  mt-5 mb-5 pb-2  mb-5'>
+      <section className="pt-4 mb-5">
+        <div className="card container p-4 bg-light">
           <div className="row w-100">
             <div className="col-lg-12 col-md-12 col-12">
-              <h3 className="display-6 mb-2 text-center">Shopping Cart</h3>
+              <h2 className=" mb-2 text-center text-primary">Shopping Cart</h2>
               <p className="mb-5 text-center">
                 <i className="text-info font-weight-bold">{shoppingCart.length}</i> items in your cart</p>
               <table id="shoppingCart" className="table table-condensed table-responsive">
@@ -48,7 +48,7 @@ const CartPage = () => {
               </table>
               <div className="float-right text-right">
                 <h4>Subtotal:</h4>
-                <h1>{shoppingCart.reduce((acumulador, e) => acumulador + (e.price * e.quantity), 0)}</h1>
+                <h1>${shoppingCart.reduce((acumulador, e) => acumulador + (e.price * e.quantity), 0)}</h1>
               </div>
             </div>
           </div>

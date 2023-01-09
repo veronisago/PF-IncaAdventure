@@ -379,3 +379,16 @@ li a:hover{
       padding: 10px;
   }
 }
+
+.btn-transparent {
+  background-color: transparent;
+  border: none;
+}
+
+.btn-transparent:hover {
+  font-weight: bold;
+}
+
+.css-9mgopn-MuiDivider-root {
+  border-color: rgb(139, 138, 138) !important;
+}

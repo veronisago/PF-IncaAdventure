@@ -52,7 +52,7 @@ Review.belongsTo(User)
 Activity.hasMany(Review, {as:'activity_rating'});
 Review.belongsTo(Activity)
 
-Product.hasMany(Review);
+Product.hasMany(Review, {as:'product_rating'});
 Review.belongsTo(Product)
 
 Activity.hasMany(Image)

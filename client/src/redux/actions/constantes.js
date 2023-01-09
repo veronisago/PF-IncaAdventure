@@ -2,6 +2,8 @@ export const GET_USERS = "GET_USERS";
 export const POST_USER = "POST_USER";
 export const GET_SERVICES = "GET_SERVICES";
 
+export const GET_DETAIL = "GET_DETAIL";
+
 export const ADD_TO_CART ="ADD_TO_CART";
 export const DELETE_FROM_CART ="DELETE_FROM_CART";
 export const CHANGE_QUANTITY ="CHANGE_QUANTITY";

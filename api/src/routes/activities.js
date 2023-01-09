@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { Op } = require("sequelize");
-const { Activity } = require("../db");
+const { Activity, Review } = require("../db");
 const router = Router();
 
 router.get("/", async (req, res) => {
@@ -25,11 +25,17 @@ router.get("/", async (req, res) => {
       ],
       limit: perPage,
       offset: offset || 0,
+      include: [{
+        model: Review,
+        as: 'activity_rating',
+        attributes: ["rating"]
+      }]
     });
     let totalPages = Math.ceil(activities.count / perPage)
 
     res.status(200).json({ ...activities, totalPages, page: page || 1 })
   } catch (error) {
+    console.log(error)
     res.status(500).send(error)
   }
 });

@@ -27,6 +27,76 @@ router.get("/", async (req, res) => {
 
 });
 
+router.get("/details/activity", async (req, res) => {
+
+  let { id } = req.query
+  try {
+    const activity = await Activity.findOne({
+      where: { id: id },
+      include: [{
+        model: Review,
+        as: 'activity_rating',
+        attributes: []
+      }],
+      attributes: {
+        include: [
+          [sequelize.fn('AVG', sequelize.col('activity_rating.rating')), 'avgRating']
+        ]
+      },
+      group: ['Activity.id'],
+      raw: true
+    })
+    const reviews = await Review.findAll({
+      where: { ActivityId: id },
+      include: [{
+        model: User,
+        attributes: ["first_name", "last_name", "createdAt"]
+      }],
+    })
+
+    res.json({ ...activity, reviews })
+
+  } catch (error) {
+    console.log(error)
+  }
+
+});
+
+router.get("/details/product", async (req, res) => {
+
+  let { id } = req.query
+  try {
+    const product = await Product.findOne({
+      where: { id: id },
+      include: [{
+        model: Review,
+        as: 'product_rating',
+        attributes: []
+      }],
+      attributes: {
+        include: [
+          [sequelize.fn('AVG', sequelize.col('product_rating.rating')), 'avgRating']
+        ]
+      },
+      group: ['Product.id'],
+      raw: true
+    })
+
+    const reviews = await Review.findAll({
+      where: { ProductId: id },
+      include: [{
+        model: User,
+        attributes: ["first_name", "last_name", "createdAt"]
+      }],
+    })
+
+    res.json({ ...product, reviews })
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+
 router.post("/activity", async (req, res) => {
 
   const { userId, id, rating, comments } = req.body
@@ -37,7 +107,7 @@ router.post("/activity", async (req, res) => {
         UserId: userId,
         ActivityId: id
       },
-      defaults:{
+      defaults: {
         rating,
         comments
       }
@@ -66,10 +136,10 @@ router.post("/product", async (req, res) => {
         UserId: userId,
         ProductId: id
       },
-      defaults:{
+      defaults: {
         rating,
         comments
-      } 
+      }
     });
 
     // const product = await Product.findOne({ where: { id: id } });

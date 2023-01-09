@@ -25,7 +25,7 @@ export const ShoppingCard = ({service, index}) => {
                     </div>
                     <div className="col-md-9 text-left mt-sm-2">
                         <h4>{service.name}</h4>
-                        <p className="font-weight-light">{service.description}</p>
+                        <p className="font-weight-light">{service.category}</p>
                     </div>
                 </div>
             </td>

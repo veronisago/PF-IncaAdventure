@@ -6,6 +6,7 @@ import {
   DELETE_FROM_CART,
   ADD_TO_CART,
   CHANGE_QUANTITY,
+  GET_DETAIL,
   SET_LOCAL_STORAGE_CART,
   POST_ACTIVITY_REVIEW,
   POST_PRODUCT_REVIEW,
@@ -20,7 +21,8 @@ let initialState = {
   allActivities: [],
   userProfile: {},
   userServices: {},
-  shoppingCart: []
+  shoppingCart: [],
+  detail: {}
 };
 
 function rootReducer(state = initialState, action) {
@@ -54,6 +56,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allActivities: action.payload
+      };
+    case GET_DETAIL:
+      return {
+        ...state,
+        detail: action.payload
       };
     case ADD_TO_CART:
       let index = state.shoppingCart.findIndex((e) => e.id === action.payload.id && e.category === action.payload.category)
