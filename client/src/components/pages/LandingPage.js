@@ -4,6 +4,8 @@ import s from '../styles/LandingPage.module.css'
 import video from '../../Media/Video2.mp4'
 import img from '../../Media/button.png'
 
+
+
 const LandingPage = () => {
 
   const person = [
@@ -36,6 +38,7 @@ const LandingPage = () => {
             <h1 className=" bg-image color-danger text-center"><b className="border btn text-white">JOIN THE <a>ADVENTURE</a></b></h1>
           </button>
         </Link>
+       
       </div>
     </div>
   );

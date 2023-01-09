@@ -9,6 +9,7 @@ import ShopPage from './components/pages/ShopPage' ;
 import UserPage from './components/pages/UserPage';
 import Dashboard from './components/pages/Dashboard';
 import { DetailPage } from './components/pages/DetailPage';
+import Success from "./components/pages/Success";
 
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
           <Route exact path='/admin' render={() => {
             return null ? <Redirect to='/'/> : <Dashboard/>
           }}/>
+          <Route exact path='/success' component={Success}/>
+          
         </Switch>
       </Router>
     </div>

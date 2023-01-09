@@ -1,9 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const { Op } = require("sequelize");
-const { User, Store } = require("../db");
-const nodemailer = require("nodemailer");
-const { defaults } = require("pg");
+const { User } = require("../db");
 
 router.get("/", async (req, res) => {
 

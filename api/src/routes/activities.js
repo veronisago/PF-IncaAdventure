@@ -3,9 +3,11 @@ const { Op } = require("sequelize");
 const { Activity, Review } = require("../db");
 const router = Router();
 
+
 router.get("/", async (req, res) => {
   try {
     const { name, order, orderBy, min, max, type, page } = req.query;
+
 
     const perPage = 6
     const offset = (page - 1) * perPage

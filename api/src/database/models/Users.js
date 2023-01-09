@@ -59,6 +59,7 @@ const users = [
     "id_number": "11111111",
     "is_admin": true
   },
+  
 
 ];
 

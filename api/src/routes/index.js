@@ -9,6 +9,7 @@ const users = require("./users");
 const reviews = require("./reviews");
 const cloud = require("./cloud");
 const profile = require("./profile");
+const mercadoPago = require("./mercadoPago");
 
 
 
@@ -20,6 +21,7 @@ router.use("/users", users);
 router.use("/reviews", reviews);
 router.use("/cloud", cloud);
 router.use("/profile", profile);
+router.use("/mercadopago", mercadoPago);
 
 
 
