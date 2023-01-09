@@ -7,6 +7,7 @@ import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import { UserProducts } from '../userComponents/UserProducts';
 import { Notification } from '../notification/Notification';
+import { Link } from 'react-router-dom';
 const {
     REACT_APP_BASE_URL
 } = process.env;
@@ -81,6 +82,7 @@ const UserPage = () => {
                                     </Alert>
                                 )
                             }
+                            {userProfile.is_admin && <Link to={"/admin"}>Admin</Link>}
                             <div className="col-md-3 border-right mt-5">
                                 <h4 className="text-right">User profile</h4>
                                 <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img className="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" /><span className="font-weight-bold"></span><span>{userProfile?.username}</span></div>

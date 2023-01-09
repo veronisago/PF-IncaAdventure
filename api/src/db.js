@@ -58,6 +58,8 @@ Review.belongsTo(Product)
 Activity.hasMany(Image)
 Image.belongsTo(Activity)
 
+Product.hasMany(Image)
+Image.belongsTo(Product)
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

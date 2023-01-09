@@ -10,10 +10,6 @@ module.exports = (sequelize) => {
     comments: {
       type: DataTypes.TEXT,
     },
-    public_id: {
-      type: DataTypes.STRING,
-      require: true
-    },
     url: {
       type: DataTypes.STRING,
       required: true
