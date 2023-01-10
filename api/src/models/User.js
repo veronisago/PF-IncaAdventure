@@ -17,10 +17,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    nationality: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     mobile_number: {
       type: DataTypes.INTEGER,
       allowNull: true

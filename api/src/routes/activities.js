@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { Op } = require("sequelize");
-const { Activity, Review } = require("../db");
+const { Activity } = require("../db");
 const router = Router();
 
 
@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
   try {
     const { name, order, orderBy, min, max, type, page } = req.query;
 
-
+    
     const perPage = 6
     const offset = (page - 1) * perPage
 
@@ -27,11 +27,6 @@ router.get("/", async (req, res) => {
       ],
       limit: perPage,
       offset: offset || 0,
-      include: [{
-        model: Review,
-        as: 'activity_rating',
-        attributes: ["rating"]
-      }]
     });
     let totalPages = Math.ceil(activities.count / perPage)
 

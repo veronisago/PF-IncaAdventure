@@ -29,8 +29,8 @@ const SuccessPage = () => {
             </video>
             <div style={{ zIndex: 1 }}>
                 <div className=" card w-50  mt-5  bg-dark bg-light border mx-auto pt-3 pb-3 ">
-                    <div class="text-center strong text-light ">
-                        <h1 class="">ENJOY YOUR PURCHASE</h1>
+                    <div className="text-center strong text-light ">
+                        <h1 className="">ENJOY YOUR PURCHASE</h1>
                         <h5><small>Remember to print or save your voucher</small></h5>
                         <h5><small>so that you can claim your products in the corresponding stores</small></h5>
                     </div>

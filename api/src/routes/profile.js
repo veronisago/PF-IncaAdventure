@@ -13,7 +13,7 @@ router.get("/services", async (req, res) => {
       include: [{
         model: Review,
         as: 'activity_rating',
-        attributes: ["rating"]
+        attributes: ["rating", "UserId"],
       }]
     });
 
@@ -21,7 +21,7 @@ router.get("/services", async (req, res) => {
       include: [{
         model: Review,
         as: 'product_rating',
-        attributes: ["rating"]
+        attributes: ["rating", "UserId"],
       }]
     });
 

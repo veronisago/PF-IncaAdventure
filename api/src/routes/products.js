@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   try {
     const { name, order, orderBy, min, max, page, id } = req.query;
 
-    const perPage = 3
+    const perPage = 6
     const offset = (page - 1) * perPage
 
     const conditions = {}
