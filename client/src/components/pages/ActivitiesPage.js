@@ -72,7 +72,7 @@ function ActivitiesPage() {
 
               <div className="col-lg-12 col-sm-6 col-12">
                 <h6 className="p-1 border-bottom fw-bold">Filter By</h6>
-                <ul>
+                <ul className="pl-0">
                   <li><button name='type' value='mountain' onClick={handleChange} className='btn-transparent'>Mountain</button></li>
                   <li><button name='type' value='rafting' onClick={handleChange} className='btn-transparent'>Rafting</button></li>
                   <li><button name='type' value='trekking' onClick={handleChange} className='btn-transparent'>Trekking</button></li>
