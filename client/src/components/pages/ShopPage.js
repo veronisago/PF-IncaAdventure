@@ -54,11 +54,11 @@ const ShopPage = () => {
 	}
 
 	return (
-		<div class="container-fluid bg-light px-0 mx-0">
-			<div class="container bg-white py-4 pl-7">
-				<div class="row text-center p">
-					<h2 class="h1">
-						Everything you need for your <span class="text-success">adventures</span>
+		<div className="container-fluid bg-light px-0 mx-0">
+			<div className="container bg-white py-4 pl-7">
+				<div className="row text-center p">
+					<h2 className="h1">
+						Everything you need for your <span className="text-success">adventures</span>
 					</h2>
 				</div>
 				<div className="container-fluid px-sm-3 pt-2 px-4 mt-4">
@@ -69,37 +69,37 @@ const ShopPage = () => {
 
 								<div className="col-lg-12 col-sm-6 col-12">
 									<div>
-										<h6 class="p-1 border-bottom fw-bold">Filter By</h6>
+										<h6 className="p-1 border-bottom fw-bold">Filter By</h6>
 
 										<div>
 											<input className='form-control' type="text" placeholder="Search by word..." name="name" onChange={handleChange} ></input>
 										</div>
 
-										<ul class="list-group">
-											{/* <li class="list-group-item list-group-item-action mb-2 rounded"><a href="#">
-									<span class="fa fa-circle pr-1" id="men"></span>Word
+										<ul className="list-group">
+											{/* <li className="list-group-item list-group-item-action mb-2 rounded"><a href="#">
+									<span className="fa fa-circle pr-1" id="men"></span>Word
 							</a></li> */}
 										</ul>
 									</div>
-									<h6 class="p-1 border-bottom fw-bold mt-3">Order By</h6>
+									<h6 className="p-1 border-bottom fw-bold mt-3">Order By</h6>
 									<div className="mt-3">
 										{/* <h6 className="border-bottom">Cost</h6> */}
-										<form class="ml-md-2 ">
-											<div class="form-inline border rounded p-sm-2 my-2">
+										<form className="ml-md-2 ">
+											<div className="form-inline border rounded p-sm-2 my-2">
 												<input type="radio" name="type" value="A-Z" id="higher" onChange={handleChange} />
-												<label for="higher" class="pl-1 pt-sm-0 pt-1">&nbsp;Alphabetical, A-Z</label>
+												<label for="higher" className="pl-1 pt-sm-0 pt-1">&nbsp;Alphabetical, A-Z</label>
 											</div>
-											<div class="form-inline border rounded p-sm-2 my-2">
+											<div className="form-inline border rounded p-sm-2 my-2">
 												<input type="radio" name="type" value="Z-A" id="lower" onChange={handleChange} />
-												<label for="lower" class="pl-1 pt-sm-0 pt-1">&nbsp;Alphabetical, Z-A</label>
+												<label for="lower" className="pl-1 pt-sm-0 pt-1">&nbsp;Alphabetical, Z-A</label>
 											</div>
-											<div class="form-inline border rounded p-sm-2 my-2">
+											<div className="form-inline border rounded p-sm-2 my-2">
 												<input type="radio" name="type" value="higher_price" id="lower" onChange={handleChange} />
-												<label for="lower" class="pl-1 pt-sm-0 pt-1">&nbsp;Higher price</label>
+												<label for="lower" className="pl-1 pt-sm-0 pt-1">&nbsp;Higher price</label>
 											</div>
-											<div class="form-inline border rounded p-sm-2 my-2">
+											<div className="form-inline border rounded p-sm-2 my-2">
 												<input type="radio" name="type" value="lower_price" id="lower" onChange={handleChange} />
-												<label for="lower" class="pl-1 pt-sm-0 pt-1">&nbsp;Lower price</label>
+												<label for="lower" className="pl-1 pt-sm-0 pt-1">&nbsp;Lower price</label>
 											</div>
 										</form>
 									</div>
@@ -111,17 +111,17 @@ const ShopPage = () => {
 						{/* card section */}
 
 						<div id="products" className="col-lg-10 px-lg-3 px-0">
-							<div class="row">
+							<div className="row">
 								{
 									allProducts?.rows?.map(p => {
 										return (
-											<div class="col-lg-3 col-sm-6 col-12 mb-3 ">
-												<div class="card ">
+											<div className="col-lg-3 col-sm-6 col-12 mb-3 ">
+												<div className="card ">
 													<Link to={`/detail/product/${p.id}`}>
-														<img class="card-img-top cardShop-img-top mb-2" src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="card image cap" />
+														<img className="card-img-top cardShop-img-top mb-2" src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="card image cap" />
 													</Link>
-													<div class="card-body cardShop-body m-2">
-														<h5 class="card-text no-interaction capitalize pb-1">{p.name}</h5>
+													<div className="card-body cardShop-body m-2">
+														<h5 className="card-text no-interaction capitalize pb-1">{p.name}</h5>
 														<p className="no-interaction pb-2 fw-bold">${p.price}</p>
 														<button className="btn btn-primary w-100" onClick={() => handleCart(p)}>Add <AddShoppingCartIcon /></button>
 													</div>
@@ -138,8 +138,8 @@ const ShopPage = () => {
 					<Pagination onChange={handlePagination} page={Number(allProducts.page)} className='mx-auto' count={allProducts.totalPages} shape="rounded" />
 				</Stack>
 			</div>
-			<footer class="container-fluid bg-dark text-center py-2">
-				<span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
+			<footer className="container-fluid bg-dark text-center py-2">
+				<span className="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
 			</footer>
 		</div>
 	);

@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { Op } = require("sequelize");
-const { Activity, Review } = require("../db");
+const { Activity } = require("../db");
 const router = Router();
 
 
