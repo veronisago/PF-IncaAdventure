@@ -47,3 +47,5 @@ conn.sync({ force: false }).then(async () => {
 //   volver a comentar los requires y preCharges. (aca evitamos que se dupliquen)
 // quinto paso:
 //   tirar y volver a levantar el server y comprobar que los datos sigan cargados y no se hayan duplicado
+
+

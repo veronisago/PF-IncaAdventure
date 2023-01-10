@@ -1,47 +1,31 @@
 import axios from "axios";
-import {GET_STORES, GET_STORES_BY_NAME, GET_STORE_BY_ID} from "../constantes";
+import { ADD_TO_CART, CHANGE_QUANTITY, DELETE_FROM_CART, SET_LOCAL_STORAGE_CART } from "../constantes";
 
-let {REACT_APP_BASE_URL} = process.env
 
-export function getStores(){
-  return async function (dispatch){
-    try {
-      let stores = await axios.get(`${REACT_APP_BASE_URL}/stores`, {});
-      return dispatch({
-        type: GET_STORES,
-        payload: stores.data
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+export function addToCart(data) {
+    return ({
+      type: ADD_TO_CART,
+      payload: data
+    })
 };
 
-export function getStoresByName(name){
-  // trae los que incluyan name, puede ser mas de 1
-  return async function (dispatch){
-    try {
-      let storesByName = await axios.get(`${REACT_APP_BASE_URL}/stores?name=${name}`, {});
-      return dispatch({
-        type: GET_STORES_BY_NAME,
-        payload: storesByName.data
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+export function deleteFromCart(data) {
+  return ({
+    type: DELETE_FROM_CART,
+    payload: data
+  })
 };
 
-export function getStoreById(id){
-  return async function (dispatch){
-    try {
-      let storeById = await axios.get(`${REACT_APP_BASE_URL}/stores/${id}`, {});
-      return dispatch({
-        type: GET_STORE_BY_ID,
-        payload: storeById.data
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+export function changeQuantity(data) {
+  return ({
+    type: CHANGE_QUANTITY,
+    payload: data
+  })
+};
+
+export function setLocalStorageCart(data) {
+  return ({
+    type: SET_LOCAL_STORAGE_CART,
+    payload: data
+  })
 };

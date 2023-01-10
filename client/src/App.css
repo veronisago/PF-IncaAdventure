@@ -47,8 +47,8 @@
   z-index: 1000;
 }
 
-.z-index-500{
-  z-index: 500;
+.z-index-10{
+  z-index: 10;
 }
 
 .labels {
@@ -94,7 +94,7 @@
 }
 
 .min-height-activity-card {
-  height: 330px;
+  height: 350px;
 }
 
 .max-height-sidebar {
@@ -378,4 +378,17 @@ li a:hover{
   #mobile-filter{
       padding: 10px;
   }
+}
+
+.btn-transparent {
+  background-color: transparent;
+  border: none;
+}
+
+.btn-transparent:hover {
+  font-weight: bold;
+}
+
+.css-9mgopn-MuiDivider-root {
+  border-color: rgb(139, 138, 138) !important;
 }

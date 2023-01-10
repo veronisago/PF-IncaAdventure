@@ -1,22 +1,21 @@
 const { Router } = require("express");
 const router = Router();
 const { Op } = require("sequelize");
-const { Users, Stores } = require("../db");
-const { sendEmail } = require("../emails/email");
+const { User } = require("../db");
 
 router.get("/", async (req, res) => {
 
   try {
-    const { username, order, orderBy, email, id, page } = req.query;
+    const { first_name, order, orderBy, email, id, page } = req.query;
     const perPage = 6
     const offset = (page - 1) * perPage
 
     const conditions = {}
-    if (username) (conditions.username = { [Op.like]: `${username}%` });
+    if (first_name) (conditions.first_name = { [Op.like]: `${first_name}%` });
     if (email) (conditions.email = { [Op.like]: `${email}%` });
     if (id) (conditions.id = { [Op.eq]: id });
 
-    const users = await Users.findAndCountAll({
+    const users = await User.findAndCountAll({
       where: { ...conditions },
       order: [
         [orderBy || 'updatedAt', order || 'DESC']
@@ -35,29 +34,23 @@ router.get("/", async (req, res) => {
 
 
 router.post("/", async (req, res) => {
-  const { last_name, first_name, username, password, birth_date, nationality, email, id_number } = req.body;
+  const { last_name, first_name, email, identification } = req.body;
 
   try {
-    const user = await Users.findOrCreate({ where: { last_name, first_name, username, password, birth_date, nationality, email, id_number } });
-    console.log(user)
-    if (user[1]) {
-      try {
-        const store = await Stores.findOrCreate({
-          where: {
-            name: username,
-          }
-        });
-        console.log(`la store de ${username} fue creada correctamente`);
-        sendEmail()
+    const user = await User.findOrCreate({ where: { email }, defaults: {last_name, first_name, identification} });
 
-      } catch (error) {
-        console.log(error);
-      }
+    if (user[0].first_name && user[0].last_name && user[0].identification ) {
+      user[0].is_active = true
+      await user[0].save();
     }
 
-    res.json(user);
+    console.log(user)
+
+    return res.status(200).json(user);
+
   } catch (error) {
     console.log(error);
+    res.status(404).json(error)
   }
 });
 
@@ -65,7 +58,8 @@ router.put("/", async (req, res) => {
   const newData = req.body;
   const id = newData.id
   try {
-    const userModified = await Users.update(newData, { where: { id } });
+    if (newData.first_name && newData.last_name && newData.identification) newData.is_active = true
+    const userModified = await User.update(newData, { where: { id } });
     res.json({ msg: "User updated" });
   } catch (error) {
     console.log(error);
@@ -73,21 +67,5 @@ router.put("/", async (req, res) => {
 
 });
 
-router.delete("/:id", async (req, res) => {
-  const id = req.params.id;
-  const userToDelete = await Users.findByPk(id);
-  if (!userToDelete) {
-    res.status(404).json({ msg: "That user do not exist brou" });
-  } else if (userToDelete.is_active) {
-    res.status(400).json({ msg: "The user must be diactivated before delete" });
-  } else {
-    try {
-      await Users.destroy({ where: { id } });
-      res.json({ msg: "The user has been delete successfully" });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-});
 
 module.exports = router;

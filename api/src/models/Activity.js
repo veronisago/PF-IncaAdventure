@@ -2,17 +2,12 @@ const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
-  sequelize.define('Activities', {
+  sequelize.define('Activity', {
     // la columna image viene x relacion
     name: {
       type: DataTypes.STRING,
-      // unique: true,
       allowNull: false,
     },
-     // category: {
-    //   type: DataTypes.ENUM("");
-    //   defaultValue: undefined
-    // },
     available: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
@@ -42,16 +37,11 @@ module.exports = (sequelize) => {
     },
     difficulty_level: {
       type: DataTypes.ENUM("kids", "beginners", "advanced", "expert"),
-      // no me reconoce experto cuando creo
       allowNull: false
     },
-    disable: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true
+     type: {
+      type: DataTypes.ENUM("mountain", "rafting", "trekking", "exploring"),
+      allowNull: false
     }
   });
 

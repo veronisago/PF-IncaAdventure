@@ -1,102 +1,163 @@
 const { Router } = require("express");
 const router = Router();
-const { Reviews } = require("../db");
+const { Review, User, Activity, Product } = require("../db");
+const sequelize = require('sequelize');
 
 router.get("/", async (req, res) => {
-  const rating = req.query.rating;
-  const word = req.query.word;
-  const reviews = await Reviews.findAll();
-  
-  if(rating){
-    try {
-      const reviewsByRating = await reviews.filter(r => Number(rating) === Number(r.rating));
-      res.json(reviewsByRating);
-    } catch (error) {
-      console.log(error);
-    }
-  } else if(word){
-    try {
-      const reviewsByWord = await reviews.filter(r => r.comments.toLowerCase().includes(word.toLowerCase()));
-      res.json(reviewsByWord);
-    } catch (error) {
-      console.log(error)
-    }
-  } else {
-    res.json(reviews);
-  };
+  try {
+    let activity = await Activity.findAll({
+      include: [{
+        model: Review,
+        as: 'activity_rating',
+        attributes: []
+      }],
+      attributes: {
+        include: [
+          [sequelize.fn('AVG', sequelize.col('activity_rating.rating')), 'avgRating']
+        ]
+      },
+      group: ['Activity.id'],
+      order: [[sequelize.fn('AVG', sequelize.col('activity_rating.rating')), "DESC"]],
+      raw: true
+    })
+
+    activity = activity.filter((e)=>e.avgRating)
+
+    res.json(activity)
+  } catch (error) {
+    console.log(error)
+  }
 
 });
 
+router.get("/details/activity", async (req, res) => {
 
-router.get("/:id", async (req, res) => {
-  const id = req.params.id;
-  const reviews = await Reviews.findAll();
-  
-  if (id) {
-    try {
-      const review = reviews.filter(u => Number(u.id) === Number(id));
-      if(!review.length) res.status(400).json({msg: "no existe usuario con ese id"});
-      res.json(review);
-    } catch (error) {
-      console.log(error);
-    }
+  let { id } = req.query
+  try {
+    const activity = await Activity.findOne({
+      where: { id: id },
+      include: [{
+        model: Review,
+        as: 'activity_rating',
+        attributes: []
+      }],
+      attributes: {
+        include: [
+          [sequelize.fn('AVG', sequelize.col('activity_rating.rating')), 'avgRating']
+        ]
+      },
+      group: ['Activity.id'],
+      raw: true
+    })
+    const reviews = await Review.findAll({
+      where: { ActivityId: id },
+      include: [{
+        model: User,
+        attributes: ["first_name", "last_name", "createdAt"]
+      }],
+    })
+
+    res.json({ ...activity, reviews })
+
+  } catch (error) {
+    console.log(error)
+  }
+
+});
+
+router.get("/details/product", async (req, res) => {
+
+  let { id } = req.query
+  try {
+    const product = await Product.findOne({
+      where: { id: id },
+      include: [{
+        model: Review,
+        as: 'product_rating',
+        attributes: []
+      }],
+      attributes: {
+        include: [
+          [sequelize.fn('AVG', sequelize.col('product_rating.rating')), 'avgRating']
+        ]
+      },
+      group: ['Product.id'],
+      raw: true
+    })
+
+    const reviews = await Review.findAll({
+      where: { ProductId: id },
+      include: [{
+        model: User,
+        attributes: ["first_name", "last_name", "createdAt"]
+      }],
+    })
+
+    res.json({ ...product, reviews })
+  } catch (error) {
+    console.log(error)
   }
 });
 
 
-router.post("/", async (req, res) => {
-  const {rating, comments} = req.body;
-  // ver como traer activityId, userId, 
-  if(!rating || !comments) res.status(400).json({msg: "Missing info bro"});
+router.post("/activity", async (req, res) => {
+
+  const { userId, id, rating, comments } = req.body
 
   try {
-    const review = Reviews.findOrCreate({
-      // la idea es que activityId y userId no vuelvan a aparecer juntos
+    const review = await Review.findOrCreate({
       where: {
+        UserId: userId,
+        ActivityId: id
+      },
+      defaults: {
         rating,
         comments
       }
-    })
-    res.json(review);
+    });
+
+    // const activity = await Activity.findOne({ where: { id: id} });
+    // const user = await User.findOne({ where: { id: userId } })
+
+    // await activity.addActivity_rating(review)
+    // await user.addReview(review)
+
+    res.status(200).json(review)
   } catch (error) {
-    console.log(error);
+    console.log(error)
+    res.status(404).json(error)
   }
-  
-});
+})
 
-router.put("/:id", async (req, res) => {
-  const id = req.params.id; // en un principio lo hacemos solo con id
-  const newData = req.body;
-  // si viene desability
+router.post("/product", async (req, res) => {
 
-  if(newData.disable) newData.is_active = false;
+  const { userId, id, rating, comments } = req.body
+
   try {
-    const reviewsModified = await Reviews.update(newData, {where: {id}});
-    console.log(reviewsModified);
-    res.json({msg: "Review updated"});
+    const review = await Review.findOrCreate({
+      where: {
+        UserId: userId,
+        ProductId: id
+      },
+      defaults: {
+        rating,
+        comments
+      }
+    });
+
+    // const product = await Product.findOne({ where: { id: id } });
+    // const user = await User.findOne({ where: { id: userId } })
+
+    // await product.addReview(review)
+    // await user.addReview(review)
+    console.log('entramos a product');
+
+    res.status(200).json(review)
   } catch (error) {
-    console.log(error);
-  };
-
-
-});
-
-router.delete("/:id", async (req, res) => {
-  const id = req.params.id;
-  const reviewToDelete = await Reviews.findByPk(id);
-  if(!reviewToDelete) {
-    res.status(404).json({msg: "That review do not exist brou"});
-  } else if(reviewToDelete.is_active){
-    res.status(400).json({msg: "The review must be diactivated before delete"});
-  } else {
-    try {
-      await Reviews.destroy({where: {id}});
-      res.json({msg: "The review has been delete successfully"});
-    } catch (error) {
-      console.log(error);
-    }
-  };
-});
+    console.log(error)
+    res.status(404).json(error)
+  }
+})
 
 
 

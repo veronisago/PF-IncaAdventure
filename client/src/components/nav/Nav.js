@@ -2,22 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Login from "./Login.js";
 import Traslate from "./Traslate.js";
+import { useAuth0 } from "@auth0/auth0-react";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useDispatch, useSelector } from 'react-redux'
 
 function Nav() {
+  const { logout, user } = useAuth0();
+  const shoppingCart = useSelector((state) => state.shoppingCart)
+  
   return (
-    <div className="z-index-500 ">
-      <nav class="navbar navbar-expand-lg bg-light border-bottom viewport-height-nav">
-        <div class="container-fluid">
-          <Link to="/">
+    <div style={{height:"55px"}} className="w-100 ">
+      <nav class="navbar navbar-expand-lg bg-light border-bottom fixed-top w-100 z-index-10" style={{height:"55px"}}>
+        <div class="container-fluid pr-5">
+          <Link className="pr-4" to="/">
             <img
               src="https://cdn-icons-png.flaticon.com/512/4135/4135890.png"
-              width="50px"
-              height="50px"
+              width="40px"
+              height="40px"
               alt="icon"
             />
           </Link>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -27,10 +33,10 @@ function Nav() {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <div className="collapse navbar-collapse bg-light ml-5" id="navbarSupportedContent">
+            <ul style={{marginLeft: "20px"}} className="navbar-nav me-auto mb-2 mb-lg-0 ml-4 pl-4">
               <li className="nav-item">
-                <Link className="nav-link mt-1" to="/home">
+                <Link className="nav-link mt-1 pl-3" to="/home">
                   Home
                 </Link>
               </li>
@@ -45,33 +51,39 @@ function Nav() {
                   Shop
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link mt-1" to="/cart">
-                  Cart
+            </ul>
+            <ul className="navbar-nav mb-2 mb-lg-0 align-items-center mr-5">
+              <li>
+               <Link className="nav-link mt-1 d-flex gap-1" to="/cart">
+                 <ShoppingCartIcon className={shoppingCart.length && `text-primary`}/>
+                 <b> {shoppingCart.length ? shoppingCart.length : ""  }</b>
                 </Link>
               </li>
-              <li className="nav-item btn">
-                <Login />
-              </li>
+              {
+                !user ? (
+                  <li className="nav-item btn">
+                    <Login />
+                  </li>
+                ) : (
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {user.nickname}
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><Link to="/profile" class="dropdown-item">Profile</Link></li>
+                      <li><button onClick={() => logout({ returnTo: window.location.origin })} class="dropdown-item" href="#">Sign out</button></li>
+                    </ul>
+                  </li>
+                )
+              }
             </ul>
-            <form className="d-flex col-ms-8" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
             <div className="nav-item d-flex justify-content-center mx-2">
               <Traslate />
             </div>
           </div>
         </div>
-      </nav>
-    </div>
+      </nav >
+    </div >
   );
 }
 

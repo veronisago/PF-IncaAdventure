@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import '../styles/styles.css'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getReviews } from "../../redux/actions/actions/reviews";
+
 
 function HomePage() {
+
+    const allReviews = useSelector(state => state.allReviews);
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getReviews())
+    })
+
     return (
         <div>
             <div class="container-fluid bg-green">
@@ -13,13 +24,6 @@ function HomePage() {
                     <div class="col-lg-6 my-5 py-lg-5 d-flex flex-column align-items-lg-end align-items-center pr-6 justify-content-center">
                         <h1 class="display-4 fw-bold text-center">Inca Adventure</h1>
                         <span class="display-4 fw-bold text-lg-end text-center text-light">The Eco-Adventure</span>
-                        <div class="input-group mb-3 input-width mt-4">
-                            <input type="text" class="form-control" placeholder="Insert email"
-                                aria-label="Recipient's username" aria-describedby="button-addon2" />
-                            <button class="btn btn-success" type="button" id="button-addon2">
-                                Subscribe
-                            </button>
-                        </div>
                     </div>
                     <div class="col-lg-6 my-lg-5 py-lg-5 mb-5 d-flex justify-content-lg-start justify-content-center align-items-center pl-6">
                         <div className="col-lg-6 col-md-8 col-sm-12 col-xs-12 mb-5 mb-lg-0">
@@ -47,7 +51,21 @@ function HomePage() {
                         </h2>
                     </div>
                     <div class="row mt-4 no-interaction border-bottom">
-                        <div class="col-lg-4 col-sm-6">
+                        {
+                            allReviews?.map((e) => (
+
+                                <div class="col-lg-4 col-sm-6">
+                                    <div className="card card px-0 my-3">
+                                        <img src="https://wallpaperaccess.com/full/1099438.jpg" class="card-img-top" alt="..." />
+                                        <div class="card-body">
+                                            <h4><b>{e.name}</b></h4>
+                                            <span>{e.description}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                        {/* <div class="col-lg-4 col-sm-6">
                             <div className="card card px-0 my-3">
                                 <img src="https://wallpaperaccess.com/full/1099438.jpg" class="card-img-top" alt="..." />
                                 <div class="card-body">
@@ -55,8 +73,8 @@ function HomePage() {
                                     <span>Complete excursion on the main attraction of Machu Picchu, with personalized walks and many places to take beautiful pictures.</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
+                        </div> */}
+                        {/* <div class="col-lg-4 col-sm-6">
                             <div className="card card px-0 my-3">
                                 <img src="https://www.tours-machupicchu-peru.com/wp-content/uploads/2021/10/Tour-a-la-Montana-7-Colores-1-Dia.jpg" class="card-img-top" alt="..." />
                                 <div class="card-body">
@@ -100,7 +118,7 @@ function HomePage() {
                                     <span>Full day hike through the most unknown places of Machu Picchu, narrow trails and hanging bridges, the best possible experience to connect with nature</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -113,7 +131,7 @@ function HomePage() {
                         <div class="col-lg-3 col-md-6 px-4">
                             <span class="h5">ABOUT US</span>
                             <p>
-                            Welcome to our Inca Adventure page, a web project that we carry out with a team of 5 colleagues for educational purposes, we want to be able to offer a wide variety of activities in the Cuzco region 
+                                Welcome to our Inca Adventure page, a web project that we carry out with a team of 5 colleagues for educational purposes, we want to be able to offer a wide variety of activities in the Cuzco region
                             </p>
                         </div>
                         <div class="col-lg-5 col-md-6 px-4 mt-md-0 mt-3">
@@ -121,12 +139,12 @@ function HomePage() {
                             <p>
                                 All the feedback that you can provide to us is really usefull, if something can be better on this web page, let us know!
                                 Please fill the following form and share whit us what you think, thanks!
-                                                        
+
                             </p>
                             <div className="row container">
-                                <Link to={{ pathname: "https://whatsapp.com/" }} target="_blank" className="col-4"><a><WhatsAppIcon/></a></Link>
-                                <Link to={{ pathname: "https://github.com/" }} target="_blank" className="col-4"><a><GitHubIcon/></a></Link>
-                                <Link to={{ pathname: "https://instagram.com/" }} target="_blank" className="col-4"><a><InstagramIcon/></a></Link>
+                                <Link to={{ pathname: "https://whatsapp.com/" }} target="_blank" className="col-4"><a><WhatsAppIcon /></a></Link>
+                                <Link to={{ pathname: "https://github.com/" }} target="_blank" className="col-4"><a><GitHubIcon /></a></Link>
+                                <Link to={{ pathname: "https://instagram.com/" }} target="_blank" className="col-4"><a><InstagramIcon /></a></Link>
                             </div>
                         </div>
                         <div class="col-lg-4 px-4 mt-lg-0 mt-3">
@@ -150,8 +168,8 @@ function HomePage() {
                 </div>
             </footer>
             <footer class="container-fluid bg-dark text-center footer py-2">
-    <span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
-</footer>
+                <span class="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
+            </footer>
 
         </div>
     );
