@@ -79,7 +79,7 @@ const UserPage = () => {
 
     return (
 
-        <div className="mx-auto my-auto mt-5 ">
+        <div className="mx-auto my-auto mt-1">
             <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                     <button className="nav-link active" id="nav-users-tab" data-bs-toggle="tab" data-bs-target="#nav-users" type="button" role="tab" aria-controls="nav-users" aria-selected="true">Profile</button>
@@ -98,10 +98,10 @@ const UserPage = () => {
                                     </Alert>
                                 )
                             }
-                            {userProfile.is_admin && <Link to={"/admin"}>Admin</Link>}
                             <div className="col-md-3 border-right mt-5">
                                 <h4 className="text-right">User profile</h4>
-                                <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img className="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" /><span className="font-weight-bold"></span><span>{userProfile?.username}</span></div>
+                            {userProfile.is_admin && <Link to={"/admin"}><button className='btn btn-outline-primary'>Admin</button></Link>}
+                                <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img className="rounded-circle mt-2" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" /><span className="font-weight-bold"></span><span>{userProfile?.username}</span></div>
                             </div>
                             <div className="col-md-8 border-right">
                                 <form onSubmit={handleSubmit}>
