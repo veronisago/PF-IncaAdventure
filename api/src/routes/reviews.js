@@ -5,7 +5,7 @@ const sequelize = require('sequelize');
 
 router.get("/", async (req, res) => {
   try {
-    const activity = await Activity.findAll({
+    let activity = await Activity.findAll({
       include: [{
         model: Review,
         as: 'activity_rating',
@@ -18,7 +18,10 @@ router.get("/", async (req, res) => {
       },
       group: ['Activity.id'],
       order: [[sequelize.fn('AVG', sequelize.col('activity_rating.rating')), "DESC"]],
+      raw: true
     })
+
+    activity = activity.filter((e)=>e.avgRating)
 
     res.json(activity)
   } catch (error) {

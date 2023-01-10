@@ -56,8 +56,24 @@ const UserPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(userUpdated({ ...update, id: userProfile.id }))
-        dispatch(createUser({email: userProfile.email}))
+        dispatch(createUser({ email: userProfile.email }))
         setOpen(true)
+    }
+
+    const checkForm = () => {
+        if (
+            !update.first_name || 
+            !update.last_name || 
+            !update.email || 
+            !update.language || 
+            !update.identification ||
+            !update.mobile_number ||
+            !update.birth_date
+             ) {
+            return true
+        }else {
+            return false
+        }
     }
 
 
@@ -124,18 +140,19 @@ const UserPage = () => {
                                             <div className="col-md-6">
                                                 <label className="labels">Identification</label>
                                                 <input type="text" name='identification' onChange={handleChange}
-                                                    className="form-control" value={update.identification} />
+                                                    className="form-control" required value={update.identification} />
                                             </div>
                                             <div className="col-md-6">
                                                 <label className="labels">Language</label>
                                                 <select name='language' value={update.language} onChange={handleChange} class="form-select" aria-label="Default select example">
+                                                    <option value=''>Select an option...</option>
                                                     <option value='spanish'>Spanish</option>
                                                     <option value='english'>English</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div className="mt-5 text-center">
-                                            <button className="btn btn-primary profile-button" type="submit">Save Profile</button>
+                                            <button className="btn btn-primary profile-button"disabled={checkForm()} type="submit">Save Profile</button>
                                         </div>
                                     </div>
                                 </form>

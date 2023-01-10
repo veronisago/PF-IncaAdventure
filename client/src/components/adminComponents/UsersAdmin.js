@@ -120,9 +120,10 @@ export default function UsersAdmin() {
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow className="bg-light1">
-                                <TableCell className="fw-semibold">id</TableCell>
-                                <TableCell className="fw-semibold">first Name</TableCell>
-                                <TableCell className="fw-semibold">last Name</TableCell>
+                                <TableCell className="fw-semibold">Id</TableCell>
+                                <TableCell className="fw-semibold">First Name</TableCell>
+                                <TableCell className="fw-semibold">Last Name</TableCell>
+                                <TableCell className="fw-semibold">Document</TableCell>
                                 <TableCell className="fw-semibold">Email</TableCell>
                                 <TableCell className="fw-semibold">Active</TableCell>
                                 <TableCell className="fw-semibold">Actions</TableCell>
@@ -137,6 +138,7 @@ export default function UsersAdmin() {
                                     <TableCell size="small">{row.id}</TableCell>
                                     <TableCell>{row.first_name}</TableCell>
                                     <TableCell>{row.last_name}</TableCell>
+                                    <TableCell >{row.identification}</TableCell>
                                     <TableCell >{row.email}</TableCell>
                                     <TableCell >{row.is_active ? "yes" : "no"}</TableCell>
                                     <TableCell ><button onClick={() => handleOpen(row)} className='btn btn-primary'>Edit</button></TableCell>

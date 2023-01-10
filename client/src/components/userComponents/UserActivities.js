@@ -16,6 +16,7 @@ export const UserActivities = ({ activities }) => {
 
     useEffect(() => {
         dispatch(getServices(activities && activities[0]?.user_activities.UserId))
+        console.log(activities)
     }, [notification])
 
     const style = {
@@ -35,14 +36,25 @@ export const UserActivities = ({ activities }) => {
     };
     const handleClose = () => setOpen(false);
 
+    const getRating = (array) => {
+        // a?.activity_rating[0]?.rating || 0
+
+        let rating = array.find((e) => e.UserId == activities[0]?.user_activities.UserId)
+        return rating?.rating || 0
+    }
+
+
     return (
         <div>
             <div class="row text-center m-5 p-3 mx-auto" style={{ maxWidth: "87%" }}>
-
-                <h2 className='text-start mb-4'>These are the activities you have signed up for</h2>
+                {
+                    activities?.length ?
+                        <h2 className='text-start mb-4'>These are the activities you have signed up for</h2>
+                        : <h2>You have no activities yet</h2>
+                }
                 {
                     activities?.map(a => {
-                        let rating = a?.activity_rating[0]?.rating || 0
+                        let rating = getRating(a?.activity_rating)
                         return (
                             <div class="col-lg-4 col-sm-6 mb-4">
                                 <div className="card min-height-activity-card">

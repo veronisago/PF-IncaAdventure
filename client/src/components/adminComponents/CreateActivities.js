@@ -70,7 +70,7 @@ export default function CreateActivities({ handleClose, data }) {
                             <div class="col-lg-6">
                                 <label class="labels">Price</label>
                                 <input type="number" name='price' value={create.price}
-                                    required onChange={handleChange} min={0} max={200} className="form-control" />
+                                    required onChange={handleChange} className="form-control" />
                             </div>
                         </div>
                         <div className='row mt-4'>

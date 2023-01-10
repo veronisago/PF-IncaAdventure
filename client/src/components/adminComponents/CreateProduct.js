@@ -8,6 +8,7 @@ export default function CreateProduct({ handleClose, data }) {
 
     const [create, setCreate] = useState({
         name: data.name || "",
+        name: data.description || "",
         price: data.price || 0,
         stock: data.stock || 0,
         available: data.available || true,
@@ -55,20 +56,24 @@ export default function CreateProduct({ handleClose, data }) {
                                 <input type="text" name='name' value={create.name}
                                     required onChange={handleChange} className="form-control" />
                             </div>
-
                             <div class="col-lg-6">
-                                <label class="labels">Price</label>
-                                <input type="number" name='price' value={create.price}
-                                    required onChange={handleChange} min={0} max={200} className="form-control" />
+                                <label className="labels">Description</label>
+                                <textarea type="text" name='description' value={create.description}
+                                    required onChange={handleChange} className="form-control" />
                             </div>
                         </div>
                         <div className='row mt-4'>
-                            <div className='col-6'>
+                            <div class="col-lg-4">
+                                <label class="labels">Price</label>
+                                <input type="number" name='price' value={create.price}
+                                    required onChange={handleChange} className="form-control" />
+                            </div>
+                            <div className='col-4'>
                                 <label className='labels'>Stock</label>
                                 <input type="number" name='stock' value={create.stock}
                                     required onChange={handleChange} className="form-control" rows="3" />
                             </div>
-                            <div className='col-6'>
+                            <div className='col-4'>
                                 {
                                     data.id && (
                                         <div>

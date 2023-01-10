@@ -38,7 +38,11 @@ export const UserProducts = ({ products }) => {
     return (
         <div>
             <div class="row text-center m-5 p-3">
-            <h2 className='text-start mb-4'>These are the products you have purchased</h2>
+                {
+                    products?.length ?
+                    <h2 className='text-start mb-4'>These are the products you have purchased</h2>
+                        : <h2>You have no products yet</h2>
+                }
                 {
                     products?.map(a => {
                         let rating = a?.product_rating[0]?.rating || 0
@@ -57,7 +61,7 @@ export const UserProducts = ({ products }) => {
                                                 <StarIcon className='fs-3' style={{ color: rating ? "#faaf00" : "#bdbdbd" }} />
                                                 {rating}
                                             </b>
-                                            <button className={`btn border mt-3 ${rating ? "btn-secondary" : "btn-primary"} `} disabled={rating} onClick={() => handleOpen(a)}>Add Review</button>
+                                            <button className={`btn border mt-2 ${rating ? "btn-secondary" : "btn-primary"} `} disabled={rating} onClick={() => handleOpen(a)}>Add Review</button>
                                         </div>
                                     </div>
                                 </div>
