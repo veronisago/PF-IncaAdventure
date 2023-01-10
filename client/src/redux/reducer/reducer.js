@@ -1,139 +1,106 @@
 import {
   GET_USERS,
-  GET_USERS_BY_NAME,
-  GET_USER_BY_ID,
-  GET_USER_BY_USERNAME,
-  GET_USER_BY_EMAIL,
-  GET_STORES,
-  GET_STORES_BY_NAME,
-  GET_STORE_BY_ID,
+  POST_USER,
+  GET_SERVICES,
   GET_REVIEWS,
-  GET_REVIEWS_BY_RATING,
-  GET_REVIEWS_BY_WORD,
-  GET_REVIEWS_BY_ID,
+  DELETE_FROM_CART,
+  ADD_TO_CART,
+  CHANGE_QUANTITY,
+  GET_DETAIL,
+  SET_LOCAL_STORAGE_CART,
+  POST_ACTIVITY_REVIEW,
+  POST_PRODUCT_REVIEW,
   GET_PRODUCTS,
-  GET_PRODUCTS_BY_NAME,
-  GET_PRODUCTS_BY_ID,
-  GET_PRODUCTS_BY_ORDER,
   GET_ACTIVITIES,
-  GET_ACTIVITIES_BY_NAME,
-  GET_ACTIVITY_BY_ID,
-  GET_ACTIVITIES_BY_ORDER
 } from "../actions/constantes";
 
 let initialState = {
   allUsers: [],
-  allStores: [],
   allReviews: [],
   allProducts: [],
   allActivities: [],
-  userProfile: {}
+  userProfile: {},
+  userServices: {},
+  shoppingCart: [],
+  detail: {}
 };
 
-function rootReducer(state = initialState, action){
-  switch(action.type){
+function rootReducer(state = initialState, action) {
+  switch (action.type) {
     case GET_USERS:
-      return{
+      return {
         ...state,
         allUsers: action.payload
       };
-    case GET_USERS_BY_NAME:
-      return{
-        ...state,
-        allUsers: action.payload
-      };
-    case GET_USER_BY_ID:
-      return{
-        ...state,
-        allUsers: action.payload
-      };
-    case GET_USER_BY_USERNAME:
-      return{
+    case POST_USER:
+      return {
         ...state,
         userProfile: action.payload
       };
-    case GET_USER_BY_EMAIL:
-      return{
+    case GET_SERVICES:
+      return {
         ...state,
-        userProfile: action.payload
-      };
-    case GET_STORES:
-      return{
-        ...state,
-        allStores: action.payload
-      };
-    case GET_STORES_BY_NAME:
-      return{
-        ...state,
-        allStores: action.payload
-      };
-    case GET_STORE_BY_ID:
-      return{
-        ...state,
-        allStores: action.payload
+        userServices: { ...action.payload }
       };
     case GET_REVIEWS:
-      return{
-        ...state,
-        allReviews: action.payload
-      };
-    case GET_REVIEWS_BY_RATING:
-      return{
-        ...state,
-        allReviews: action.payload
-      };
-    case GET_REVIEWS_BY_WORD:
-      return{
-        ...state,
-        allReviews: action.payload
-      };
-    case GET_REVIEWS_BY_ID:
-      return{
+      return {
         ...state,
         allReviews: action.payload
       };
     case GET_PRODUCTS:
-      return{
-        ...state,
-        allProducts: action.payload
-      };
-    case GET_PRODUCTS_BY_NAME:
-      return{
-        ...state,
-        allProducts: action.payload
-      };
-    case GET_PRODUCTS_BY_ID:
-      return{
-        ...state,
-        allProducts: action.payload
-      };
-    case GET_PRODUCTS_BY_ORDER:
-      return{
+      return {
         ...state,
         allProducts: action.payload
       };
     case GET_ACTIVITIES:
-      return{
+      return {
         ...state,
         allActivities: action.payload
       };
-    case GET_ACTIVITIES_BY_NAME:
-      return{
+    case GET_DETAIL:
+      return {
         ...state,
-        allActivities: action.payload
+        detail: action.payload
       };
-    case GET_ACTIVITY_BY_ID:
-      return{
+    case ADD_TO_CART:
+      let index = state.shoppingCart.findIndex((e) => e.id === action.payload.id && e.category === action.payload.category)
+
+      let arr = [...state.shoppingCart]
+      index == -1 ? arr.push(action.payload) : arr[index].quantity++
+      window.localStorage.setItem('shoppingCart', JSON.stringify(arr));
+
+      return {
         ...state,
-        allActivities: action.payload
+        shoppingCart: arr
       };
-    case GET_ACTIVITIES_BY_ORDER:
-      return{
+    case DELETE_FROM_CART:
+      let arr2 = state.shoppingCart.filter((e) =>
+        e.category !== action.payload.category && e.id !== action.payload.id ||
+        e.category == action.payload.category && e.id !== action.payload.id ||
+        e.category !== action.payload.category && e.id == action.payload.id
+      )
+      window.localStorage.setItem('shoppingCart', JSON.stringify(arr2));
+
+      return {
         ...state,
-        allActivities: action.payload
+        shoppingCart: arr2
+      };
+    case CHANGE_QUANTITY:
+      let newState = [...state.shoppingCart]
+      newState[action.payload.index].quantity = action.payload.quantity
+      window.localStorage.setItem('shoppingCart', JSON.stringify(newState));
+
+      return {
+        ...state,
+        shoppingCart: newState
+      };
+    case SET_LOCAL_STORAGE_CART:
+      return {
+        ...state,
+        shoppingCart: action.payload
       };
     default:
-      return{
+      return {
         ...state
       };
   };
