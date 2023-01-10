@@ -79,7 +79,7 @@ const UserPage = () => {
 
     return (
 
-        <div className="mx-auto my-auto mt-5 ">
+        <div className="mx-auto my-auto mt-1">
             <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                     <button className="nav-link active" id="nav-users-tab" data-bs-toggle="tab" data-bs-target="#nav-users" type="button" role="tab" aria-controls="nav-users" aria-selected="true">Profile</button>
