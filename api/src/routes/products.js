@@ -48,9 +48,9 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  let { name, price, stock, description } = req.body;
+  let { name, price, image, stock, description } = req.body;
   try {
-    const product = await Product.create({name, price, stock, description});
+    const product = await Product.create({name, image, price, stock, description});
     res.status(200).json(product);
   } catch (error) {
     res.status(404).send(error)

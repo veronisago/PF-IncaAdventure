@@ -39,6 +39,10 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM("kids", "beginners", "advanced", "expert"),
       allowNull: false
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
      type: {
       type: DataTypes.ENUM("mountain", "rafting", "trekking", "exploring"),
       allowNull: false

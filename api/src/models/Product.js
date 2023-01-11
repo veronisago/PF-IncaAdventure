@@ -19,6 +19,10 @@ module.exports = (sequelize) => {
     stock: {
       type: DataTypes.INTEGER,
     },
+    image: {
+      type: DataTypes.STRING(499),
+      allowNull: false
+    },
     available: {
       type: DataTypes.BOOLEAN,
       defaultValue: true

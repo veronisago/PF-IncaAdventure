@@ -122,7 +122,7 @@ const ShopPage = () => {
 											<div className="col-lg-3 col-sm-6 col-12 mb-3 ">
 												<div className="card ">
 													<Link to={`/detail/product/${p.id}`}>
-														<img className="card-img-top cardShop-img-top mb-2" src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="card image cap" />
+														<img className="card-img-top cardShop-img-top mb-2" src={p.image} alt="card image cap" />
 													</Link>
 													<div className="card-body cardShop-body m-2">
 														<h5 className="card-text no-interaction capitalize pb-1">{p.name}</h5>
