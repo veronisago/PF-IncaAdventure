@@ -22,7 +22,7 @@ function Nav() {
 
   return (
     <div style={{ height: "55px" }} className="w-100 ">
-      <nav class="navbar navbar-expand-lg bg-light border-bottom fixed-top w-100 z-index-10" style={{ height: "55px" }}>
+      <nav class="navbar navbar-expand-lg bg-light border-bottom fixed-top w-100 z-index-10" style={{ height: "55px", boxShadow: "0 6px 15px #0000001f" }}>
         <div class="container-fluid pr-5">
           <Link className="pr-4" to="/">
             <img
@@ -43,7 +43,7 @@ function Nav() {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse bg-light ml-5" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse bg-light ml-5" style={{height: "55px"}} id="navbarSupportedContent">
             <ul style={{ marginLeft: "20px" }} className="navbar-nav me-auto mb-2 mb-lg-0 ml-4 pl-4">
               <li className="nav-item">
                 <Link className="nav-link mt-1 pl-3" to="/home">

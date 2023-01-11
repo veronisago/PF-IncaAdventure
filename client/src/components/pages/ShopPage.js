@@ -120,13 +120,15 @@ const ShopPage = () => {
 									allProducts?.rows?.map(p => {
 										return (
 											<div className="col-lg-3 col-sm-6 col-12 mb-3 ">
-												<div className="card ">
+												<div className="card min-height-activity-card">
 													<Link to={`/detail/product/${p.id}`}>
-														<img className="card-img-top cardShop-img-top mb-2" src={p.image} alt="card image cap" />
+														<img className="card-img-top cardShop-img-top mb-2 card-img-activities" src={p.image} alt="card image cap" />
 													</Link>
-													<div className="card-body cardShop-body m-2">
-														<h5 className="card-text no-interaction capitalize pb-1">{p.name}</h5>
-														<p className="no-interaction pb-2 fw-bold">${p.price}</p>
+													<div className="d-flex flex-column justify-content-between h-100 p-3">
+														<div>
+															<h5 className="card-text no-interaction capitalize pb-1">{p.name}</h5>
+															<p className="no-interaction pb-2 fw-bold">${p.price}</p>
+														</div>
 														<button className="btn btn-primary w-100" onClick={() => handleCart(p)}>Add <AddShoppingCartIcon /></button>
 													</div>
 												</div>

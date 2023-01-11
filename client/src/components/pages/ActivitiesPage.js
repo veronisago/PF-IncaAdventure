@@ -22,7 +22,7 @@ const initialState = {
 function ActivitiesPage() {
   const allActivities = useSelector(state => state.allActivities);
   const [filter, setFilter] = useState(initialState)
-  const [open, setOpen]= useState(false)
+  const [open, setOpen] = useState(false)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -122,23 +122,25 @@ function ActivitiesPage() {
                 allActivities?.rows?.map(a => {
                   return (
                     <div className="col-lg-4 col-sm-6 mb-4">
-                      <div className="card">
+                      <div className="card min-height-activity-card">
                         <Link to={`/detail/activity/${a.id}`}>
                           <img
                             src={a.image}
-                            className="card-img-top"
-                            alt="..."
+                            className="card-img-top card-img-activities"
+                            alt="image"
                           />
                         </Link>
-                        <div className="card-body">
-                          <h5 className="card-title">{a.name}</h5>
-                          <p className="card-title fst-italic">{a.type}</p>
-                          <p className="card-title fw-bolder">
-                            ${a.price}
-                          </p>
-                        <div className="col-lg-4 w-100">
-                          <button className="btn btn-primary w-100" onClick={() => handleCart(a)}>Add <AddShoppingCartIcon /></button>
-                        </div>
+                        <div className="d-flex flex-column justify-content-between h-100 p-3">
+                          <div>
+                            <h5 className="card-title">{a.name}</h5>
+                            <p className="card-title fst-italic">{a.type}</p>
+                            <p className="card-title fw-bolder">
+                              ${a.price}
+                            </p>
+                          </div>
+                          <div className="col-lg-4 w-100">
+                            <button className="btn btn-primary w-100" onClick={() => handleCart(a)}>Add <AddShoppingCartIcon /></button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -155,9 +157,9 @@ function ActivitiesPage() {
       <footer className="container-fluid bg-dark text-center py-2">
         <span className="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
       </footer>
-			<Notification duration={1000} style={"mt-0"} setOpen={setOpen} open={open} message={"Item added to the cart!"} />
+      <Notification duration={1000} style={"mt-0"} setOpen={setOpen} open={open} message={"Item added to the cart!"} />
     </div>
- 
+
   );
 }
 

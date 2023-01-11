@@ -21,11 +21,11 @@ function HomePage() {
         <div>
             <div className="container-fluid bg-green">
                 <div className="row">
-                    <div className="col-lg-6 my-5 py-lg-5 d-flex flex-column align-items-lg-end align-items-center pr-6 justify-content-center">
-                        <h1 className="display-4 fw-bold text-center">Inca Adventure</h1>
-                        <span className="display-4 fw-bold text-lg-end text-center text-light">The Eco-Adventure</span>
+                    <div className="col-lg-7 my-5 py-lg-5 d-flex flex-column align-items-lg-end align-items-center pr-6 justify-content-center">
+                        <h1 className="display-4 fw-bold text-center text-light pr-2" style={{fontSize: "70px", textShadow:"5px 2px 1px #0000005c"}}>Inca Adventure</h1>
+                        <span className="display-4 fw-bold text-lg-end text-center text-light pr-2" style={{fontSize: "40px", textShadow:"5px 2px 1px #0000005c"}}>The Eco-Adventure</span>
                     </div>
-                    <div className="col-lg-6 my-lg-5 py-lg-5 mb-5 d-flex justify-content-lg-start justify-content-center align-items-center pl-6">
+                    <div className="col-lg-5 my-lg-5 py-lg-5 mb-5 d-flex justify-content-lg-start justify-content-center align-items-center pl-6">
                         <div className="col-lg-6 col-md-8 col-sm-12 col-xs-12 mb-5 mb-lg-0">
                             <div className="ratio ratio-16x9 d-flex">
                                 <iframe
@@ -55,11 +55,11 @@ function HomePage() {
                             allReviews?.map((e) => (
 
                                 <div className="col-lg-4 col-sm-6">
-                                    <div className="card card px-0 my-3">
-                                        <img src={e.image} className="card-img-top" alt="..." />
+                                    <div className="card min-height-activity-card px-0 my-3">
+                                        <img src={e.image} className="card-img-top card-img-home" alt="..." />
                                         <div className="card-body">
                                             <h4><b>{e.name}</b></h4>
-                                            <span>{e.description}</span>
+                                            <span className="card-text">{e.description}</span>
                                         </div>
                                     </div>
                                 </div>

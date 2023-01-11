@@ -94,7 +94,7 @@
 }
 
 .min-height-activity-card {
-  height: 350px;
+  height: 371px;
 }
 
 .max-height-sidebar {
@@ -114,8 +114,11 @@
 }
 
 .bg-green{
-background-image: url("https://static.vecteezy.com/system/resources/previews/003/474/732/non_2x/abstract-banner-background-free-vector.jpg");
-text-shadow: 0 0 2px #fff;
+  background: rgb(0 0 0 / 29%) url("https://talesofabackpacker.com/wp-content/uploads/2019/01/Vinicunca-Rainbow-Mountain-One-of-the-Best-Day-Trips-from-Cusco-Peru.jpg");
+/* background-image: url("https://talesofabackpacker.com/wp-content/uploads/2019/01/Vinicunca-Rainbow-Mountain-One-of-the-Best-Day-Trips-from-Cusco-Peru.jpg"); */
+background-size: cover;
+background-position-y: 37%;
+background-blend-mode: darken;
 }
 
 .video {

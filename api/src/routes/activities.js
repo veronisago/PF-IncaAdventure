@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
     const offset = (page - 1) * perPage
 
     const conditions = {}
-    if (name) (conditions.name = { [Op.like]: `%${name}%` });
+    if (name) (conditions.name = { [Op.like]: `${name}%` });
     if (type) (conditions.type = type);
 
     if (min && max) conditions.price = { [Op.between]: [min, max] }
