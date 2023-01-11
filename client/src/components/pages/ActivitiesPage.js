@@ -153,7 +153,7 @@ function ActivitiesPage() {
         <span className="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
       </footer>
     </div>
-
+ 
   );
 }
 

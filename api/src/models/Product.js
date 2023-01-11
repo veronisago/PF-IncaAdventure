@@ -23,6 +23,10 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM("product"),
       defaultValue: undefined
     },
+    image: {
+      type: DataTypes.STRING(499),
+      allowNull: false
+    },
     available: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
