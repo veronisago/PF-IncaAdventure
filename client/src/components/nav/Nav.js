@@ -17,6 +17,7 @@ function Nav() {
   const handleLogout = () => {
     logout({ returnTo: window.location.origin })
     window.localStorage.removeItem('shoppingCart')
+    window.localStorage.removeItem('user_id')
   }
 
   return (

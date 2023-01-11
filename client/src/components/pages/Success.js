@@ -17,11 +17,13 @@ const SuccessPage = () => {
     useEffect(() => {
         let cart = JSON.parse(window.localStorage.getItem('shoppingCart'))
         let userId = window.localStorage.getItem('user_id')
-        axios.post(`${REACT_APP_BASE_URL}/profile/association/${userId}`, cart)
-            .then(() => {
-                console.log("borrado desde success")
-                window.localStorage.removeItem('shoppingCart')
-            })
+        if (userId && cart) {
+            axios.post(`${REACT_APP_BASE_URL}/profile/association/${userId}`, cart)
+                .then(() => {
+                    window.localStorage.removeItem('shoppingCart')
+                    window.localStorage.removeItem('user_id')
+                })
+        }
     })
 
     return (
