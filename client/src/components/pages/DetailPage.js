@@ -49,103 +49,11 @@ export const DetailPage = () => {
         <div className="row justify-content-center border rounded pb-5 mt-5 pt-5 bg-light px-4">
           <div className="col-md-7 col-lg-5 mb-5 mb-lg-0 wow fadeIn pt-3 mt-3">
             <div className="card border-0 shadow mx-3">
-              <div
-                id="carouselExampleIndicators"
-                className="carousel slide"
-                data-mdb-ride="carousel"
-              >
-                <div className="carousel-indicators">
-                  <button
-                    type="button"
-                    data-mdb-target="#carouselExampleIndicators"
-                    data-mdb-slide-to="0"
-                    className="active"
-                    aria-current="true"
-                    aria-label="Slide 1"
-                  ></button>
-                  <button
-                    type="button"
-                    data-mdb-target="#carouselExampleIndicators"
-                    data-mdb-slide-to="1"
-                    aria-label="Slide 2"
-                  ></button>
-                  <button
-                    type="button"
-                    data-mdb-target="#carouselExampleIndicators"
-                    data-mdb-slide-to="2"
-                    aria-label="Slide 3"
-                  ></button>
-                </div>
-                <div className="carousel-inner">
-                  <div className="carousel-item active">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
+            <img
+                      src="https://images2.alphacoders.com/592/thumb-1920-592411.jpg"
                       className="d-block w-100"
                       alt="Wild Landscape"
                     />
-                  </div>
-                  <div className="carousel-item">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
-                      className="d-block w-100"
-                      alt="Camera"
-                    />
-                  </div>
-                  <div className="carousel-item">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
-                      className="d-block w-100"
-                      alt="Exotic Fruits"
-                    />
-                  </div>
-                </div>
-                <button
-                  className="carousel-control-prev"
-                  type="button"
-                  data-mdb-target="#carouselExampleIndicators"
-                  data-mdb-slide="prev"
-                >
-                  <span
-                    className="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Previous</span>
-                </button>
-                <button
-                  className="carousel-control-next"
-                  type="button"
-                  data-mdb-target="#carouselExampleIndicators"
-                  data-mdb-slide="next"
-                >
-                  <span
-                    className="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Next</span>
-                </button>
-              </div>
-              {/* <img
-                src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Machu_Picchu%2C_Peru_%282018%29.jpg"
-                alt="..."
-              /> */}
-              <div className="card-body p-4">
-                <div className="mb-4 d-flex justify-content-between align-items-center">
-                  <h3 className="h3 mb-0 capitalize text-start">{detail.name}</h3>
-                  <div className="d-flex align-items-center gap-2">
-                    <Rating precision={0.1} name="read-only" value={parseFloat(detail.avgRating)} readOnly />
-                    <div className="fw-bold fs-5">{detail.avgRating ? parseFloat(detail.avgRating).toFixed(1) : 0}</div>
-                  </div>
-                </div>
-                <div>
-                  <ul className="text-start">
-                    <li className="mb-2"><TaskAltIcon /><b> Available: </b>{detail.available ? 'yes' : 'no'}</li>
-                    {detail.difficulty_level && <li className="mb-2"><HikingIcon /><b> Difficulty: </b>{detail.difficulty_level}</li>}
-                    {detail.allowed_age && <li className="mb-2"><AccessibilityNewIcon /><b> Allowed age: </b>{detail.allowed_age}</li>}
-                    {detail.start_at && <li className="mb-2"><AccessTimeIcon /><b> Time schedule: </b>{detail.start_at} - {detail.end_at}</li>}
-                    {detail.stock && <li className="mb-2"><Inventory2Icon /><b> Stock: </b>{detail.stock}</li>}
-                  </ul>
-                </div>
-              </div>
             </div>
           </div>
           <div className="col-lg-7 pt-3">

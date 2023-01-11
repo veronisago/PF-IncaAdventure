@@ -61,16 +61,21 @@ export default function CreateActivities({ handleClose, data }) {
                     <h4 className='mt-3 mb-3'>{data.id ? 'Update activity' : 'Create new activity'}</h4>
                     <form onSubmit={handleSubmit}>
                         <div className='row'>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label className="labels">Name</label>
                                 <input type="text" name='name' value={create.name}
                                     required onChange={handleChange} className="form-control" />
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label class="labels">Price</label>
                                 <input type="number" name='price' value={create.price}
                                     required onChange={handleChange} className="form-control" />
+                            </div>
+                            <div className='col-4'>
+                                <label className='labels'>Schedule</label>
+                                <textarea name='schedule' value={create.schedule}
+                                    required onChange={handleChange} class="form-control" rows="3"></textarea>
                             </div>
                         </div>
                         <div className='row mt-4'>
@@ -82,11 +87,6 @@ export default function CreateActivities({ handleClose, data }) {
                         </div>
                         <div className='row mt-4'>
                             <div className='col-4'>
-                                <label className='labels'>Schedule</label>
-                                <textarea name='schedule' value={create.schedule}
-                                    required onChange={handleChange} class="form-control" rows="3"></textarea>
-                            </div>
-                            <div className='col-3'>
                                 <label class="labels">Allowed age</label>
                                 <select name="allowed_age" onChange={handleChange} value={create.allowed_age} class="form-select" aria-label="Default select example">
                                     <option selected>select a valid option</option>
@@ -96,7 +96,7 @@ export default function CreateActivities({ handleClose, data }) {
                                     <option value="over 18 years old">over 18 years old</option>
                                 </select>
                             </div>
-                            <div className='col-3'>
+                            <div className='col-4'>
                                 <label class="labels">Difficulty level</label>
                                 <select name='difficulty_level' onChange={handleChange} value={create.difficulty_level} class="form-select" aria-label="Default select example">
                                     <option selected>select a valid option</option>
@@ -106,7 +106,7 @@ export default function CreateActivities({ handleClose, data }) {
                                     <option value="expert">expert</option>
                                 </select>
                             </div>
-                            <div className='col-3'>
+                            <div className='col-4'>
                                 <label class="labels">Type</label>
                                 <select name='type' onChange={handleChange} value={create.type} class="form-select" aria-label="Default select example">
                                     <option selected>select a valid option</option>

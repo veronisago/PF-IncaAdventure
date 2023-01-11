@@ -6,6 +6,7 @@ import { Stack, Pagination } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { addToCart } from "../../redux/actions/actions/stores.js";
 import { Link } from "react-router-dom";
+import { Notification } from '../notification/Notification';
 
 const initialState = {
 	name: '',
@@ -19,6 +20,8 @@ const initialState = {
 const ShopPage = () => {
 	const allProducts = useSelector(state => state.allProducts);
 	const [filter, setFilter] = useState(initialState)
+	const [open, setOpen] = useState(false);
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -47,6 +50,7 @@ const ShopPage = () => {
 
 	function handleCart(e) {
 		dispatch(addToCart({ ...e, category: 'product', quantity: 1 }))
+		setOpen(true)
 	}
 
 	const handlePagination = (event, page) => {
@@ -141,6 +145,7 @@ const ShopPage = () => {
 			<footer className="container-fluid bg-dark text-center py-2">
 				<span className="text-muted">Copyrigth 2022-2023 IncaAdventure SA - pending pattent &#174;</span>
 			</footer>
+			<Notification duration={1000} style={"mt-0"} setOpen={setOpen} open={open} message={"Item added to the cart!"} />
 		</div>
 	);
 };
