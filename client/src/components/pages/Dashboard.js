@@ -18,7 +18,7 @@ const Dashboard = () => {
     >
       <div className="col-2 border-top mx-auto pt-4  viewport-height-content">
         <div id="sidebar">
-          <h2 className="text-center mb-4 fw-bold text-primary">Dashboard</h2>
+          <h4 className="text-center mb-4 fw-bold text-primary">Dashboard</h4>
           <div className="row">
             <div className="col-lg-12 col-sm-6 col-12 ml-">
               <h6 className="p-1 border-bottom fw-bold">Components</h6>

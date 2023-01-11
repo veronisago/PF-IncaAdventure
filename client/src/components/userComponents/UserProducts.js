@@ -15,7 +15,9 @@ export const UserProducts = ({ products }) => {
     const [notification, setNotification] = useState(false);
 
     useEffect(() => {
-        dispatch(getServices(products && products[0]?.user_products.UserId))
+        if (products) {
+            dispatch(getServices(products[0]?.user_products.UserId))
+        }
     }, [notification])
 
     const style = {
@@ -40,7 +42,7 @@ export const UserProducts = ({ products }) => {
             <div class="row text-center m-5 p-3">
                 {
                     products?.length ?
-                    <h2 className='text-start mb-4'>These are the products you have purchased</h2>
+                        <h2 className='text-start mb-4'>These are the products you have purchased</h2>
                         : <h2>You have no products yet</h2>
                 }
                 {
