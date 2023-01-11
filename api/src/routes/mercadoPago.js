@@ -31,20 +31,24 @@ router.post("/", (req, res) => {
 router.post("/webhook", async (req, res) => {
     const { type } = req.query
     const { action } = req.body
+    try {
 
-    if (type !== "payment" && action !== 'payment.created') return res.status(200)
+        if (type !== "payment" && action !== 'payment.created') return res.status(200)
 
-    let result = await axios.get(`https://api.mercadopago.com/v1/payments/${req.query['data.id']}`, {
-        headers: { "Authorization": `Bearer ${MP_ACCESS_TOKEN}` }
-    })
+        let result = await axios.get(`https://api.mercadopago.com/v1/payments/${req.query['data.id']}`, {
+            headers: { "Authorization": `Bearer ${MP_ACCESS_TOKEN}` }
+        })
 
-    if (result.data.status == "approved") {
-        const { additional_info, card, id, status, payment_method, payer } = result.data
-        const userPdf = await User.findOne({ where: { identification: card.cardholder.identification.number } })
-        if (!userPdf) return
-        generatePDF(additional_info.items, userPdf.email, userPdf.first_name, id, card.date_created, status, card.cardholder.identification.number, payment_method.type)
+        if (result.data.status == "approved") {
+            const { additional_info, card, id, status, payment_method, payer } = result.data
+            const userPdf = await User.findOne({ where: { identification: card.cardholder.identification.number } })
+            if (!userPdf) return
+            generatePDF(additional_info.items, userPdf.email, userPdf.first_name, id, card.date_created, status, card.cardholder.identification.number, payment_method.type)
+        }
+        return res.status(201).json({ message: "ok" })
+    } catch (error) {
+        return res.status(500).json(error)
     }
-    return res.status(201).json({ message: "ok" })
 })
 
 module.exports = router
