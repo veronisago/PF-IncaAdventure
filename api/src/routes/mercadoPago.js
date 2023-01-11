@@ -40,7 +40,7 @@ router.post("/webhook", async (req, res) => {
             headers: { "Authorization": `Bearer ${MP_ACCESS_TOKEN}` }
         })
 
-        if (result.data.status == "approved" && card.cardholder?.identification) {
+        if (result.data.status == "approved") {
             const { additional_info, card, id, status, payment_method, payer } = result.data
             const userPdf = await User.findOne({ where: { identification: card.cardholder.identification.number } })
             if (!userPdf) return
