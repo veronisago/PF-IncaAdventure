@@ -56,7 +56,7 @@ function HomePage() {
 
                                 <div className="col-lg-4 col-sm-6">
                                     <div className="card card px-0 my-3">
-                                        <img src="https://wallpaperaccess.com/full/1099438.jpg" className="card-img-top" alt="..." />
+                                        <img src={e.image} className="card-img-top" alt="..." />
                                         <div className="card-body">
                                             <h4><b>{e.name}</b></h4>
                                             <span>{e.description}</span>
