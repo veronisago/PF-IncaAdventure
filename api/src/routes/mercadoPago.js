@@ -3,6 +3,7 @@ const mercadopago = require('mercadopago')
 const axios = require('axios')
 const { generatePDF } = require("../emails/email")
 const { User } = require("../db");
+const { card } = require("mercadopago");
 
 const { MP_ACCESS_TOKEN, MP_URL, MP_SUCCESS } = process.env
 
@@ -39,7 +40,7 @@ router.post("/webhook", async (req, res) => {
             headers: { "Authorization": `Bearer ${MP_ACCESS_TOKEN}` }
         })
 
-        if (result.data.status == "approved") {
+        if (result.data.status == "approved" && card.cardholder?.identification) {
             const { additional_info, card, id, status, payment_method, payer } = result.data
             const userPdf = await User.findOne({ where: { identification: card.cardholder.identification.number } })
             if (!userPdf) return
