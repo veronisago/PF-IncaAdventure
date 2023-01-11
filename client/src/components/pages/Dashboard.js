@@ -89,7 +89,7 @@ const Dashboard = () => {
             role="tabpanel"
             aria-labelledby="list-users-list"
           >
-            <div className="row viewport-height-content">
+            <div className="row ">
               <UsersAdmin />
             </div>
           </div>

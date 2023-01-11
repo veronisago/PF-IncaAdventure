@@ -55,6 +55,7 @@ const UserPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log("subtmit")
         dispatch(userUpdated({ ...update, id: userProfile.id }))
         dispatch(createUser({ email: userProfile.email }))
         setOpen(true)
@@ -62,16 +63,16 @@ const UserPage = () => {
 
     const checkForm = () => {
         if (
-            !update.first_name || 
-            !update.last_name || 
-            !update.email || 
-            !update.language || 
+            !update.first_name ||
+            !update.last_name ||
+            !update.email ||
+            !update.language ||
             !update.identification ||
             !update.mobile_number ||
             !update.birth_date
-             ) {
+        ) {
             return true
-        }else {
+        } else {
             return false
         }
     }
@@ -152,7 +153,7 @@ const UserPage = () => {
                                             </div>
                                         </div>
                                         <div className="mt-5 text-center">
-                                            <button className="btn btn-primary profile-button"disabled={checkForm()} type="submit">Save Profile</button>
+                                            <button className="btn btn-primary profile-button" disabled={checkForm()} type="submit">Save Profile</button>
                                         </div>
                                     </div>
                                 </form>
