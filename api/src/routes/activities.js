@@ -50,10 +50,10 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, schedule, price, start_at, end_at, description, allowed_age, difficulty_level, type } = req.body;
+  const { name, schedule, price, start_at, end_at, description,image, allowed_age, difficulty_level, type } = req.body;
 
   try {
-    const activity = await Activity.create({ name, schedule, start_at, end_at, price, description, allowed_age, difficulty_level, type });
+    const activity = await Activity.create({ name, schedule, start_at, end_at, price, description, image, allowed_age, difficulty_level, type });
     res.status(200).json(activity);
 
   } catch (error) {
