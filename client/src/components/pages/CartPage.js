@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { ShoppingCard } from '../shoppingCard/ShoppingCard';
@@ -6,12 +6,17 @@ import { setLocalStorageCart } from '../../redux/actions/actions/stores';
 import MercadoPago from '../MercadoPago';
 import { useAuth0 } from "@auth0/auth0-react";
 import { createUser } from '../../redux/actions/actions/users';
+import { Notification } from '../notification/Notification';
+
 
 const CartPage = () => {
   const { user } = useAuth0();
 
   const shoppingCart = useSelector((state) => state.shoppingCart)
   const userProfile = useSelector((state) => state.userProfile)
+	const [open, setOpen] = useState(false);
+	const [open1, setOpen1] = useState(false);
+
 
   const dispatch = useDispatch()
 
@@ -29,8 +34,8 @@ const CartPage = () => {
   }, [user, dispatch])
 
   function checkUser() {
-    if (!user) return alert("log in")
-    if (!userProfile.is_active) return alert("Complete register")
+    if (!user) return setOpen(true)
+    if (!userProfile.is_active) return setOpen1(true)
     MercadoPago(shoppingCart)
   }
 
@@ -78,6 +83,8 @@ const CartPage = () => {
           </div>
         </div>
       </section>
+			<Notification duration={1000} style={"mt-0"} sev={"error"} setOpen={setOpen} open={open} message={"You must log in!"} />
+			<Notification duration={1000} style={"mt-0"} sev={"error"} setOpen={setOpen1} open={open1} message={"You must to complete register!"} />
     </div>
   )
 }
