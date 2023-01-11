@@ -9,9 +9,14 @@ import ShopPage from './components/pages/ShopPage' ;
 import UserPage from './components/pages/UserPage';
 import Dashboard from './components/pages/Dashboard';
 import { DetailPage } from './components/pages/DetailPage';
+import Success from "./components/pages/Success";
+import { useSelector } from 'react-redux';
 
 
 function App() {
+
+  const userProfile = useSelector((state) => state.userProfile)
+ console.log(userProfile.is_admin);
   return (
     <div className="App">
       <Router>
@@ -21,12 +26,14 @@ function App() {
           <Route exact path='/home' component={HomePage}/>
           <Route exact path='/activities' component={ActivitiesPage}/>
           <Route exact path='/shop' component={ShopPage}/>
-          <Route exact path='/detail' component={DetailPage}/>
+          <Route exact path='/detail/:category/:id' component={DetailPage}/>
           <Route exact path='/profile' component={UserPage}/>
           <Route exact path='/cart' component={CartPage}/>
           <Route exact path='/admin' render={() => {
-            return null ? <Redirect to='/'/> : <Dashboard/>
+            return userProfile.is_admin ? <Dashboard/> : <Redirect to='/'/>
           }}/>
+          <Route exact path='/success' component={Success}/>
+          
         </Switch>
       </Router>
     </div>

@@ -1,194 +1,165 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getDetail } from "../../redux/actions/actions/detail";
+import Rating from '@mui/material/Rating';
+import { Modal, Box, Divider } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import HikingIcon from '@mui/icons-material/Hiking';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
+import AccountCircle from "@mui/icons-material/AccountCircle";
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  borderRadius: 5,
+};
 
 export const DetailPage = () => {
 
+  let { id, category } = useParams();
+
+  const [open, setOpen] = useState(false);
+  const detail = useSelector(state => state.detail);
+  const dispatch = useDispatch()
+
+  const handleOpen = (data) => {
+    setOpen(true)
+  };
+  const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    dispatch(getDetail({ id, category }))
+  }, [id, category])
+
+  console.log(detail);
   return (
-    <div class="bg-success pb-5 pt-3 mt-0 mb-0">
-      <div class="container pt-5 pb-5">
-        <div class="row justify-content-center border rounded border-dark pb-5 mt-5 pt-5 bg-light">
-          <div class="col-md-7 col-lg-5 mb-5 mb-lg-0 wow fadeIn">
-            <div class="card border-0 shadow mx-3 mb-5">
-              <div
-                id="carouselExampleIndicators"
-                class="carousel slide"
-                data-mdb-ride="carousel"
-              >
-                <div class="carousel-indicators">
-                  <button
-                    type="button"
-                    data-mdb-target="#carouselExampleIndicators"
-                    data-mdb-slide-to="0"
-                    class="active"
-                    aria-current="true"
-                    aria-label="Slide 1"
-                  ></button>
-                  <button
-                    type="button"
-                    data-mdb-target="#carouselExampleIndicators"
-                    data-mdb-slide-to="1"
-                    aria-label="Slide 2"
-                  ></button>
-                  <button
-                    type="button"
-                    data-mdb-target="#carouselExampleIndicators"
-                    data-mdb-slide-to="2"
-                    aria-label="Slide 3"
-                  ></button>
-                </div>
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
-                      class="d-block w-100"
+    <div className=" pb-5 mt-0 mb-0">
+      <div className="container pt-4 pb-5">
+        <div className="row justify-content-center border rounded pb-5 mt-5 pt-5 bg-light px-4">
+          <div className="col-md-7 col-lg-5 mb-5 mb-lg-0 wow fadeIn pt-3 mt-3">
+            <div className="card border-0 shadow mx-3">
+            <img
+                      src="https://images2.alphacoders.com/592/thumb-1920-592411.jpg"
+                      className="d-block w-100"
                       alt="Wild Landscape"
                     />
-                  </div>
-                  <div class="carousel-item">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
-                      class="d-block w-100"
-                      alt="Camera"
-                    />
-                  </div>
-                  <div class="carousel-item">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
-                      class="d-block w-100"
-                      alt="Exotic Fruits"
-                    />
-                  </div>
-                </div>
-                <button
-                  class="carousel-control-prev"
-                  type="button"
-                  data-mdb-target="#carouselExampleIndicators"
-                  data-mdb-slide="prev"
-                >
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button
-                  class="carousel-control-next"
-                  type="button"
-                  data-mdb-target="#carouselExampleIndicators"
-                  data-mdb-slide="next"
-                >
-                  <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
-              {/* <img
-                src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Machu_Picchu%2C_Peru_%282018%29.jpg"
-                alt="..."
-              /> */}
-              <div class="card-body p-1-9 p-xl-5">
-                <div class="mb-4">
-                  <h3 class="h4 mb-0">Title</h3>
-                </div>
-                <ul class="list-unstyled mb-4">
-                  <li class="mb-3">
-                    <a href="#!">
-                      <i class="far fa-envelope display-25 me-3 text-secondary"></i>{" "}
-                      Añadir al carro
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!">
-                      <i class="fas fa-map-marker-alt display-25 me-3 text-secondary"></i>
-                      Escribir una Reseña
-                    </a>
-                  </li>
-                </ul>
-                <ul class="social-icon-style2 ps-0">
-                  <li>
-                    <a href="#!" class="rounded-3">
-                      <i class="fab fa-facebook-f"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" class="rounded-3">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" class="rounded-3">
-                      <i class="fab fa-youtube"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!" class="rounded-3">
-                      <i class="fab fa-linkedin-in"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
-          <div class="col-lg-7 pt-5">
-            <div class="ps-lg-1-6 ps-xl-5">
-              <div class="mb-5 wow fadeIn">
-                <div class="text-center mb-1-6 wow fadeIn">
-                  <h2 class="h1 mb-0 text-primary">
-                    Activity or Product Name Render
+          <div className="col-lg-7 pt-3">
+            <div className="ps-lg-1-6 ps-xl-5">
+              <div className="mb-3 wow fadeIn">
+                <div className="text-start mb-1-6 wow fadeIn">
+                  <h2 className="h1 mb-0 text-primary capitalize">
+                    {detail.name}
                   </h2>
+                  <p className="mt-4">{detail.description}</p>
+                  {
+                    category == 'activity' &&
+                    <>
+                      <h4 className="text-primary mt-4">Schedule</h4>
+                      <p>{detail.schedule}</p>
+                    </>
+                  }
                 </div>
               </div>
-              <div class="mb-5 wow fadeIn">
-                <div class="text-center mb-1-6 wow fadeIn">
-                  <h2 class="mb-0 text-black">Características</h2>
-                </div>
-                <div class="row mt-n4">
-                  <div class="col-sm-6 col-xl-4 mt-4">
-                    <div class="card text-center border-0 rounded-3">
-                      <div class="card-body">
-                        <i class="ti-bookmark-alt icon-box medium rounded-3 mb-4"></i>
-                        <h3 class="h5 mb-3">Reserva Anticipada</h3>
-                        <p class="mb-0">Necesaria</p>
+              <div className="mb-5 wow fadeIn">
+                <div className="row mt-n4">
+                  <div className="col-sm-6 col-xl-4 mt-4">
+                    <div className="card text-center border-0 rounded-3">
+                      <div className="card-body">
+                        <i className="ti-bookmark-alt icon-box medium rounded-3 mb-4"></i>
+                        {
+                          category === 'activity' ?
+                            <>
+                              <h3 className="h5 mb-3">Advance Booking</h3>
+                              <p className="mb-0">Required</p>
+                            </>
+                            :
+                            <>
+                              <h3 className="h5 mb-3">Shipping</h3>
+                              <p className="mb-0">Available</p>
+                            </>
+                        }
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6 col-xl-4 mt-4">
-                    <div class="card text-center border-0 rounded-3">
-                      <div class="card-body">
-                        <i class="ti-pencil-alt icon-box medium rounded-3 mb-4"></i>
-                        <h3 class="h5 mb-3">Precio</h3>
-                        <p class="mb-0">$2230</p>
+                  <div className="col-sm-6 col-xl-4 mt-4">
+                    <div className="card text-center border-0 rounded-3">
+                      <div className="card-body">
+                        <i className="ti-pencil-alt icon-box medium rounded-3 mb-4"></i>
+                        <h3 className="h5 mb-3">Price</h3>
+                        <p className="mb-0">${detail.price}</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6 col-xl-4 mt-4">
-                    <div class="card text-center border-0 rounded-3">
-                      <div class="card-body">
-                        <i class="ti-pencil-alt icon-box medium rounded-3 mb-4"></i>
-                        <h3 class="h5 mb-3">Categoria</h3>
-                        <p class="mb-0">Trekking</p>
+                  <div className="col-sm-6 col-xl-4 mt-4">
+                    <div className="card text-center border-0 rounded-3">
+                      <div className="card-body">
+                        <i className="ti-pencil-alt icon-box medium rounded-3 mb-4"></i>
+                        <h3 className="h5 mb-3">Category</h3>
+                        <p className="mb-0 capitalize">{detail.type || 'Product'}</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="row mt-5 pt-5 mb-5">
-                <div class="text-center mb-1-6 wow fadeIn">
-                  <h2 class="mb-0 text-primary">Availabilty</h2>
-                  <span>Yes/No</span>
-                </div>
-              </div>
-              <div class="row mt-n4">
-                <div class="text-center mb-1-6 wow fadeIn">
-                  <h2 class="mb-0 text-primary">Reviews</h2>
-                  <span>Render reviews Count Here</span>
+              <div className="row mt-n4">
+                <div className="text-center mb-1-6 wow fadeIn w-100">
+                  <div className="d-flex align-items-center justify-content-center gap-2 mx-auto mb-2">
+                    <h2 className="mb-0 text-primary">Reviews</h2>
+                    <h4 className="mb-0 text-primary fs-5 pt-1"> ({detail.reviews?.length})</h4>
+                  </div>
+                  {
+                    detail.reviews?.length ? <button className="btn btn-outline-secondary text-dark btn-sm" onClick={handleOpen}>View all reviews</button> : <span>No reviews yet</span>
+                  }
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="p-5">
+            <h2 className="text-center mb-4">Reviews</h2>
+            {
+              detail?.reviews?.map((e) => (
+                <div className=" w-100 mb-4">
+                  <div className="d-flex gap-2">
+                    <AccountCircle />
+                    <h6>{e.User.first_name} {e.User.last_name}</h6>
+                  </div>
+                  <div>
+                    <div className="d-flex w-100 justify-content-between">
+                      <Rating name="read-only" value={Number(e.rating)} readOnly />
+                      <p>{e.User.createdAt.slice(0, 10)}</p>
+                    </div>
+                    <p>{e.comments}</p>
+                  </div>
+                  <Divider />
+                </div>
+              ))
+            }
+          </div>
+        </Box>
+
+      </Modal>
     </div>
   );
 };

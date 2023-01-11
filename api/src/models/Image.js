@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  sequelize.define('Images', {
+  sequelize.define('Image', {
     name: {
       type: DataTypes.STRING,
       // unique: true,
@@ -9,10 +9,6 @@ module.exports = (sequelize) => {
     },
     comments: {
       type: DataTypes.TEXT,
-    },
-    public_id: {
-      type: DataTypes.STRING,
-      require: true
     },
     url: {
       type: DataTypes.STRING,
@@ -26,11 +22,6 @@ module.exports = (sequelize) => {
     for: {
       type: DataTypes.ENUM("Activities", "Products", "Users_Profile", "Various"),
       defaultValue: "Various" 
-    },
-    disable: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      // de ser true pedir especificaciones
     },
     is_active: {
       type: DataTypes.BOOLEAN,

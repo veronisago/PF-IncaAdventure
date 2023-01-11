@@ -1,86 +1,45 @@
 const { Router } = require("express");
-const { Products } = require("../db");
+const { Op } = require("sequelize");
+const { Product } = require("../db");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { name, order } = req.query;
-  const { min, max } = req.body;
-  const products = await Products.findAll();
+  try {
+    const { name, order, orderBy, min, max, page, id } = req.query;
 
-  if(min && max){
-    if(typeof Number(min) !== "number" || typeof Number(max) !== "number") res.status(400).json({msg: "Both numbers must be integer"});
-    else {
-      let productsByPriceRange = await products.filter(p => p.price > min && p.price < max);
-      res.json(productsByPriceRange);
-    }
+    const perPage = 6
+    const offset = (page - 1) * perPage
+
+    const conditions = {}
+    if (name) (conditions.name = { [Op.like]: `%${name}%` });
+    if (id) (conditions.id = id);
+
+    if (min && max) conditions.price = { [Op.between]: [min, max] }
+    else if (min) conditions.price = { [Op.gt]: min }
+    else if (max) conditions.price = { [Op.lt]: max }
+
+    const products = await Product.findAndCountAll({
+      where: { ...conditions },
+      order: [
+        [orderBy || 'updatedAt', order || 'DESC']
+      ],
+      limit: perPage,
+      offset: offset || 0,
+    });
+    let totalPages = Math.ceil(products.count / perPage)
+
+    res.status(200).json({ ...products, totalPages, page: page || 1 })
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error)
   }
-  if(name){
-    try {
-      const productName = products.filter((d) =>
-        d.name.toLowerCase().includes(name.toLowerCase())
-      );
-      res.json(productName);
-    } catch (error) {
-      console.log(error);
-    }
-  } else if(order){
-    if (order === "A-Z") {
-      try {
-        const productsAsc = await products.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-          if (b.name.toLowerCase() > a.name.toLowerCase()) return -1;
-          return 0;
-        });
-        res.json(productsAsc);
-      } catch (error) {
-        console.log(error);
-      }
-    } else if (order === "Z-A") {
-      try {
-        const productsDesc = await products.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
-          if (b.name.toLowerCase() > a.name.toLowerCase()) return 1;
-          return 0;
-        });
-        res.json(productsDesc);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  } else if(order === "CHEAP"){
-    try {
-      const productsCheap = await products.sort((a, b) => {
-        if(a.price > b.price) return 1;
-        if(b.price > a.price) return -1;
-        return 0;
-      });
-      res.json(productsCheap);
-    } catch (error) {
-      console.log(error);
-    }
-  } else if(order === "EXPENSIVE"){
-    try {
-      const productsExpensive = await products.sort((a, b) => {
-        if(a.price > b.price) return -1;
-        if(b.price > a.price) return 1;
-        return 0;
-      });
-      res.json(productsExpensive);
-    } catch (error) {
-      console.log(error);
-    }
-  } else {
-    res.json(products);
-  }
- 
-    
 });
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   if(id){
     try {
-      const product = await Products.findByPk(id);
+      const product = await Product.findByPk(id);
       res.json(product);
     } catch (error) {
       console.log(error);
@@ -89,53 +48,26 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  let { name, price, stock } = req.body;
+  let { name, price, stock, description } = req.body;
   try {
-    const product = Products.findOrCreate({
-       where: {
-        name, 
-        price, 
-        stock
-      } 
-    });
-    res.json(product);
+    const product = await Product.create({name, price, stock, description});
+    res.status(200).json(product);
   } catch (error) {
-    console.log(error);
+    res.status(404).send(error)
   }
 });
 
-router.put("/:id", async (req, res) => {
-  const id = req.params.id; // en un principio lo hacemos solo con id
+router.put("/", async (req, res) => {
   const newData = req.body;
-  // si viene desability
-
-  if(newData.disable) newData.is_active = false;
+  const id = newData.id
   try {
-    const productModified = await Products.update(newData, {where: {id}});
-    console.log(productModified);
-    res.json({msg: "Product updated"});
+    const productModified = await Product.update(newData, { where: { id } });
+    res.json({ msg: "Product updated" });
   } catch (error) {
     console.log(error);
   };
 
-
 });
 
-router.delete("/:id", async (req, res) => {
-  const id = req.params.id;
-  const productToDelete = await Products.findByPk(id);
-  if(!productToDelete) {
-    res.status(404).json({msg: "That product do not exist brou"});
-  } else if(productToDelete.is_active){
-    res.status(400).json({msg: "The product must be diactivated before delete"});
-  } else {
-    try {
-      await Products.destroy({where: {id}});
-      res.json({msg: "The product has been delete successfully"});
-    } catch (error) {
-      console.log(error);
-    }
-  };
-});
 
 module.exports = router;

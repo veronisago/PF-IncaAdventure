@@ -2,7 +2,7 @@ const { Router } = require("express");
 // const cloudinary = require("cloudinary").v2
 const cloudinary = require("../utils/cloudinary");
 
-const { Images } = require("../db");
+const { Image } = require("../db");
 const router = Router();
 
 const cloudinaryConfig = cloudinary.config({
@@ -14,7 +14,7 @@ const cloudinaryConfig = cloudinary.config({
 
 router.get("/", async (req, res) => {
   const {name, order} = req.query;
-  const images = await Images.findAll()
+  const images = await Image.findAll()
 
   if(name){
     try {
@@ -55,7 +55,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   // id x params
   const id = req.params.id;
-  const images = await Images.findAll();
+  const images = await Image.findAll();
   
   if (id) {
     try {
@@ -99,7 +99,7 @@ router.put("/:id", async (req, res) => {
 
   if(newData.disable) newData.is_active = false;
   try {
-    const imageModified = await Images.update(newData, {where: {id}});
+    const imageModified = await Image.update(newData, {where: {id}});
     console.log(imageModified);
     res.json({msg: "Image updated"});
   } catch (error) {
@@ -111,14 +111,14 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
-  const imageToDelete = await Images.findByPk(id);
+  const imageToDelete = await Image.findByPk(id);
   if(!imageToDelete) {
     res.status(404).json({msg: "That image do not exist brou"});
   } else if(imageToDelete.is_active){
     res.status(400).json({msg: "The image must be diactivated before delete"});
   } else {
     try {
-      await Images.destroy({where: {id}});
+      await Image.destroy({where: {id}});
       res.json({msg: "The image has been delete successfully"});
     } catch (error) {
       console.log(error);

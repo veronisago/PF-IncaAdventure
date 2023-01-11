@@ -7,10 +7,9 @@ const activities = require("./activities");
 const products = require("./products");
 const users = require("./users");
 const reviews = require("./reviews");
-const stores = require("./stores");
-const images = require("./images");
 const cloud = require("./cloud");
 const profile = require("./profile");
+const mercadoPago = require("./mercadoPago");
 
 
 
@@ -20,10 +19,9 @@ router.use("/activities", activities);
 router.use("/products", products);
 router.use("/users", users);
 router.use("/reviews", reviews);
-router.use("/stores", stores);
-router.use("/images", images);
 router.use("/cloud", cloud);
 router.use("/profile", profile);
+router.use("/mercadopago", mercadoPago);
 
 
 

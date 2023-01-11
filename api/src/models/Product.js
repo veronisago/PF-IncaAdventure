@@ -2,23 +2,27 @@ const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
-    // la columna image viene x relacion
-  sequelize.define('Products', {
+  // la columna image viene x relacion
+  sequelize.define('Product', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
     price: {
       type: DataTypes.FLOAT,
-      allowNull:false,
+      allowNull: false,
     },
     stock: {
       type: DataTypes.INTEGER,
     },
-    // category: {
-    //   type: DataTypes.ENUM("");
-    //   defaultValue: undefined
-    // },
+    category: {
+      type: DataTypes.ENUM("product"),
+      defaultValue: undefined
+    },
     available: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
@@ -33,14 +37,5 @@ module.exports = (sequelize) => {
     //     required: true
     //   }
     // },
-    disable: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      // de ser true pedir especificaciones
-    },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true
-    }
   });
 };
