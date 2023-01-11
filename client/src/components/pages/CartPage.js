@@ -5,6 +5,7 @@ import { ShoppingCard } from '../shoppingCard/ShoppingCard';
 import { setLocalStorageCart } from '../../redux/actions/actions/stores';
 import MercadoPago from '../MercadoPago';
 import { useAuth0 } from "@auth0/auth0-react";
+import { createUser } from '../../redux/actions/actions/users';
 
 const CartPage = () => {
   const { user } = useAuth0();
@@ -22,10 +23,14 @@ const CartPage = () => {
       localCart && dispatch(setLocalStorageCart(localCart))
     }
   }, [])
-  
-  function checkUser () {
-    if(!user) return alert("log in")
-    if(!userProfile.is_active) return alert("Complete register")
+
+  useEffect(() => {
+    if (user && !userProfile.id) dispatch(createUser(user))
+  }, [user, dispatch])
+
+  function checkUser() {
+    if (!user) return alert("log in")
+    if (!userProfile.is_active) return alert("Complete register")
     MercadoPago(shoppingCart)
   }
 
@@ -64,7 +69,7 @@ const CartPage = () => {
           </div>
           <div className="row mt-4 d-flex align-items-center">
             <div className="col-sm-6 order-md-2 text-right">
-            <button className='btn btn-primary' disabled={!shoppingCart.length} onClick={checkUser}>Pagar con Mercado Pago</button>
+              <button className='btn btn-primary' disabled={!shoppingCart.length} onClick={checkUser}>Pagar con Mercado Pago</button>
             </div>
             <div className="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
               <a href="catalog.html">

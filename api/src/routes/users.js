@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const { Op } = require("sequelize");
 const { User } = require("../db");
+const { sendEmail } = require("../emails/email");
 
 router.get("/", async (req, res) => {
 
@@ -42,6 +43,10 @@ router.post("/", async (req, res) => {
     if (user[0].first_name && user[0].last_name && user[0].identification ) {
       user[0].is_active = true
       await user[0].save();
+    }
+
+    if(user[1]){
+      sendEmail(user[0].email, user[0].first_name);
     }
 
     console.log(user)
