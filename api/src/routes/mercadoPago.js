@@ -34,7 +34,7 @@ router.post("/webhook", async (req, res) => {
     const { action } = req.body
     try {
 
-        if (type !== "payment" && action !== 'payment.created') return res.status(200)
+        if (type !== "payment" && action !== 'payment.created') return res.status(200).json({ message: "ok" })
 
         let result = await axios.get(`https://api.mercadopago.com/v1/payments/${req.query['data.id']}`, {
             headers: { "Authorization": `Bearer ${MP_ACCESS_TOKEN}` }
