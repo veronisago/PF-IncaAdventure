@@ -21,7 +21,7 @@ export const ShoppingCard = ({service, index}) => {
             <td data-th="Product">
                 <div className="row">
                     <div className="col-md-3 text-left">
-                        <img src="https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" className="img-fluid d-none d-md-block rounded mb-2 shadow " />
+                        <img src={service.image} alt="" className="img-fluid d-none d-md-block rounded mb-2 shadow " />
                     </div>
                     <div className="col-md-9 text-left mt-sm-2">
                         <h4>{service.name}</h4>
