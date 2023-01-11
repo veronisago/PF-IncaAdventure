@@ -59,7 +59,7 @@ export const UserActivities = ({ activities }) => {
                             <div class="col-lg-4 col-sm-6 mb-4">
                                 <div className="card min-height-activity-card">
                                     <img
-                                        src="https://wallpaperaccess.com/full/1099438.jpg"
+                                        src={a.image}
                                         class="card-img-top"
                                         alt="..."
                                     />
