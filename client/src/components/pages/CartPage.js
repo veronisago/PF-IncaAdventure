@@ -1,16 +1,22 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { ShoppingCard } from '../shoppingCard/ShoppingCard';
 import { setLocalStorageCart } from '../../redux/actions/actions/stores';
 import MercadoPago from '../MercadoPago';
 import { useAuth0 } from "@auth0/auth0-react";
+import { createUser } from '../../redux/actions/actions/users';
+import { Notification } from '../notification/Notification';
+
 
 const CartPage = () => {
   const { user } = useAuth0();
 
   const shoppingCart = useSelector((state) => state.shoppingCart)
   const userProfile = useSelector((state) => state.userProfile)
+	const [open, setOpen] = useState(false);
+	const [open1, setOpen1] = useState(false);
+
 
   const dispatch = useDispatch()
 
@@ -22,10 +28,14 @@ const CartPage = () => {
       localCart && dispatch(setLocalStorageCart(localCart))
     }
   }, [])
-  
-  function checkUser () {
-    if(!user) return alert("log in")
-    if(!userProfile.is_active) return alert("Complete register")
+
+  useEffect(() => {
+    if (user && !userProfile.id) dispatch(createUser(user))
+  }, [user, dispatch])
+
+  function checkUser() {
+    if (!user) return setOpen(true)
+    if (!userProfile.is_active) return setOpen1(true)
     MercadoPago(shoppingCart)
   }
 
@@ -64,7 +74,7 @@ const CartPage = () => {
           </div>
           <div className="row mt-4 d-flex align-items-center">
             <div className="col-sm-6 order-md-2 text-right">
-            <button className='btn btn-primary' disabled={!shoppingCart.length} onClick={checkUser}>Pagar con Mercado Pago</button>
+              <button className='btn btn-primary' disabled={!shoppingCart.length} onClick={checkUser}>Pagar con Mercado Pago</button>
             </div>
             <div className="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
               <a href="catalog.html">
@@ -73,6 +83,8 @@ const CartPage = () => {
           </div>
         </div>
       </section>
+			<Notification duration={1000} style={"mt-0"} sev={"error"} setOpen={setOpen} open={open} message={"You must log in!"} />
+			<Notification duration={1000} style={"mt-0"} sev={"error"} setOpen={setOpen1} open={open1} message={"You must to complete register!"} />
     </div>
   )
 }

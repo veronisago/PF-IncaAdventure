@@ -21,9 +21,11 @@ router.get("/", async (req, res) => {
       raw: true
     })
 
-    activity = activity.filter((e)=>e.avgRating)
+    let reviewedActivities = activity.filter((e) => e.avgRating)
 
-    res.json(activity)
+    let homeActivities = reviewedActivities.length < 6 ? activity : reviewedActivities
+
+    res.json(homeActivities)
   } catch (error) {
     console.log(error)
   }

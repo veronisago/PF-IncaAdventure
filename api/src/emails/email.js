@@ -2,12 +2,14 @@ const { jsPDF } = require("jspdf");
 require("jspdf-autotable");
 const format = require("date-fns");
 const nodemailer = require("nodemailer");
+const welcomeBody = require("./welcome")
+const ticketBody = require("./ticket")
 
 var transporter = nodemailer.createTransport({ // variable global para poder usarla en el resto de funciones de sendEmail
     service: 'gmail',
     auth: {
-        user: 'acostavalentina7@gmail.com',
-        pass: 'befdfiryhobwdmvd'
+        user: 'incaadventureinfo@gmail.com',
+        pass: 'eubdgcxswwkcaqxt'
     }
 });
 
@@ -53,9 +55,7 @@ async function generatePDF(products, email, username, id, dateCreated, status, u
         from: "Inca Adventure <acostavalentina7@gmail.com>",
         to: `${email}`,
         subject: "Ticket",
-        html: `<h1  align="center"> Hello  ${username}</h1>
-        <h3 aling= "center">Below you can view your purchase ticket, which will serve to exchange your product in the corresponding store.</h3>
-        <h3 aling= "center">We recommend that you download and/or print it, as it is extremely important that you keep it in order to claim your product.</h3> `,
+        html: ticketBody(username),
         attachments: [
             {
                 filename: "ticket.pdf",
@@ -68,7 +68,6 @@ async function generatePDF(products, email, username, id, dateCreated, status, u
     console.log("Message sent: %s", info.messageId);
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     console.log("Email sent!");
-
 };
 
 // funcion que envia el email de bienvenida cuando se registra el usuario
@@ -79,10 +78,7 @@ async function sendEmail(email, username) {
         from: "Inca Adventure <acostavalentina7@gmail.com>",
         to: `${email}`,
         subject: "Welcome to Inca Adventure",
-        html: `<h1  align="center"> Hello  ${username}</h1>
-        <p  align="center"><img src ="https://machupicchuviajesperu.com/wp-content/uploads/2022/03/tour-lima-paracas-nazca-cusco-machu-picchu.jpg" width="900" height="200"/></p>
-        <h3 aling= "center"> We are glad that you want to be part of this great experience, where you will expand your knowledge and learn about the Inca culture.</h3>
-        <h3 align="center"> Remember visit our store and take with you souvenirs or tools that will help you in your favorite activities. </h3>`,
+        html: welcomeBody(username)
     }
 
     let info = await transporter.sendMail(mailOptions,);

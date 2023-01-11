@@ -19,10 +19,6 @@ module.exports = (sequelize) => {
     stock: {
       type: DataTypes.INTEGER,
     },
-    category: {
-      type: DataTypes.ENUM("product"),
-      defaultValue: undefined
-    },
     image: {
       type: DataTypes.STRING(499),
       allowNull: false

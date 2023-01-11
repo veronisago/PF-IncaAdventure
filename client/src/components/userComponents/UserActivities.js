@@ -15,8 +15,10 @@ export const UserActivities = ({ activities }) => {
     const [data, setData] = useState({})
 
     useEffect(() => {
-        dispatch(getServices(activities && activities[0]?.user_activities.UserId))
-        console.log(activities)
+        if (activities) {
+            dispatch(getServices(activities[0]?.user_activities.UserId))
+        }
+
     }, [notification])
 
     const style = {

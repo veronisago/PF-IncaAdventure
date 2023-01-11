@@ -4,7 +4,7 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('User', {
-  
+
     last_name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       allowNull: true
     },
     mobile_number: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true
     },
     identification: {
@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
       unique: true
     },
     language: {
-      type: DataTypes.ENUM("spanish", "english") 
+      type: DataTypes.ENUM("spanish", "english")
     },
     is_active: {
       type: DataTypes.BOOLEAN,

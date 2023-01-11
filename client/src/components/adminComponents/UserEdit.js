@@ -96,7 +96,7 @@ export default function UserEdit({ handleClose, data }) {
                             </div>
                             <div className='col-4'>
                                 <label class="labels">Admin</label>
-                                <select name='is_active' value={edit.is_admin} onChange={handleChange} class="form-select" aria-label="Default select example">
+                                <select name='is_admin' value={edit.is_admin} onChange={handleChange} class="form-select" aria-label="Default select example">
                                     <option value={true}>Yes</option>
                                     <option value={false}>No</option>
                                 </select>

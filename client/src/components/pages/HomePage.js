@@ -15,7 +15,7 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(getReviews())
-    })
+    },[dispatch])
 
     return (
         <div>

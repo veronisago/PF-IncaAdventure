@@ -8,10 +8,6 @@ import Alert from '@mui/material/Alert';
 import { UserProducts } from '../userComponents/UserProducts';
 import { Notification } from '../notification/Notification';
 import { Link } from 'react-router-dom';
-const {
-    REACT_APP_BASE_URL
-} = process.env;
-
 
 const UserPage = () => {
     const { user } = useAuth0();
@@ -29,6 +25,8 @@ const UserPage = () => {
 
     useEffect(() => {
         if (userProfile.id) {
+            console.log("entró")
+            console.log(userProfile.id)
             dispatch(getServices(userProfile.id))
             setUpdate({
                 first_name: userProfile.first_name,
@@ -39,9 +37,10 @@ const UserPage = () => {
                 mobile_number: userProfile.mobile_number || "",
                 birth_date: userProfile.birth_date || "",
             })
-
         }
     }, [userProfile])
+
+    console.log("userProfile - userPage", userProfile)
 
     const handleChange = (e) => {
         const property = e.target.name
@@ -62,16 +61,16 @@ const UserPage = () => {
 
     const checkForm = () => {
         if (
-            !update.first_name || 
-            !update.last_name || 
-            !update.email || 
-            !update.language || 
+            !update.first_name ||
+            !update.last_name ||
+            !update.email ||
+            !update.language ||
             !update.identification ||
             !update.mobile_number ||
             !update.birth_date
-             ) {
+        ) {
             return true
-        }else {
+        } else {
             return false
         }
     }
@@ -100,7 +99,7 @@ const UserPage = () => {
                             }
                             <div className="col-md-3 border-right mt-5">
                                 <h4 className="text-right">User profile</h4>
-                            {userProfile.is_admin && <Link to={"/admin"}><button className='btn btn-outline-primary'>Admin</button></Link>}
+                                {userProfile.is_admin && <Link to={"/admin"}><button className='btn btn-outline-primary'>Admin</button></Link>}
                                 <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img className="rounded-circle mt-2" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" /><span className="font-weight-bold"></span><span>{userProfile?.username}</span></div>
                             </div>
                             <div className="col-md-8 border-right">
@@ -152,7 +151,7 @@ const UserPage = () => {
                                             </div>
                                         </div>
                                         <div className="mt-5 text-center">
-                                            <button className="btn btn-primary profile-button"disabled={checkForm()} type="submit">Save Profile</button>
+                                            <button className="btn btn-primary profile-button" disabled={checkForm()} type="submit">Save Profile</button>
                                         </div>
                                     </div>
                                 </form>

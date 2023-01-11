@@ -8,7 +8,7 @@ export default function CreateProduct({ handleClose, data }) {
 
     const [create, setCreate] = useState({
         name: data.name || "",
-        name: data.description || "",
+        description: data.description || "",
         image: data.image || "",
         price: data.price || 0,
         stock: data.stock || 0,
