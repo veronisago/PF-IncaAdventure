@@ -122,7 +122,7 @@ function ActivitiesPage() {
                 allActivities?.rows?.map(a => {
                   return (
                     <div className="col-lg-4 col-sm-6 mb-4">
-                      <div className="card min-height-activity-card">
+                      <div className="card">
                         <Link to={`/detail/activity/${a.id}`}>
                           <img
                             src={a.image}
