@@ -77,7 +77,7 @@ const CartPage = () => {
               <button className='btn btn-primary' disabled={!shoppingCart.length} onClick={checkUser}>Pagar con Mercado Pago</button>
             </div>
             <div className="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-              <a href="catalog.html">
+              <a href="/shop">
                 <i className="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
             </div>
           </div>
