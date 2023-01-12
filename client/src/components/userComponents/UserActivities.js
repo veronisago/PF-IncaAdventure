@@ -62,7 +62,7 @@ export const UserActivities = ({ activities }) => {
                                 <div className="card min-height-activity-card">
                                     <img
                                         src={a.image}
-                                        class="card-img-top"
+                                        class="card-img-top card-img-home"
                                         alt="..."
                                     />
                                     <div class="card-body  w-100">

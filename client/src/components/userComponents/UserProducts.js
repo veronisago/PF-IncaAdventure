@@ -49,11 +49,11 @@ export const UserProducts = ({ products }) => {
                     products?.map(a => {
                         let rating = a?.product_rating[0]?.rating || 0
                         return (
-                            <div class="col-lg-4 col-sm-6 mb-4">
+                            <div class="col-lg-3 col-sm-6 mb-4">
                                 <div className="card min-height-activity-card">
                                     <img
                                         src={a.image}
-                                        class="card-img-top"
+                                        class="card-img-top card-img-home"
                                         alt="..."
                                     />
                                     <div class="card-body w-100">
