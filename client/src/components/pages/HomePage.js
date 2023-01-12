@@ -56,7 +56,9 @@ function HomePage() {
 
                                 <div className="col-lg-4 col-sm-6">
                                     <div className="card min-height-activity-card px-0 my-3">
+                                        <Link  to={`/detail/activity/${e.id}`}>
                                         <img src={e.image} className="card-img-top card-img-home" alt="..." />
+                                        </Link>
                                         <div className="card-body">
                                             <h4><b>{e.name}</b></h4>
                                             <span className="card-text">{e.description}</span>
