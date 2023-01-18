@@ -9,7 +9,7 @@ var transporter = nodemailer.createTransport({ // variable global para poder usa
     service: 'gmail',
     auth: {
         user: 'incaadventureinfo@gmail.com',
-        pass: 'eubdgcxswwkcaqxt'
+        pass: 'ewzqjttextgoaalk'
     }
 });
 
