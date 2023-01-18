@@ -67,7 +67,7 @@ async function generatePDF(products, email, username, id, dateCreated, status, u
     let info = await transporter.sendMail(mailOptions,);
     console.log("Message sent: %s", info.messageId);
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    console.log("Email sent!");
+    console.log("Email enviado a usuario");
 };
 
 // funcion que envia el email de bienvenida cuando se registra el usuario

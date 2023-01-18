@@ -47,9 +47,9 @@ router.post("/", async (req, res) => {
 
     if(user[1]){
       sendEmail(user[0].email, user[0].first_name);
+      console.log(user[0].email, user[0].first_name)
     }
 
-    console.log(user)
 
     return res.status(200).json(user);
 
