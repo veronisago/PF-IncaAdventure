@@ -35,7 +35,7 @@ const LandingPage = () => {
         <Link to="/home">
           <button className="btn">
             <img src={img} alt="" />{" "}
-            <h1 className=" bg-image color-danger text-center"><b className="border btn text-white">JOIN THE <a>ADVENTURE</a></b></h1>
+            <h1 className=" bg-image color-danger text-center"><b className="border btn text-black">JOIN THE <a>ADVENTURE</a></b></h1>
           </button>
         </Link>
        
